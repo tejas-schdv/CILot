@@ -7,13 +7,14 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
-public class A3Fragrment extends Fragment {
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+
+public class A7Fragment extends BottomSheetDialogFragment {
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-    return inflater.inflate(R.layout.fragment_lot_a3,container,false);
+    return inflater.inflate(R.layout.fragment_lot_a7,container,false);
     }
 }

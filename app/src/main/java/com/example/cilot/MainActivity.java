@@ -102,22 +102,39 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 //                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
 //                        new LotReportSheetDialog()).commit();
-                LotReportSheetDialog bottomSheet = new LotReportSheetDialog();
-                bottomSheet.show(getSupportFragmentManager(), "exampleBottomSheet");
+//                LotReportSheetDialog bottomSheet = new LotReportSheetDialog();
+//                bottomSheet.show(getSupportFragmentManager(), "exampleBottomSheet");
+//                TextView textview = (TextView) findViewById(R.id.lot_a1);
+//                textview.setText((item.getItemId()));
+                A1Fragment bottomSheetA1 = new A1Fragment();
+                bottomSheetA1.show(getSupportFragmentManager(), "exampleBottomSheet");
                 break;
+
             case R.id.lot_a2:
                 //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                //new A2Fragrment()).commit();
+                //new A2Fragment()).commit();
                 A2Fragrment bottomSheetA2 = new A2Fragrment();
                 bottomSheetA2.show(getSupportFragmentManager(), "exampleBottomSheet");
                 break;
             case R.id.lot_a3:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new A3Fragrment()).commit();
+                LotReportSheetDialog bottomSheetA3 = new LotReportSheetDialog();
+                bottomSheetA3.show(getSupportFragmentManager(), "exampleA3");
                 break;
-            case R.id.profile:
-                Intent intent = new Intent(MainActivity.this, com.example.cilot.profile_login.class);
-                startActivity(intent);
+            case R.id.lot_a4:
+                A4Fragment bottomSheetA4 = new A4Fragment();
+                bottomSheetA4.show(getSupportFragmentManager(),"exampleBottomSheet");
+                break;
+            case R.id.lot_a5:
+                A5Fragment bottomSheetA5 = new A5Fragment();
+                bottomSheetA5.show(getSupportFragmentManager(),"exampleBottomSheet");
+                break;
+            case R.id.lot_a6:
+                A6Fragment bottomSheetA6 = new A6Fragment();
+                bottomSheetA6.show(getSupportFragmentManager(),"exampleBottomSheet");
+                break;
+            case R.id.lot_a7:
+                A7Fragment bottomSheetA7 = new A7Fragment();
+                bottomSheetA7.show(getSupportFragmentManager(),"exampleBottomSheet");
                 break;
         }
 
