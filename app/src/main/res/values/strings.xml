@@ -32,10 +32,21 @@
     <string name="lvl_26">lvl 26</string>
     <string name="lvl_28">lvl 28</string>
     <string name="create_account2">Create Account</string>
-    <string name="lot_a1">Lot A56</string>
+
     <string name="status">Status:</string>
     <string name="open">Open</string>
     <string name="moderate">Moderate</string>
     <string name="full">Full</string>
     <string name="submit">Submit</string>
+    <string name="lot_A1">A1</string>
+    <string name="lot_A2">A2</string>
+    <string name="lot_A3">A3</string>
+    <string name="lot_A4">A4</string>
+    <string name="lot_A5">A5</string>
+    <string name="lot_A6">A6</string>
+    <string name="lot_A7">A7</string>
+    <string name="lot_A8">A8</string>
+    <string name="lot_A9">A9</string>
+    <string name="lot_A10">A10</string>
+    <string name="lot_A11">A11</string>
 </resources>

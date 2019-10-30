@@ -106,6 +106,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 bottomSheetA1.setArguments(bundleA1);
                 bottomSheetA1.show(getSupportFragmentManager(), "exampleBottomSheet");
                 break;
+
             case R.id.lot_a2:
                 Bundle bundleA2 = new Bundle();
                 bundleA2.putString("params", "A2");
@@ -123,9 +124,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 bottomSheetA3.setArguments(bundleA3);
                 bottomSheetA3.show(getSupportFragmentManager(), "exampleBottomSheet");
                 break;
-            case R.id.profile:
-                Intent intent = new Intent(MainActivity.this, com.example.cilot.profile_login.class);
-                startActivity(intent);
+            case R.id.lot_a7:
+                A7Fragment bottomSheetA7 = new A7Fragment();
+                bottomSheetA7.show(getSupportFragmentManager(),"exampleBottomSheet");
                 break;
         }
 
@@ -229,4 +230,3 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 }
-
