@@ -62,26 +62,26 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
         switch(currDay)
         {
             case Calendar.SUNDAY:
-                //CHANGE BACK TO SUNDAY (TESTING PURPOSES)
+                //CHANGE BACK TO CORRECT DAYS (ALL ARE MONDAY FOR TESTING PURPOSES)
                 dbDay = "monday";
                 break;
             case Calendar.MONDAY:
                 dbDay = "monday";
                 break;
             case Calendar.TUESDAY:
-                dbDay = "tuesday";
+                dbDay = "monday";
                 break;
             case Calendar.WEDNESDAY:
-                dbDay = "wednesday";
+                dbDay = "monday";
                 break;
             case Calendar.THURSDAY:
-                dbDay = "thursday";
+                dbDay = "monday";
                 break;
             case Calendar.FRIDAY:
-                dbDay = "friday";
+                dbDay = "monday";
                 break;
             case Calendar.SATURDAY:
-                dbDay = "saturday";
+                dbDay = "monday";
                 break;
         }
 
