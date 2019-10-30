@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:background="@drawable/map3"
+    android:background="@drawable/pixel_map"
     tools:context=".MainActivity"
     tools:openDrawer="start">
 
@@ -29,6 +29,121 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/button_a1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="214dp"
+            android:layout_marginTop="296dp"
+            android:text="Lot A1" />
+
+        <Button
+            android:id="@+id/button_a2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="298dp"
+            android:layout_marginTop="299dp"
+            android:text="Lot A2" />
+
+        <Button
+            android:id="@+id/button_a3"
+            android:layout_width="135dp"
+            android:layout_height="63dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="93dp"
+            android:text="Lot A3" />
+
+        <Button
+            android:id="@+id/button_a4"
+            android:layout_width="62dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/button_a3"
+            android:layout_marginLeft="7dp"
+            android:layout_marginTop="72dp"
+            android:layout_toRightOf="@+id/button_a11"
+            android:text="Lot A4" />
+
+        <Button
+            android:id="@+id/button_a5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="65dp"
+            android:layout_marginTop="468dp"
+            android:text="Lot A5" />
+
+        <Button
+            android:id="@+id/button_a6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="251dp"
+            android:layout_marginTop="354dp"
+            android:text="Lot A6" />
+
+        <Button
+            android:id="@+id/button_a7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="258dp"
+            android:layout_marginTop="513dp"
+            android:text="Lot A7" />
+
+        <Button
+            android:id="@+id/button_a8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="331dp"
+            android:layout_marginTop="394dp"
+            android:text="Lot A8" />
+
+        <Button
+            android:id="@+id/button_a9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="250dp"
+            android:layout_marginTop="443dp"
+            android:text="Lot A9" />
+
+        <Button
+            android:id="@+id/button_a10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="273dp"
+            android:layout_marginTop="627dp"
+            android:text="Lot A10" />
+
+        <Button
+            android:id="@+id/button_a11"
+            android:layout_width="54dp"
+            android:layout_height="62dp"
+            android:layout_below="@+id/button_a3"
+            android:layout_marginTop="46dp"
+            android:text="Lot A11" />
+
+
+    </RelativeLayout>
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
