@@ -73,21 +73,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.lot_a1:
+                Bundle bundleA1 = new Bundle();
+                bundleA1.putString("params", "A1");
 
-//                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-//                        new LotReportSheetDialog()).commit();
-                LotReportSheetDialog bottomSheet = new LotReportSheetDialog();
-                bottomSheet.show(getSupportFragmentManager(), "exampleBottomSheet");
+                LotReportSheetDialog bottomSheetA1 = new LotReportSheetDialog();
+                bottomSheetA1.setArguments(bundleA1);
+                bottomSheetA1.show(getSupportFragmentManager(), "exampleBottomSheet");
                 break;
             case R.id.lot_a2:
-                //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                //new A2Fragrment()).commit();
-                A2Fragrment bottomSheetA2 = new A2Fragrment();
+                Bundle bundleA2 = new Bundle();
+                bundleA2.putString("params", "A2");
+
+                LotReportSheetDialog bottomSheetA2 = new LotReportSheetDialog();
+                bottomSheetA2.setArguments(bundleA2);
                 bottomSheetA2.show(getSupportFragmentManager(), "exampleBottomSheet");
+
                 break;
             case R.id.lot_a3:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
-                        new A3Fragrment()).commit();
+                Bundle bundleA3 = new Bundle();
+                bundleA3.putString("params", "A3");
+
+                LotReportSheetDialog bottomSheetA3 = new LotReportSheetDialog();
+                bottomSheetA3.setArguments(bundleA3);
+                bottomSheetA3.show(getSupportFragmentManager(), "exampleBottomSheet");
                 break;
             case R.id.profile:
                 Intent intent = new Intent(MainActivity.this, com.example.cilot.profile_login.class);
