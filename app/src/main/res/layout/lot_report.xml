@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:padding="16dp">
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lot A1 "
+        android:textSize="25sp" />
+
+
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lot A2"
+    />
+
+    <RadioGroup
+        android:id="@+id/poll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/open"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Open"
+            android:onClick="checkButton"/>
+
+
+
+        <RadioButton
+            android:id="@+id/moderate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Moderate"
+            android:onClick="checkButton"/>
+
+
+
+        <RadioButton
+            android:id="@+id/full"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Full"
+            android:onClick="checkButton"/>
+
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit">
+
+    </Button>
+
+
+
+</LinearLayout>
