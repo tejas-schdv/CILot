@@ -48,7 +48,7 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_lot_a2,container,false);
+        View view = inflater.inflate(R.layout.lot_report,container,false);
         barChart = (BarChart) view.findViewById(R.id.barChart);
         tvStatus = view.findViewById(R.id.tvStatus);
         tvLot = view.findViewById(R.id.tvLot);

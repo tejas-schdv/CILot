@@ -141,77 +141,77 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         {
             case R.id.button_a1:
                 Bundle bundleA1 = new Bundle();
-                bundleA1.putString("param","A1");
+                bundleA1.putString("params","A1");
                 LotReportSheetDialog bottomSheetA1 = new LotReportSheetDialog();
                 bottomSheetA1.setArguments(bundleA1);
                 bottomSheetA1.show(getSupportFragmentManager(), "exampleBottomSheet");
                 break;
             case R.id.button_a2:
                 Bundle bundleA2 = new Bundle();
-                bundleA2.putString("param","A2");
+                bundleA2.putString("params","A2");
                 LotReportSheetDialog bottomSheetA2 = new LotReportSheetDialog();
                 bottomSheetA2.setArguments(bundleA2);
                 bottomSheetA2.show(getSupportFragmentManager(), "exampleBottomSheet");
                 break;
             case R.id.button_a3:
                 Bundle bundleA3 = new Bundle();
-                bundleA3.putString("param","A3");
+                bundleA3.putString("params","A3");
                 LotReportSheetDialog bottomSheetA3 = new LotReportSheetDialog();
                 bottomSheetA3.setArguments(bundleA3);
                 bottomSheetA3.show(getSupportFragmentManager(), "exampleBottomSheet");
                 break;
             case R.id.button_a4:
                 Bundle bundleA4 = new Bundle();
-                bundleA4.putString("param","A4");
+                bundleA4.putString("params","A4");
                 LotReportSheetDialog bottomSheetA4 = new LotReportSheetDialog();
                 bottomSheetA4.setArguments(bundleA4);
                 bottomSheetA4.show(getSupportFragmentManager(), "exampleBottomSheet");
                 break;
             case R.id.button_a5:
                 Bundle bundleA5 = new Bundle();
-                bundleA5.putString("param","A5");
+                bundleA5.putString("params","A5");
                 LotReportSheetDialog bottomSheetA5 = new LotReportSheetDialog();
                 bottomSheetA5.setArguments(bundleA5);
                 bottomSheetA5.show(getSupportFragmentManager(), "exampleBottomSheet");
                 break;
             case R.id.button_a6:
                 Bundle bundleA6 = new Bundle();
-                bundleA6.putString("param","A6");
+                bundleA6.putString("params","A6");
                 LotReportSheetDialog bottomSheetA6 = new LotReportSheetDialog();
                 bottomSheetA6.setArguments(bundleA6);
                 bottomSheetA6.show(getSupportFragmentManager(), "exampleBottomSheet");
                 break;
             case R.id.button_a7:
                 Bundle bundleA7 = new Bundle();
-                bundleA7.putString("param","A7");
+                bundleA7.putString("params","A7");
                 LotReportSheetDialog bottomSheetA7 = new LotReportSheetDialog();
                 bottomSheetA7.setArguments(bundleA7);
                 bottomSheetA7.show(getSupportFragmentManager(), "exampleBottomSheet");
                 break;
             case R.id.button_a8:
                 Bundle bundleA8 = new Bundle();
-                bundleA8.putString("param","A8");
+                bundleA8.putString("params","A8");
                 LotReportSheetDialog bottomSheetA8 = new LotReportSheetDialog();
                 bottomSheetA8.setArguments(bundleA8);
                 bottomSheetA8.show(getSupportFragmentManager(), "exampleBottomSheet");
                 break;
             case R.id.button_a9:
                 Bundle bundleA9 = new Bundle();
-                bundleA9.putString("param","A9");
+                bundleA9.putString("params","A9");
                 LotReportSheetDialog bottomSheetA9 = new LotReportSheetDialog();
                 bottomSheetA9.setArguments(bundleA9);
                 bottomSheetA9.show(getSupportFragmentManager(), "exampleBottomSheet");
                 break;
             case R.id.button_a10:
                 Bundle bundleA10 = new Bundle();
-                bundleA10.putString("param","A10");
+                bundleA10.putString("params","A10");
                 LotReportSheetDialog bottomSheetA10 = new LotReportSheetDialog();
                 bottomSheetA10.setArguments(bundleA10);
                 bottomSheetA10.show(getSupportFragmentManager(), "exampleBottomSheet");
                 break;
             case R.id.button_a11:
                 Bundle bundleA11 = new Bundle();
-                bundleA11.putString("param","A11");
+                bundleA11.putString("params","A11");
                 LotReportSheetDialog bottomSheetA11 = new LotReportSheetDialog();
                 bottomSheetA11.setArguments(bundleA11);
                 bottomSheetA11.show(getSupportFragmentManager(), "exampleBottomSheet");
