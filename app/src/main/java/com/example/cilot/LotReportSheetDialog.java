@@ -64,19 +64,6 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
 
         String lotName = getArguments().getString("params");
 
-        poll_group =view.findViewById(R.id.poll);
-        btnSubmitPoll.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                int radioId = poll_group.getCheckedRadioButtonId();
-
-                radioButton = view.findViewById(radioId);
-
-                Toast.makeText(view, "Selected Radio Button: " + radioButton.getText(), Toast.LENGTH_SHORT);
-            }
-        });
 
         switch(currDay)
         {
