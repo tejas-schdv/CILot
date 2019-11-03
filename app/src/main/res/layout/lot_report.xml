@@ -49,6 +49,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
+            android:onClick="checkButton"
+            android:checked="true"
             android:text="@string/open"
             android:textColor="#000000">
 
@@ -59,17 +61,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
+            android:onClick="checkButon"
             android:text="@string/moderate"
             android:textColor="#000000">
 
         </RadioButton>
-
 
         <RadioButton
             android:id="@+id/full"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
+            android:onClick="checkButton"
             android:text="@string/full">
 
         </RadioButton>

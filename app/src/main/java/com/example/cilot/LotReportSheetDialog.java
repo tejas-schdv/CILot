@@ -5,7 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -39,6 +42,8 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
     TextView tvLot;
     DatabaseReference database;
     Button btnSubmitPoll;
+    RadioGroup poll_group;
+    RadioButton radioButton;
 
     Calendar calendar = Calendar.getInstance();
     int currDay;
@@ -58,6 +63,20 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
         dbDay = null;
 
         String lotName = getArguments().getString("params");
+
+        poll_group =view.findViewById(R.id.poll);
+        btnSubmitPoll.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                int radioId = poll_group.getCheckedRadioButtonId();
+
+                radioButton = view.findViewById(radioId);
+
+                Toast.makeText(view, "Selected Radio Button: " + radioButton.getText(), Toast.LENGTH_SHORT);
+            }
+        });
 
         switch(currDay)
         {
@@ -175,7 +194,10 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
                 //set views
                 tvLot.setText(lotName);
                 //tvStatus.setText(tvAvg);
+
+
             }
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {

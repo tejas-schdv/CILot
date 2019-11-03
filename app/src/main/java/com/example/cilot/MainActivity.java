@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -22,9 +23,7 @@ import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
     private DrawerLayout drawer;
-    RadioGroup radioGroup;
-    RadioButton radioButton;
-    TextView textView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,6 +84,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
     }
+
+
+
+
 //    public void checkButton(View v) {
 //        int radioId = radioGroup.getCheckedRadioButtonId();
 //
