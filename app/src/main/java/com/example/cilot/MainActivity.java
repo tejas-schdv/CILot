@@ -2,6 +2,7 @@ package com.example.cilot;
 
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,14 +18,40 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.Calendar;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+    public static int START_TIME = 6;
+    public static int END_TIME = 18;
+    public static int OPEN = 1;
+    public static int MODERATE = 2;
+    public static int FULL = 3;
+    public static int NUMBER_OF_LOTS = 11;
+
     private DrawerLayout drawer;
     RadioGroup radioGroup;
     RadioButton radioButton;
     TextView textView;
+    DatabaseReference database;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +70,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Button button_a10 = findViewById(R.id.button_a10);
         Button button_a11 = findViewById(R.id.button_a11);
 
+        Button[] mapButtons = {button_a1, button_a2, button_a3, button_a4, button_a5, button_a6,
+                button_a7, button_a8, button_a9, button_a10, button_a11};
+
         button_a1.setOnClickListener(this);
         button_a2.setOnClickListener(this);
         button_a3.setOnClickListener(this);
@@ -57,6 +87,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        //Change button colors
+        String[] lotNames = {"A1", "A2", "A3", "A4", "A5", "A6","A7", "A8", "A9", "A10", "A11"};
+        //CHANGE 3 to NUMBER_OF_LOTS (WE ONLY HAVE DATA FOR 3 LOTS)
+        for(int k = 0; k < 3; k++)
+        {
+            changeButtonColors(mapButtons[k], lotNames[k]);
+            mapButtons[k].setTextColor(Color.WHITE);
+        }
 
 //        radioGroup = findViewById(R.id.poll);
 //        textView = findViewById(R.id.status);
@@ -229,4 +268,108 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             super.onBackPressed();
         }
     }
-}
+
+    public void changeButtonColors(final Button button, final String lotNameParam){
+        Calendar calendar = Calendar.getInstance();
+        int currDay;
+        final String dbDay;
+
+        currDay = calendar.get(Calendar.DAY_OF_WEEK);
+        final int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+
+
+
+        switch(currDay)
+        {
+            case Calendar.SUNDAY:
+                //CHANGE BACK TO CORRECT DAYS (ALL ARE MONDAY FOR TESTING PURPOSES)
+                dbDay = "monday";
+                break;
+            case Calendar.MONDAY:
+                dbDay = "monday";
+                break;
+            case Calendar.TUESDAY:
+                dbDay = "monday";
+                break;
+            case Calendar.WEDNESDAY:
+                dbDay = "monday";
+                break;
+            case Calendar.THURSDAY:
+                dbDay = "monday";
+                break;
+            case Calendar.FRIDAY:
+                dbDay = "monday";
+                break;
+            case Calendar.SATURDAY:
+                dbDay = "saturday";
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + currDay);
+        }
+
+
+            database = FirebaseDatabase.getInstance().getReference().child("lots").child(lotNameParam);
+            database.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    String[] times = {"6am", "7am", "8am", "9am", "10am", "11am", "12pm",
+                            "1pm", "2pm", "3pm", "4pm", "5pm", "6pm"};
+                    String[] polls = new String[times.length];
+
+                    //retrieve data form database
+                    String lotName = dataSnapshot.child("lot_name").getValue().toString();
+                    for (int i = 0; i < times.length; i++) {
+                        polls[i] = dataSnapshot.child("day").child(dbDay).child("hour").child(times[i]).child("polls").getValue().toString();
+                    }
+
+                    float[] averages = new float[polls.length];
+
+                    for (int i = 0; i < polls.length; i++) {
+                        //turn string polls into an int array
+                        String[] stringArray = polls[i].split(",");
+                        int[] intArray = new int[stringArray.length];
+                        for (int j = 0; j < stringArray.length; j++) {
+                            String numberAsString = stringArray[j];
+                            intArray[j] = Integer.parseInt(numberAsString);
+                        }
+
+                        //calculate average of poll
+                        float avg = 0;
+                        for (int j = 0; j < intArray.length; j++) {
+                            avg += intArray[j];
+                        }
+                        avg /= intArray.length;
+                        averages[i] = avg;
+                        //String tvAvg = Float.toString(avg);
+                    }
+
+                    float currentStatus = 0;
+                    int tvColor = Color.GREEN;
+
+                    if (currentHour > START_TIME - 1 && currentHour < END_TIME + 1)
+                        currentStatus = averages[currentHour - START_TIME];
+
+                    if (currentStatus <= OPEN) {
+                        tvColor = Color.GREEN;
+                    } else if (currentStatus <= MODERATE && currentStatus > OPEN) {
+                        tvColor = Color.YELLOW;
+                    } else if (currentStatus <= FULL && currentStatus > MODERATE) {
+                        tvColor = Color.RED;
+                    }
+
+                    //set views
+                    button.setBackgroundColor(tvColor);
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
+
+    }
+
+
