@@ -1,6 +1,8 @@
 package com.example.cilot;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.service.autofill.Dataset;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -21,8 +24,11 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.formatter.IValueFormatter;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.highlight.Highlight;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.analytics.FirebaseAnalytics;
@@ -34,8 +40,17 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
+
+
+
 
 public class LotReportSheetDialog extends BottomSheetDialogFragment {
+    public static int START_TIME = 6;
+    public static int END_TIME = 18;
+    public static int OPEN = 1;
+    public static int MODERATE = 2;
+    public static int FULL = 3;
 
     BarChart barChart;
     TextView tvStatus;
@@ -138,19 +153,26 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
                 {
                     barEntries.add(new BarEntry(i, averages[i]));
                 }
-                BarDataSet barDataSet = new BarDataSet(barEntries, "Capacity");
+                BarDataSet barDataSet = new BarDataSet(barEntries, "0");
 
-                //FORMAT x-axis
-                // private class MyValueFormatter : ValueFormatter(){
 
-                //}
+                BarData data = new BarData(barDataSet);
+                barChart.setData(data);
 
-                //highlight
-                //barChart.highlightValue(3,-1,false);
-                //dataSet.setHighlightEnabled(true); // allow highlighting for DataSet
-                // set this to false to disable the drawing of highlight indicator (lines)
-                //dataSet.setDrawHighlightIndicators(true);
-                //dataSet.setHighlightColor(Color.BLACK);
+                //highlight current hour
+                barDataSet.setHighlightEnabled(true);
+                barDataSet.setHighLightColor(Color.BLACK);
+
+                int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+                //int currentHour = 16;
+
+                if(currentHour > START_TIME-1 && currentHour < END_TIME+1)
+                {
+                    barChart.highlightValue(currentHour-START_TIME,0,false);
+                }
+
+                //disable values
+                barDataSet.setDrawValues(false);
 
                 //disable description
                 Description description = barChart.getDescription();
@@ -170,6 +192,35 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
                 xAxis.setDrawAxisLine(true);
                 xAxis.setDrawGridLines(false);
 
+                //FORMAT x-axis
+
+                final ArrayList<String> xLabel = new ArrayList<>();
+                xLabel.add("6AM");
+                xLabel.add("7AM");
+                xLabel.add("8AM");
+                xLabel.add("9AM");
+                xLabel.add("10AM");
+                xLabel.add("11AM");
+                xLabel.add("12PM");
+                xLabel.add("1PM");
+                xLabel.add("2PM");
+                xLabel.add("3PM");
+                xLabel.add("4PM");
+                xLabel.add("5PM");
+                xLabel.add("6PM");
+
+                class MyXAxisFormatter extends ValueFormatter {
+
+                    @Override
+                    public String getAxisLabel(float value, AxisBase axis) {
+                        return xLabel.get((int)value);
+                    }
+                }
+                xAxis.setValueFormatter(new MyXAxisFormatter());
+
+
+
+
                 //disable legend
                 Legend legend = barChart.getLegend();
                 legend.setEnabled(false);
@@ -178,11 +229,31 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
                 barChart.setData(theData);
                 ////////////////////////////////////////
 
-                //set views
+                float currentStatus = 0;
+                int tvColor = Color.GREEN;
+                String tvCurrentStatus = "OPEN";
+
+                if(currentHour > START_TIME-1 && currentHour < END_TIME+1)
+                    currentStatus = averages[currentHour-START_TIME];
+
+                if(currentStatus <= OPEN) {
+                    tvCurrentStatus = "OPEN";
+                    tvColor = Color.GREEN;
+                }
+                else if(currentStatus <= MODERATE && currentStatus > OPEN) {
+                    tvCurrentStatus = "MODERATE";
+                    tvColor = Color.YELLOW;
+                }
+                else if(currentStatus <= FULL && currentStatus > MODERATE) {
+                    tvCurrentStatus = "FULL";
+                    tvColor = Color.RED;
+                }
+
+
                 tvLot.setText(lotName);
-                //tvStatus.setText(tvAvg);
 
-
+                tvStatus.setText(tvCurrentStatus);
+                tvStatus.setTextColor(tvColor);
             }
 
 
