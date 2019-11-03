@@ -57,8 +57,10 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
     TextView tvLot;
     DatabaseReference database;
     Button btnSubmitPoll;
-    RadioGroup poll_group;
-    RadioButton radioButton;
+    RadioGroup radioGroupPoll;
+    RadioButton radioButtonPollOpen;
+    RadioButton radioButtonPollModerate;
+    RadioButton radioButtonPollFull;
 
     Calendar calendar = Calendar.getInstance();
     int currDay;
@@ -69,10 +71,35 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.lot_report,container,false);
+
         barChart = (BarChart) view.findViewById(R.id.barChart);
+
         tvStatus = view.findViewById(R.id.tvStatus);
         tvLot = view.findViewById(R.id.tvLot);
+
+        radioGroupPoll = view.findViewById(R.id.poll);
         btnSubmitPoll = view.findViewById(R.id.btnSubmitPoll);
+        radioButtonPollOpen = view.findViewById(R.id.open);
+        radioButtonPollModerate = view.findViewById(R.id.moderate);
+        radioButtonPollFull = view.findViewById(R.id.full);
+        btnSubmitPoll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(radioButtonPollOpen.isChecked())
+                {
+                    Toast.makeText(getContext(), "Selected " + radioButtonPollOpen.getText(), Toast.LENGTH_SHORT).show();
+                }
+                else if (radioButtonPollModerate.isChecked())
+                {
+                    Toast.makeText(getContext(), "Selected " + radioButtonPollModerate.getText(), Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    Toast.makeText(getContext(), "Selected " + radioButtonPollFull.getText(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         currDay = calendar.get(Calendar.DAY_OF_WEEK);
         dbDay = null;
@@ -265,6 +292,8 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
 
         return view;
     }
+
+
 
 }
 
