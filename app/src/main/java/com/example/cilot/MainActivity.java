@@ -92,7 +92,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         for(int k = 0; k < 3; k++)
         {
             changeButtonColors(mapButtons[k], lotNames[k]);
-            mapButtons[k].setTextColor(Color.WHITE);
         }
 
         drawer = findViewById(R.id.drawer_layout);
