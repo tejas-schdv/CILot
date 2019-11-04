@@ -55,7 +55,10 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
     BarChart barChart;
     TextView tvStatus;
     TextView tvLot;
+
     DatabaseReference database;
+    DatabaseReference pollDatabase;
+
     Button btnSubmitPoll;
     RadioGroup radioGroupPoll;
     RadioButton radioButtonPollOpen;
@@ -82,24 +85,6 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
         radioButtonPollOpen = view.findViewById(R.id.open);
         radioButtonPollModerate = view.findViewById(R.id.moderate);
         radioButtonPollFull = view.findViewById(R.id.full);
-        btnSubmitPoll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if(radioButtonPollOpen.isChecked())
-                {
-                    Toast.makeText(getContext(), "Selected " + radioButtonPollOpen.getText(), Toast.LENGTH_SHORT).show();
-                }
-                else if (radioButtonPollModerate.isChecked())
-                {
-                    Toast.makeText(getContext(), "Selected " + radioButtonPollModerate.getText(), Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
-                    Toast.makeText(getContext(), "Selected " + radioButtonPollFull.getText(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
 
         currDay = calendar.get(Calendar.DAY_OF_WEEK);
         dbDay = null;
@@ -132,6 +117,74 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
                 dbDay = "monday";
                 break;
         }
+
+        pollDatabase = FirebaseDatabase.getInstance().getReference().child("lots").child(lotName).child("day").child(dbDay).child("hour").child(Calendar.HOUR + "am").child("polls");
+        btnSubmitPoll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(radioButtonPollOpen.isChecked())
+                {
+                    Toast.makeText(getContext(), "Submitted " + radioButtonPollOpen.getText(), Toast.LENGTH_SHORT).show();
+                    pollDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            long openCounter;
+                            if (dataSnapshot.exists())
+                            {
+                                openCounter =(dataSnapshot.getValue(Long.class));
+                                pollDatabase.setValue(openCounter+1);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+                else if (radioButtonPollModerate.isChecked())
+                {
+                    Toast.makeText(getContext(), "Submitted " + radioButtonPollOpen.getText(), Toast.LENGTH_SHORT).show();
+                    pollDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            long openCounter;
+                            if (dataSnapshot.exists())
+                            {
+                                openCounter =(dataSnapshot.getValue(Long.class));
+                                pollDatabase.setValue(openCounter+2);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+                else
+                {
+                    Toast.makeText(getContext(), "Submitted " + radioButtonPollOpen.getText(), Toast.LENGTH_SHORT).show();
+                    pollDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            long openCounter;
+                            if (dataSnapshot.exists())
+                            {
+                                openCounter =(dataSnapshot.getValue(Long.class));
+                                pollDatabase.setValue(openCounter+3);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+            }
+        });
 
         database = FirebaseDatabase.getInstance().getReference().child("lots").child(lotName);
         database.addValueEventListener(new ValueEventListener() {
@@ -219,6 +272,7 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
                 xAxis.setDrawAxisLine(true);
                 xAxis.setDrawGridLines(false);
 
+
                 //FORMAT x-axis
 
                 final ArrayList<String> xLabel = new ArrayList<>();
@@ -235,6 +289,7 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
                 xLabel.add("4PM");
                 xLabel.add("5PM");
                 xLabel.add("6PM");
+
 
                 class MyXAxisFormatter extends ValueFormatter {
 
@@ -254,6 +309,8 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
 
                 BarData theData = new BarData(barDataSet);
                 barChart.setData(theData);
+
+
                 ////////////////////////////////////////
 
                 float currentStatus = 0;
@@ -291,6 +348,11 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
         });
 
         return view;
+    }
+
+    private void updatePoll(DatabaseReference lot)
+    {
+
     }
 
 

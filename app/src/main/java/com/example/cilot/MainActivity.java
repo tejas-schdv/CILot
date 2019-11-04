@@ -49,12 +49,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private DrawerLayout drawer;
 
-    RadioGroup radioGroup;
-    RadioButton radioButton;
-    TextView textView;
     DatabaseReference database;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,21 +95,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             mapButtons[k].setTextColor(Color.WHITE);
         }
 
-//        radioGroup = findViewById(R.id.poll);
-//        textView = findViewById(R.id.status);
-//
-//        Button submit = findViewById(R.id.submit);
-//        submit.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                int radioId = radioGroup.getCheckedRadioButtonId();
-//
-//                radioButton = findViewById(radioId);
-//
-//                textView.setText("Your choice: " + radioButton.getText());
-//            }
-//        });
-
         drawer = findViewById(R.id.drawer_layout);
 
         NavigationView navigationView = findViewById(R.id.nav_view);
@@ -123,23 +103,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-
-
-
     }
-
-
-
-
-//    public void checkButton(View v) {
-//        int radioId = radioGroup.getCheckedRadioButtonId();
-//
-//        radioButton = findViewById(radioId);
-//
-//        Toast.makeText(this, "Selected Radio Button: " + radioButton.getText(),
-//                Toast.LENGTH_SHORT).show();
-//    }
-
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -359,8 +323,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                     if (currentStatus <= OPEN) {
                         tvColor = Color.GREEN;
+                        button.setTextColor(Color.BLACK);
                     } else if (currentStatus <= MODERATE && currentStatus > OPEN) {
                         tvColor = Color.YELLOW;
+                        button.setTextColor(Color.BLACK);
                     } else if (currentStatus <= FULL && currentStatus > MODERATE) {
                         tvColor = Color.RED;
                     }

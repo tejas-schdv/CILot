@@ -49,7 +49,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-
+            android:textSize="18sp"
             android:checked="true"
             android:text="@string/open"
             android:textColor="#000000">
@@ -61,7 +61,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-
+            android:textSize="18sp"
             android:text="@string/moderate"
             android:textColor="#000000">
 
@@ -72,7 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-
+            android:textSize="18sp"
             android:text="@string/full">
 
         </RadioButton>
@@ -80,15 +80,16 @@
 
     <Button
         android:id="@+id/btnSubmitPoll"
-        android:layout_width="70dp"
-        android:layout_height="30dp"
+        android:layout_width="111dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/poll"
         android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="8dp"
         android:background="@color/colorPrimary"
         android:text="@string/submit"
-        android:textColor="@color/textColorPrimary">
+        android:textColor="@color/textColorPrimary"
+        android:textSize="20dp">
 
     </Button>
 
@@ -120,15 +121,14 @@
 
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/barChart"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_toEndOf="@id/poll"
+        android:layout_width="294dp"
+        android:layout_height="175dp"
         android:layout_below="@+id/status_text"
+        android:layout_marginStart="9dp"
 
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
+        android:layout_marginTop="-31dp"
 
 
-        />
+        android:layout_toEndOf="@id/poll" />
 
 </RelativeLayout>
