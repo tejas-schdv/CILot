@@ -89,10 +89,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //Change button colors
         String[] lotNames = {"A1", "A2", "A3", "A4", "A5", "A6","A7", "A8", "A9", "A10", "A11"};
         //CHANGE 3 to NUMBER_OF_LOTS (WE ONLY HAVE DATA FOR 3 LOTS)
-        for(int k = 0; k < 3; k++)
+        for(int k = 0; k < lotNames.length; k++)
         {
-            changeButtonColors(mapButtons[k], lotNames[k]);
-            mapButtons[k].setTextColor(Color.WHITE);
+            //changeButtonColors(mapButtons[k], lotNames[k]);
         }
 
         drawer = findViewById(R.id.drawer_layout);
@@ -240,7 +239,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    public void changeButtonColors(final Button button, final String lotNameParam){
+    /*public void changeButtonColors(final Button button, final String lotNameParam){
         Calendar calendar = Calendar.getInstance();
         int currDay;
         final String dbDay;
@@ -289,7 +288,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     String[] polls = new String[times.length];
 
                     //retrieve data form database
-                    String lotName = dataSnapshot.child("lot_name").getValue().toString();
+                  //  String lotName = dataSnapshot.child("lot_name").getValue().toString();
                     for (int i = 0; i < times.length; i++) {
                         polls[i] = dataSnapshot.child("day").child(dbDay).child("hour").child(times[i]).child("polls").getValue().toString();
                     }
@@ -329,6 +328,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         button.setTextColor(Color.BLACK);
                     } else if (currentStatus <= FULL && currentStatus > MODERATE) {
                         tvColor = Color.RED;
+                        button.setTextColor(Color.WHITE);
                     }
 
                     //set views
@@ -341,7 +341,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 }
             });
-        }
+        }*/
 
     }
 

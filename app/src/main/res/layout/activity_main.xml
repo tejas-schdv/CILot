@@ -32,11 +32,11 @@
 
         <Button
             android:id="@+id/button_a1"
-            android:layout_width="41dp"
-            android:layout_height="129dp"
+            android:layout_width="47dp"
+            android:layout_height="128dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="241dp"
+            android:layout_marginLeft="235dp"
             android:layout_marginTop="202dp"
             android:text="A1" />
 
@@ -133,8 +133,8 @@
 
         <Button
             android:id="@+id/button_a11"
-            android:layout_width="49dp"
-            android:layout_height="134dp"
+            android:layout_width="51dp"
+            android:layout_height="132dp"
             android:layout_below="@+id/button_a3"
             android:layout_marginTop="13dp"
             android:text="A11" />

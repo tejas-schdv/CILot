@@ -57,7 +57,10 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
     TextView tvLot;
 
     DatabaseReference database;
+    DatabaseReference currentStatusDatabase;
     DatabaseReference pollDatabase;
+    DatabaseReference respondantsDatabase;
+    DatabaseReference currentStatusTimeDatabase;
 
     Button btnSubmitPoll;
     RadioGroup radioGroupPoll;
@@ -118,7 +121,14 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
                 break;
         }
 
-        pollDatabase = FirebaseDatabase.getInstance().getReference().child("lots").child(lotName).child("day").child(dbDay).child("hour").child(Calendar.HOUR + "am").child("polls");
+        currentStatusDatabase = FirebaseDatabase.getInstance().getReference().child("lots").child(lotName).child("current_status").child("polls");
+        pollDatabase = FirebaseDatabase.getInstance().getReference().child("lots").child(lotName).child("current_status").child("polls");
+        respondantsDatabase = FirebaseDatabase.getInstance().getReference().child("lots").child(lotName).child("current_status").child("respondants");
+        currentStatusTimeDatabase = FirebaseDatabase.getInstance().getReference().child("lots").child(lotName).child("current_status").child("time");
+
+
+
+
         btnSubmitPoll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -142,6 +152,23 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
 
                         }
                     });
+                    respondantsDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            long resCounter;
+
+                            if (dataSnapshot.exists())
+                            {
+                                resCounter = (dataSnapshot.getValue(Long.class));
+                                respondantsDatabase.setValue(resCounter+1);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
                 }
                 else if (radioButtonPollModerate.isChecked())
                 {
@@ -154,6 +181,23 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
                             {
                                 openCounter =(dataSnapshot.getValue(Long.class));
                                 pollDatabase.setValue(openCounter+2);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                    respondantsDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            long resCounter;
+
+                            if (dataSnapshot.exists())
+                            {
+                                resCounter = (dataSnapshot.getValue(Long.class));
+                                respondantsDatabase.setValue(resCounter+1);
                             }
                         }
 
@@ -202,6 +246,23 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
 
                         }
                     });
+                    respondantsDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            long resCounter;
+
+                            if (dataSnapshot.exists())
+                            {
+                                resCounter = (dataSnapshot.getValue(Long.class));
+                                respondantsDatabase.setValue(resCounter+1);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
                 }
             }
         });
@@ -213,17 +274,19 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
 
                 String[] times = {"6am", "7am", "8am", "9am", "10am", "11am", "12pm",
                         "1pm", "2pm", "3pm", "4pm", "5pm", "6pm"};
-                String[] polls = new String[times.length];
+                String[] baseDataString = new String[times.length];
+                Float[] baseDataFloat = new Float[times.length];
 
-                //retrieve data form database
+                //retrieve data from database to put into graphs
                 String lotName = dataSnapshot.child("lot_name").getValue().toString();
                 for(int i = 0; i < times.length; i++)
                 {
-                    polls[i] = dataSnapshot.child("day").child(dbDay).child("hour").child(times[i]).child("polls").getValue().toString();
+                    baseDataString[i] = dataSnapshot.child(dbDay).child(times[i]).getValue().toString();
+                    baseDataFloat[i] = Float.parseFloat(baseDataString[i]);
                 }
 
 
-                float[] averages = new float[polls.length];
+                /*float[] averages = new float[polls.length];
 
                 for(int i = 0; i < polls.length; i++)
                 {
@@ -243,15 +306,15 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
                     avg /= intArray.length;
                     averages[i] = avg;
                     //String tvAvg = Float.toString(avg);
-                }
+                }*/
 
                 ////////////////////////////////////////
                 //place data into graph
                 ArrayList<BarEntry> barEntries = new ArrayList<>();
 
-                for(int i = 0; i < averages.length; i++)
+                for(int i = 0; i < baseDataFloat.length; i++)
                 {
-                    barEntries.add(new BarEntry(i, averages[i]));
+                    barEntries.add(new BarEntry(i, baseDataFloat[i]));
                 }
                 BarDataSet barDataSet = new BarDataSet(barEntries, "0");
 
@@ -323,17 +386,24 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
                 Legend legend = barChart.getLegend();
                 legend.setEnabled(false);
 
+                //set the data
                 BarData theData = new BarData(barDataSet);
                 barChart.setData(theData);
 
 
                 ////////////////////////////////////////
+                //cuurent status
 
-                float currentStatus = 0;
+
+                float polls = Float.parseFloat(dataSnapshot.child("current_status").child("polls").getValue().toString());
+                int respondants = Integer.parseInt((dataSnapshot.child("current_status").child("respondants").getValue().toString()));
+
+                float currentStatus = polls/respondants;
+
                 int tvColor = Color.GREEN;
                 String tvCurrentStatus = "OPEN";
 
-                if(currentHour > START_TIME-1 && currentHour < END_TIME+1)
+                /*if(currentHour > START_TIME-1 && currentHour < END_TIME+1)
                     currentStatus = averages[currentHour-START_TIME];
 
                 if(currentStatus <= OPEN) {
@@ -345,6 +415,52 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
                     tvColor = Color.YELLOW;
                 }
                 else if(currentStatus <= FULL && currentStatus > MODERATE) {
+                    tvCurrentStatus = "FULL";
+                    tvColor = Color.RED;
+                }*/
+
+
+               // int timeIndex = time - START_TIME;
+
+                /*char[] temp = currentStatusTime.toCharArray();
+
+                //0 determines int time, 1 and 2 determine am or pm
+                int time = Integer.parseInt(Character.toString(temp[0]));
+                int timeIndex;
+
+                //if time is am
+                if(temp[1] == 'a')
+                    timeIndex = time - START_TIME;
+                else //if time is pm
+                    timeIndex = time + START_TIME;*/
+
+                //Grab most recent data from base data
+                String currentStatusTime = dataSnapshot.child("current_status").child("time").getValue().toString();
+                int time = Integer.parseInt(currentStatusTime);
+
+                float basePoll;
+                //check if currentHour is in between start time and end time, if not set default to open
+                if(currentHour < START_TIME || currentHour > END_TIME)
+                    basePoll = OPEN;
+                else
+                    basePoll = Float.parseFloat(dataSnapshot.child(dbDay).child(times[currentHour-START_TIME]).getValue().toString());
+                if(currentHour != time)
+                {
+                    currentStatusTimeDatabase.setValue(currentHour);
+                    pollDatabase.setValue(basePoll);
+                    respondantsDatabase.setValue(1);
+                }
+
+                //Set curretn status textviews
+                if(currentStatus >= 1 && currentStatus <= 1.4) {
+                    tvCurrentStatus = "OPEN";
+                    tvColor = Color.GREEN;
+                }
+                else if(currentStatus > 1.4 && currentStatus < 2.4) {
+                    tvCurrentStatus = "MODERATE";
+                    tvColor = Color.YELLOW;
+                }
+                else if(currentStatus >= 2.4 && currentStatus <= 3) {
                     tvCurrentStatus = "FULL";
                     tvColor = Color.RED;
                 }
