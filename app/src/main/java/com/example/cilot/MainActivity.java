@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //CHANGE 3 to NUMBER_OF_LOTS (WE ONLY HAVE DATA FOR 3 LOTS)
         for(int k = 0; k < lotNames.length; k++)
         {
-            changeButtonColors(mapButtons[k], lotNames[k]);
+            //changeButtonColors(mapButtons[k], lotNames[k]);
         }
 
         drawer = findViewById(R.id.drawer_layout);
@@ -239,7 +239,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    public void changeButtonColors(final Button button, final String lotNameParam){
+    /*public void changeButtonColors(final Button button, final String lotNameParam){
         Calendar calendar = Calendar.getInstance();
         int currDay;
         final String dbDay;
@@ -341,7 +341,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 }
             });
-        }
+        }*/
 
     }
 
