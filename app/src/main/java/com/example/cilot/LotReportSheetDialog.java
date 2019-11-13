@@ -145,7 +145,7 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
                 }
                 else if (radioButtonPollModerate.isChecked())
                 {
-                    Toast.makeText(getContext(), "Submitted " + radioButtonPollOpen.getText(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Submitted " + radioButtonPollModerate.getText(), Toast.LENGTH_SHORT).show();
                     pollDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -154,6 +154,26 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
                             {
                                 openCounter =(dataSnapshot.getValue(Long.class));
                                 pollDatabase.setValue(openCounter+2);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+                else if (radioButtonPollFull.isChecked())
+                {
+                    Toast.makeText(getContext(), "Submitted " + radioButtonPollFull.getText(), Toast.LENGTH_SHORT).show();
+                    pollDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            long openCounter;
+                            if (dataSnapshot.exists())
+                            {
+                                openCounter =(dataSnapshot.getValue(Long.class));
+                                pollDatabase.setValue(openCounter+3);
                             }
                         }
 
@@ -290,7 +310,6 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
                 xLabel.add("5PM");
                 xLabel.add("6PM");
 
-
                 class MyXAxisFormatter extends ValueFormatter {
 
                     @Override
@@ -299,9 +318,6 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
                     }
                 }
                 xAxis.setValueFormatter(new MyXAxisFormatter());
-
-
-
 
                 //disable legend
                 Legend legend = barChart.getLegend();
@@ -349,14 +365,6 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
 
         return view;
     }
-
-    private void updatePoll(DatabaseReference lot)
-    {
-
-    }
-
-
-
 }
 
 
