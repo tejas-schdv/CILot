@@ -226,8 +226,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 bottomSheetA11.show(getSupportFragmentManager(), "exampleBottomSheet");
                 break;
         }
-
-
     }
 
 
