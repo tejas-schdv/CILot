@@ -50,6 +50,7 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
     public static int START_TIME = 6;
     public static int END_TIME = 18;
     public static int OPEN = 1;
+    public static int GRAPH_ENTRIES = 13;
     public static int MODERATE = 2;
     public static int FULL = 3;
 
@@ -190,16 +191,16 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
 
 
 
-                String[] times = {"6am", "7am", "8am", "9am", "10am", "11am", "12pm",
-                        "1pm", "2pm", "3pm", "4pm", "5pm", "6pm"};
-                String[] baseDataString = new String[times.length];
-                Float[] baseDataFloat = new Float[times.length];
+                String[] times = {"12pm", "1am", "2am", "3am", "4am", "5am", "6am", "7am", "8am", "9am", "10am", "11am", "12pm",
+                        "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "7pm", "8pm", "9pm", "10pm", "11pm"};
+                String[] baseDataString = new String[GRAPH_ENTRIES];
+                Float[] baseDataFloat = new Float[GRAPH_ENTRIES];
 
                 //retrieve data from database to put into graphs
                 String lotName = dataSnapshot.child("lot_name").getValue().toString();
-                for(int i = 0; i < times.length; i++)
+                for(int i = 0; i < GRAPH_ENTRIES; i++)
                 {
-                    baseDataString[i] = dataSnapshot.child(dbDay).child(times[i]).getValue().toString();
+                    baseDataString[i] = dataSnapshot.child(dbDay).child(times[i+START_TIME]).getValue().toString();
                     baseDataFloat[i] = Float.parseFloat(baseDataString[i]);
                 }
 
@@ -208,11 +209,16 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
                 //replace current bar hour in graph with live data
                 ArrayList<BarEntry> barEntries = new ArrayList<>();
                 int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+
 //                baseDataFloat[currentHour - START_TIME] = currentAvg;
+
+                if(currentHour > START_TIME-1 && currentHour < END_TIME+1) {
+                    baseDataFloat[currentHour] = currentAvg;
+                }
 
 
                 //place data into graph
-                for (int i = 0; i < baseDataFloat.length; i++) {
+                for (int i = 0; i < 13; i++) {
                     barEntries.add(new BarEntry(i, baseDataFloat[i]));
                 }
 
@@ -227,7 +233,7 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
 
                 if(currentHour > START_TIME-1 && currentHour < END_TIME+1)
                 {
-                    barChart.highlightValue(currentHour-START_TIME,0,false);
+                    barChart.highlightValue(currentHour,0,false);
                 }
 
                 //disable values
@@ -270,6 +276,7 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
                 xLabel.add("4PM");
                 xLabel.add("5PM");
                 xLabel.add("6PM");
+
 
                 class MyXAxisFormatter extends ValueFormatter {
 
