@@ -2,8 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="155dp"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="140dp"
     android:background="@color/colorAccent"
     android:gravity="bottom"
     android:padding="16dp"
@@ -17,18 +18,18 @@
         android:scaleType="centerInside"
         android:src="@mipmap/ic_launcher_round"
         android:visibility="visible"
-        tools:srcCompat="@drawable/echo"
+        tools:srcCompat="@drawable/buffy"
         tools:visibility="visible" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
-        android:text="Tejas Sachdeva"
+        android:text="Peter Parker"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="tejas@sachdeva.com" />
+        android:text="user@email.com" />
 
 </LinearLayout>

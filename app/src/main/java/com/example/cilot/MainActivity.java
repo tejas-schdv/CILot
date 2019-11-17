@@ -50,6 +50,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout drawer;
 
     DatabaseReference database;
+    DatabaseReference buttonColors;
+    DatabaseReference buttonColors2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Button button_a10 = findViewById(R.id.button_a10);
         Button button_a11 = findViewById(R.id.button_a11);
 
-        Button[] mapButtons = {button_a1, button_a2, button_a3, button_a4, button_a5, button_a6,
+        final Button[] mapButtons = {button_a1, button_a2, button_a3, button_a4, button_a5, button_a6,
                 button_a7, button_a8, button_a9, button_a10, button_a11};
 
         button_a1.setOnClickListener(this);
@@ -86,13 +88,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //Change button colors
-        String[] lotNames = {"A1", "A2", "A3", "A4", "A5", "A6","A7", "A8", "A9", "A10", "A11"};
-        //CHANGE 3 to NUMBER_OF_LOTS (WE ONLY HAVE DATA FOR 3 LOTS)
-        for(int k = 0; k < lotNames.length; k++)
-        {
-            //changeButtonColors(mapButtons[k], lotNames[k]);
-        }
 
         drawer = findViewById(R.id.drawer_layout);
 
@@ -102,6 +97,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+
+        //change button colors
+        buttonColors = FirebaseDatabase.getInstance().getReference().child("lots");
+        buttonColors.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String[] lotNames = {"A1", "A2", "A3", "A4", "A5", "A6","A7", "A8", "A9", "A10", "A11"};
+                for(int k = 0; k < lotNames.length; k++)
+                {
+                    changeButtonColors(mapButtons[k], lotNames[k]);
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     @Override
@@ -110,7 +126,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.lot_a1:
                 Bundle bundleA1 = new Bundle();
                 bundleA1.putString("params", "A1");
-
                 LotReportSheetDialog bottomSheetA1 = new LotReportSheetDialog();
                 bottomSheetA1.setArguments(bundleA1);
                 bottomSheetA1.show(getSupportFragmentManager(), "exampleBottomSheet");
@@ -133,9 +148,61 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 bottomSheetA3.setArguments(bundleA3);
                 bottomSheetA3.show(getSupportFragmentManager(), "exampleBottomSheet");
                 break;
+            case R.id.lot_a4:
+                Bundle bundleA4 = new Bundle();
+                bundleA4.putString("params","A4");
+                LotReportSheetDialog bottomSheetA4 = new LotReportSheetDialog();
+                bottomSheetA4.setArguments(bundleA4);
+                bottomSheetA4.show(getSupportFragmentManager(), "exampleBottomSheet");
+                break;
+            case R.id.lot_a5:
+                Bundle bundleA5 = new Bundle();
+                bundleA5.putString("params","A5");
+                LotReportSheetDialog bottomSheetA5 = new LotReportSheetDialog();
+                bottomSheetA5.setArguments(bundleA5);
+                bottomSheetA5.show(getSupportFragmentManager(), "exampleBottomSheet");
+                break;
+            case R.id.lot_a6:
+                Bundle bundleA6 = new Bundle();
+                bundleA6.putString("params","A6");
+                LotReportSheetDialog bottomSheetA6 = new LotReportSheetDialog();
+                bottomSheetA6.setArguments(bundleA6);
+                bottomSheetA6.show(getSupportFragmentManager(), "exampleBottomSheet");
+                break;
             case R.id.lot_a7:
-                A7Fragment bottomSheetA7 = new A7Fragment();
-                bottomSheetA7.show(getSupportFragmentManager(),"exampleBottomSheet");
+                Bundle bundleA7 = new Bundle();
+                bundleA7.putString("params","A7");
+                LotReportSheetDialog bottomSheetA7 = new LotReportSheetDialog();
+                bottomSheetA7.setArguments(bundleA7);
+                bottomSheetA7.show(getSupportFragmentManager(), "exampleBottomSheet");
+                break;
+            case R.id.lot_a8:
+                Bundle bundleA8 = new Bundle();
+                bundleA8.putString("params","A8");
+                LotReportSheetDialog bottomSheetA8 = new LotReportSheetDialog();
+                bottomSheetA8.setArguments(bundleA8);
+                bottomSheetA8.show(getSupportFragmentManager(), "exampleBottomSheet");
+                break;
+            case R.id.lot_a9:
+                Bundle bundleA9 = new Bundle();
+                bundleA9.putString("params","A9");
+                LotReportSheetDialog bottomSheetA9 = new LotReportSheetDialog();
+                bottomSheetA9.setArguments(bundleA9);
+                bottomSheetA9.show(getSupportFragmentManager(), "exampleBottomSheet");
+                break;
+            case R.id.lot_a10:
+                Bundle bundleA10 = new Bundle();
+                bundleA10.putString("params","A10");
+                LotReportSheetDialog bottomSheetA10 = new LotReportSheetDialog();
+                bottomSheetA10.setArguments(bundleA10);
+                bottomSheetA10.show(getSupportFragmentManager(), "exampleBottomSheet");
+                break;
+            case R.id.lot_a11:
+                Bundle bundleA11 = new Bundle();
+                bundleA11.putString("params","A11");
+                LotReportSheetDialog bottomSheetA11 = new LotReportSheetDialog();
+                bottomSheetA11.setArguments(bundleA11);
+                bottomSheetA11.show(getSupportFragmentManager(), "exampleBottomSheet");
                 break;
         }
 
@@ -237,100 +304,85 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    /*public void changeButtonColors(final Button button, final String lotNameParam){
-        Calendar calendar = Calendar.getInstance();
-        int currDay;
-        final String dbDay;
+    public void changeButtonColors(final Button button, final String lotNameParam){
+        buttonColors2 = FirebaseDatabase.getInstance().getReference().child("lots").child(lotNameParam);
 
-        currDay = calendar.get(Calendar.DAY_OF_WEEK);
-        final int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
-
-
-
-        switch(currDay)
-        {
-            case Calendar.SUNDAY:
-                //CHANGE BACK TO CORRECT DAYS (ALL ARE MONDAY FOR TESTING PURPOSES)
-                dbDay = "monday";
-                break;
-            case Calendar.MONDAY:
-                dbDay = "monday";
-                break;
-            case Calendar.TUESDAY:
-                dbDay = "monday";
-                break;
-            case Calendar.WEDNESDAY:
-                dbDay = "monday";
-                break;
-            case Calendar.THURSDAY:
-                dbDay = "monday";
-                break;
-            case Calendar.FRIDAY:
-                dbDay = "monday";
-                break;
-            case Calendar.SATURDAY:
-                dbDay = "saturday";
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + currDay);
-        }
-
-
-            database = FirebaseDatabase.getInstance().getReference().child("lots").child(lotNameParam);
-            database.addValueEventListener(new ValueEventListener() {
+        buttonColors2.addValueEventListener(new ValueEventListener() {
                 @Override
+
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
+                    //update current statuses
                     String[] times = {"6am", "7am", "8am", "9am", "10am", "11am", "12pm",
                             "1pm", "2pm", "3pm", "4pm", "5pm", "6pm"};
-                    String[] polls = new String[times.length];
-
-                    //retrieve data form database
-                  //  String lotName = dataSnapshot.child("lot_name").getValue().toString();
-                    for (int i = 0; i < times.length; i++) {
-                        polls[i] = dataSnapshot.child("day").child(dbDay).child("hour").child(times[i]).child("polls").getValue().toString();
+                    Calendar calendar = Calendar.getInstance();
+                    int currDay = calendar.get(Calendar.DAY_OF_WEEK);
+                    String dbDay = null;
+                    switch(currDay)
+                    {
+                        case Calendar.SUNDAY:
+                            //CHANGE BACK TO CORRECT DAYS (ALL ARE MONDAY FOR TESTING PURPOSES)
+                            dbDay = "monday";
+                            break;
+                        case Calendar.MONDAY:
+                            dbDay = "monday";
+                            break;
+                        case Calendar.TUESDAY:
+                            dbDay = "monday";
+                            break;
+                        case Calendar.WEDNESDAY:
+                            dbDay = "monday";
+                            break;
+                        case Calendar.THURSDAY:
+                            dbDay = "monday";
+                            break;
+                        case Calendar.FRIDAY:
+                            dbDay = "monday";
+                            break;
+                        case Calendar.SATURDAY:
+                            dbDay = "monday";
+                            break;
+                    }
+                    String currentStatusTime = dataSnapshot.child("current_status").child("time").getValue().toString();
+                    int time = Integer.parseInt(currentStatusTime);
+                    int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+                    DatabaseReference pollDatabase;
+                    DatabaseReference currentStatusTimeDatabase;
+                    DatabaseReference respondantsDatabase;
+                    respondantsDatabase = FirebaseDatabase.getInstance().getReference().child("lots").child(lotNameParam).child("current_status").child("respondants");
+                    currentStatusTimeDatabase = FirebaseDatabase.getInstance().getReference().child("lots").child(lotNameParam).child("current_status").child("time");
+                    pollDatabase = FirebaseDatabase.getInstance().getReference().child("lots").child(lotNameParam).child("current_status").child("polls");
+                    float basePoll;
+                    //check if currentHour is in between start time and end time, if not set default to open
+                    if(currentHour < START_TIME || currentHour > END_TIME)
+                        basePoll = OPEN;
+                    else
+                        basePoll = Float.parseFloat(dataSnapshot.child(dbDay).child(times[currentHour-START_TIME]).getValue().toString());
+                    if(currentHour != time)
+                    {
+                        currentStatusTimeDatabase.setValue(currentHour);
+                        pollDatabase.setValue(basePoll);
+                        respondantsDatabase.setValue(1);
                     }
 
-                    float[] averages = new float[polls.length];
+                    //change colors
+                    int btnColor = Color.GREEN;
+                    float polls = Float.parseFloat(dataSnapshot.child("current_status").child("polls").getValue().toString());
+                    int respondants = Integer.parseInt((dataSnapshot.child("current_status").child("respondants").getValue().toString()));
 
-                    for (int i = 0; i < polls.length; i++) {
-                        //turn string polls into an int array
-                        String[] stringArray = polls[i].split(",");
-                        int[] intArray = new int[stringArray.length];
-                        for (int j = 0; j < stringArray.length; j++) {
-                            String numberAsString = stringArray[j];
-                            intArray[j] = Integer.parseInt(numberAsString);
-                        }
+                    float currentStatus = polls/respondants;
 
-                        //calculate average of poll
-                        float avg = 0;
-                        for (int j = 0; j < intArray.length; j++) {
-                            avg += intArray[j];
-                        }
-                        avg /= intArray.length;
-                        averages[i] = avg;
-                        //String tvAvg = Float.toString(avg);
+                    if(currentStatus >= 1 && currentStatus <= 1.4) {
+                        btnColor = Color.GREEN;
+                    }
+                    else if(currentStatus > 1.4 && currentStatus < 2.4) {
+                        btnColor = Color.YELLOW;
+                    }
+                    else if(currentStatus >= 2.4 && currentStatus <= 3) {
+                        btnColor = Color.RED;
                     }
 
-                    float currentStatus = 0;
-                    int tvColor = Color.GREEN;
-
-                    if (currentHour > START_TIME - 1 && currentHour < END_TIME + 1)
-                        currentStatus = averages[currentHour - START_TIME];
-
-                    if (currentStatus <= OPEN) {
-                        tvColor = Color.GREEN;
-                        button.setTextColor(Color.BLACK);
-                    } else if (currentStatus <= MODERATE && currentStatus > OPEN) {
-                        tvColor = Color.YELLOW;
-                        button.setTextColor(Color.BLACK);
-                    } else if (currentStatus <= FULL && currentStatus > MODERATE) {
-                        tvColor = Color.RED;
-                        button.setTextColor(Color.WHITE);
-                    }
-
-                    //set views
-                    button.setBackgroundColor(tvColor);
+                    button.setBackgroundColor(btnColor);
 
                 }
 
@@ -339,7 +391,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 }
             });
-        }*/
+        }
+
+        //public void updateCurrentStatus
 
     }
 
