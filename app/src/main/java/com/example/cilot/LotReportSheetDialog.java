@@ -210,10 +210,9 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
                 ArrayList<BarEntry> barEntries = new ArrayList<>();
                 int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
 
-//                baseDataFloat[currentHour - START_TIME] = currentAvg;
 
                 if(currentHour > START_TIME-1 && currentHour < END_TIME+1) {
-                    baseDataFloat[currentHour] = currentAvg;
+                    baseDataFloat[currentHour-START_TIME] = currentAvg;
                 }
 
 
@@ -233,7 +232,7 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
 
                 if(currentHour > START_TIME-1 && currentHour < END_TIME+1)
                 {
-                    barChart.highlightValue(currentHour,0,false);
+                    barChart.highlightValue(currentHour-START_TIME,0,false);
                 }
 
                 //disable values
