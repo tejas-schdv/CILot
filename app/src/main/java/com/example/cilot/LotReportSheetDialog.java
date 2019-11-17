@@ -209,13 +209,12 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
                 //replace current bar hour in graph with live data
                 ArrayList<BarEntry> barEntries = new ArrayList<>();
                 int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
-<<<<<<< HEAD
+
 //                baseDataFloat[currentHour - START_TIME] = currentAvg;
-=======
+
                 if(currentHour > START_TIME-1 && currentHour < END_TIME+1) {
                     baseDataFloat[currentHour] = currentAvg;
                 }
->>>>>>> Absalon
 
 
                 //place data into graph
@@ -278,11 +277,7 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
                 xLabel.add("5PM");
                 xLabel.add("6PM");
 
-<<<<<<< HEAD
-=======
 
-
->>>>>>> Absalon
                 class MyXAxisFormatter extends ValueFormatter {
 
                     @Override
