@@ -204,18 +204,13 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
                     baseDataFloat[i] = Float.parseFloat(baseDataString[i]);
                 }
 
-
-
                 //replace current bar hour in graph with live data
                 ArrayList<BarEntry> barEntries = new ArrayList<>();
                 int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
 
-                baseDataFloat[currentHour - START_TIME] = currentAvg;
-
                 if(currentHour > START_TIME-1 && currentHour < END_TIME+1) {
                     baseDataFloat[currentHour] = currentAvg;
                 }
-
 
                 //place data into graph
                 for (int i = 0; i < 13; i++) {
