@@ -128,7 +128,6 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
 
 
 
-
         btnSubmitPoll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -251,6 +250,14 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
         database.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String currentRes = dataSnapshot.child("current_status").child("respondants").getValue().toString();
+                float currentResFloat = Float.parseFloat(currentRes);
+                String currentPolls = dataSnapshot.child("current_status").child("polls").getValue().toString();
+                float currentPollsFloat = Float.parseFloat(currentPolls);
+                float currentAvg = currentPollsFloat/currentResFloat;
+
+
+
 
                 String[] times = {"6am", "7am", "8am", "9am", "10am", "11am", "12pm",
                         "1pm", "2pm", "3pm", "4pm", "5pm", "6pm"};
@@ -266,38 +273,19 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
                 }
 
 
-                /*float[] averages = new float[polls.length];
 
-                for(int i = 0; i < polls.length; i++)
-                {
-                    //turn string polls into an int array
-                    String[] stringArray = polls[i].split(",");
-                    int[] intArray = new int[stringArray.length];
-                    for (int j = 0; j < stringArray.length; j++) {
-                        String numberAsString = stringArray[j];
-                        intArray[j] = Integer.parseInt(numberAsString);
-                    }
-
-                    //calculate average of poll
-                    float avg = 0;
-                    for (int j = 0; j < intArray.length; j++) {
-                        avg += intArray[j];
-                    }
-                    avg /= intArray.length;
-                    averages[i] = avg;
-                    //String tvAvg = Float.toString(avg);
-                }*/
-
-                ////////////////////////////////////////
-                //place data into graph
+                //replace current bar hour in graph with live data
                 ArrayList<BarEntry> barEntries = new ArrayList<>();
+                int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+                baseDataFloat[currentHour - START_TIME] = currentAvg;
 
-                for(int i = 0; i < baseDataFloat.length; i++)
-                {
+
+                //place data into graph
+                for (int i = 0; i < baseDataFloat.length; i++) {
                     barEntries.add(new BarEntry(i, baseDataFloat[i]));
                 }
-                BarDataSet barDataSet = new BarDataSet(barEntries, "0");
 
+                BarDataSet barDataSet = new BarDataSet(barEntries, "0");
 
                 BarData data = new BarData(barDataSet);
                 barChart.setData(data);
@@ -305,9 +293,6 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
                 //highlight current hour
                 barDataSet.setHighlightEnabled(true);
                 barDataSet.setHighLightColor(Color.BLACK);
-
-                int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
-                //int currentHour = 16;
 
                 if(currentHour > START_TIME-1 && currentHour < END_TIME+1)
                 {
@@ -321,7 +306,9 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
                 Description description = barChart.getDescription();
                 description.setEnabled(false);
 
-                barChart.setFitBars(true);
+                //barChart.setFitBars(true);
+                barChart.getAxisLeft().setAxisMinimum(1f);
+                barChart.getAxisLeft().setAxisMaximum(3f);
 
                 YAxis left = barChart.getAxisLeft();
                 left.setDrawLabels(false); // no axis labels
@@ -362,9 +349,7 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
                     }
                 }
                 xAxis.setValueFormatter(new MyXAxisFormatter());
-
-
-
+                
 
                 //disable legend
                 Legend legend = barChart.getLegend();
@@ -387,36 +372,7 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
                 int tvColor = Color.GREEN;
                 String tvCurrentStatus = "OPEN";
 
-                /*if(currentHour > START_TIME-1 && currentHour < END_TIME+1)
-                    currentStatus = averages[currentHour-START_TIME];
 
-                if(currentStatus <= OPEN) {
-                    tvCurrentStatus = "OPEN";
-                    tvColor = Color.GREEN;
-                }
-                else if(currentStatus <= MODERATE && currentStatus > OPEN) {
-                    tvCurrentStatus = "MODERATE";
-                    tvColor = Color.YELLOW;
-                }
-                else if(currentStatus <= FULL && currentStatus > MODERATE) {
-                    tvCurrentStatus = "FULL";
-                    tvColor = Color.RED;
-                }*/
-
-
-               // int timeIndex = time - START_TIME;
-
-                /*char[] temp = currentStatusTime.toCharArray();
-
-                //0 determines int time, 1 and 2 determine am or pm
-                int time = Integer.parseInt(Character.toString(temp[0]));
-                int timeIndex;
-
-                //if time is am
-                if(temp[1] == 'a')
-                    timeIndex = time - START_TIME;
-                else //if time is pm
-                    timeIndex = time + START_TIME;*/
 
                 //Grab most recent data from base data
                 String currentStatusTime = dataSnapshot.child("current_status").child("time").getValue().toString();
@@ -428,6 +384,8 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
                     basePoll = OPEN;
                 else
                     basePoll = Float.parseFloat(dataSnapshot.child(dbDay).child(times[currentHour-START_TIME]).getValue().toString());
+
+
                 if(currentHour != time)
                 {
                     currentStatusTimeDatabase.setValue(currentHour);
@@ -435,7 +393,7 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
                     respondantsDatabase.setValue(1);
                 }
 
-                //Set curretn status textviews
+                //Set current status textviews
                 if(currentStatus >= 1 && currentStatus <= 1.4) {
                     tvCurrentStatus = "OPEN";
                     tvColor = Color.GREEN;
