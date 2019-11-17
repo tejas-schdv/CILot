@@ -264,8 +264,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                     //update current statuses
-                    String[] times = {"6am", "7am", "8am", "9am", "10am", "11am", "12pm",
-                            "1pm", "2pm", "3pm", "4pm", "5pm", "6pm"};
+                    String[] times = {"12pm", "1am", "2am", "3am", "4am", "5am", "6am", "7am", "8am", "9am", "10am", "11am", "12pm",
+                            "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "7pm", "8pm", "9pm", "10pm", "11pm"};
                     Calendar calendar = Calendar.getInstance();
                     int currDay = calendar.get(Calendar.DAY_OF_WEEK);
                     String dbDay = null;
@@ -308,7 +308,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     if(currentHour < START_TIME || currentHour > END_TIME)
                         basePoll = OPEN;
                     else
-                        basePoll = Float.parseFloat(dataSnapshot.child(dbDay).child(times[currentHour-START_TIME]).getValue().toString());
+                        basePoll = Float.parseFloat(dataSnapshot.child(dbDay).child(times[currentHour]).getValue().toString());
                     if(currentHour != time)
                     {
                         currentStatusTimeDatabase.setValue(currentHour);
