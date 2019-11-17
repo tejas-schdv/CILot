@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+
     android:background="@drawable/csuci_map"
     tools:context=".MainActivity"
     tools:openDrawer="start">
@@ -19,10 +20,10 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorPrimary"
-            android:elevation="4dp"
+            android:alpha="1.5"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+            app:title="@string/app_name" />
 
     </LinearLayout>
 
@@ -53,11 +54,11 @@
         <Button
             android:id="@+id/button_a3"
             android:layout_width="190dp"
-            android:layout_height="wrap_content"
+            android:layout_height="64dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="25dp"
-            android:layout_marginTop="53dp"
+            android:layout_marginTop="37dp"
             android:text="A3" />
 
         <Button

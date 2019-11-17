@@ -37,6 +37,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.collection.LLRBNode;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -405,6 +406,10 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
                 else if(currentStatus >= 2.4 && currentStatus <= 3) {
                     tvCurrentStatus = "FULL";
                     tvColor = Color.RED;
+                }
+                else {
+                    tvColor= Color.GREEN;
+                    tvCurrentStatus = "OPEN";
                 }
 
 

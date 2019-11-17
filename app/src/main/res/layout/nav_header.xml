@@ -8,6 +8,7 @@
     android:background="@color/colorAccent"
     android:gravity="bottom"
     android:padding="16dp"
+    android:fitsSystemWindows="true"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <ImageView
