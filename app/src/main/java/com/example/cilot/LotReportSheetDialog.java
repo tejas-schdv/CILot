@@ -64,9 +64,7 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
 
     Button btnSubmitPoll;
     RadioGroup radioGroupPoll;
-    RadioButton radioButtonPollOpen;
-    RadioButton radioButtonPollModerate;
-    RadioButton radioButtonPollFull;
+    RadioButton radioButtonSelected;
 
     Calendar calendar = Calendar.getInstance();
     int currDay;
@@ -85,15 +83,11 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
 
         radioGroupPoll = view.findViewById(R.id.poll);
         btnSubmitPoll = view.findViewById(R.id.btnSubmitPoll);
-        radioButtonPollOpen = view.findViewById(R.id.open);
-        radioButtonPollModerate = view.findViewById(R.id.moderate);
-        radioButtonPollFull = view.findViewById(R.id.full);
 
         currDay = calendar.get(Calendar.DAY_OF_WEEK);
         dbDay = null;
 
         String lotName = getArguments().getString("params");
-
 
         switch(currDay)
         {
@@ -126,23 +120,33 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
         respondantsDatabase = FirebaseDatabase.getInstance().getReference().child("lots").child(lotName).child("current_status").child("respondants");
         currentStatusTimeDatabase = FirebaseDatabase.getInstance().getReference().child("lots").child(lotName).child("current_status").child("time");
 
-
-
         btnSubmitPoll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                final int radioID = radioGroupPoll.getCheckedRadioButtonId();
+                radioButtonSelected = getView().findViewById(radioID);
 
-                if(radioButtonPollOpen.isChecked())
-                {
-                    Toast.makeText(getContext(), "Submitted " + radioButtonPollOpen.getText(), Toast.LENGTH_SHORT).show();
-                    pollDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                Toast.makeText(getContext(),"Selected " + radioButtonSelected.getText(), Toast.LENGTH_SHORT).show();
+
+                pollDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            long openCounter;
+                            long pollCount;
                             if (dataSnapshot.exists())
                             {
-                                openCounter =(dataSnapshot.getValue(Long.class));
-                                pollDatabase.setValue(openCounter+1);
+                                pollCount =(dataSnapshot.getValue(Long.class));
+
+                                switch(radioButtonSelected.getText().toString())
+                                {
+                                    case "Open":
+                                        pollDatabase.setValue(pollCount + OPEN);
+                                        break;
+                                    case "Moderate":
+                                        pollDatabase.setValue(pollCount + MODERATE);
+                                        break;
+                                    default:
+                                        pollDatabase.setValue(pollCount + FULL);
+                                }
                             }
                         }
 
@@ -151,44 +155,8 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
 
                         }
                     });
-                    respondantsDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            long resCounter;
 
-                            if (dataSnapshot.exists())
-                            {
-                                resCounter = (dataSnapshot.getValue(Long.class));
-                                respondantsDatabase.setValue(resCounter+1);
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
-                }
-                else if (radioButtonPollModerate.isChecked())
-                {
-                    Toast.makeText(getContext(), "Submitted " + radioButtonPollModerate.getText(), Toast.LENGTH_SHORT).show();
-                    pollDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            long openCounter;
-                            if (dataSnapshot.exists())
-                            {
-                                openCounter =(dataSnapshot.getValue(Long.class));
-                                pollDatabase.setValue(openCounter+2);
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
-                    respondantsDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                respondantsDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             long resCounter;
@@ -196,7 +164,7 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
                             if (dataSnapshot.exists())
                             {
                                 resCounter = (dataSnapshot.getValue(Long.class));
-                                respondantsDatabase.setValue(resCounter+1);
+                                respondantsDatabase.setValue(resCounter + 1);
                             }
                         }
 
@@ -205,64 +173,6 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
 
                         }
                     });
-                }
-                else if (radioButtonPollFull.isChecked())
-                {
-                    Toast.makeText(getContext(), "Submitted " + radioButtonPollFull.getText(), Toast.LENGTH_SHORT).show();
-                    pollDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            long openCounter;
-                            if (dataSnapshot.exists())
-                            {
-                                openCounter =(dataSnapshot.getValue(Long.class));
-                                pollDatabase.setValue(openCounter+3);
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
-                }
-                else
-                {
-                    Toast.makeText(getContext(), "Submitted " + radioButtonPollOpen.getText(), Toast.LENGTH_SHORT).show();
-                    pollDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            long openCounter;
-                            if (dataSnapshot.exists())
-                            {
-                                openCounter =(dataSnapshot.getValue(Long.class));
-                                pollDatabase.setValue(openCounter+3);
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
-                    respondantsDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            long resCounter;
-
-                            if (dataSnapshot.exists())
-                            {
-                                resCounter = (dataSnapshot.getValue(Long.class));
-                                respondantsDatabase.setValue(resCounter+1);
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
-                }
             }
         });
 
@@ -297,7 +207,7 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
                 //replace current bar hour in graph with live data
                 ArrayList<BarEntry> barEntries = new ArrayList<>();
                 int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
-                baseDataFloat[currentHour - START_TIME] = currentAvg;
+//                baseDataFloat[currentHour - START_TIME] = currentAvg;
 
 
                 //place data into graph
@@ -425,13 +335,11 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
                     tvColor = Color.RED;
                 }
 
-
                 tvLot.setText(lotName);
 
                 tvStatus.setText(tvCurrentStatus);
                 tvStatus.setTextColor(tvColor);
             }
-
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
