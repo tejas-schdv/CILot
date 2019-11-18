@@ -42,9 +42,9 @@ import java.util.Calendar;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
     public static int START_TIME = 6;
     public static int END_TIME = 18;
-    public static int OPEN = 1;
-    public static int MODERATE = 2;
-    public static int FULL = 3;
+    public static double OPEN = 1.6;
+    public static double MODERATE = 2.4;
+    public static double FULL = 3;
     public static int NUMBER_OF_LOTS = 11;
     public static int CURRENT_HOUR;
     public static int GREEN = Color.parseColor("#5CBD79");
@@ -382,12 +382,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     respondantsDatabase = FirebaseDatabase.getInstance().getReference().child("lots").child(lotNameParam).child("current_status").child("respondants");
                     currentStatusTimeDatabase = FirebaseDatabase.getInstance().getReference().child("lots").child(lotNameParam).child("current_status").child("time");
                     pollDatabase = FirebaseDatabase.getInstance().getReference().child("lots").child(lotNameParam).child("current_status").child("polls");
-                    float basePoll;
+                    double basePoll;
                     //check if currentHour is in between start time and end time, if not set default to open
                     if(currentHour < START_TIME || currentHour > END_TIME)
                         basePoll = OPEN;
                     else
-                        basePoll = Float.parseFloat(dataSnapshot.child(dbDay).child(times[currentHour]).getValue().toString());
+                        basePoll = Double.parseDouble((dataSnapshot.child(dbDay).child(times[currentHour]).getValue().toString()));
                     if(currentHour != time)
                     {
                         currentStatusTimeDatabase.setValue(currentHour);
@@ -402,13 +402,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                     float currentStatus = polls/respondants;
 
-                    if(currentStatus >= 1 && currentStatus <= 1.6) {
+                    if(currentStatus <= OPEN) {
                         btnColor = GREEN;
                     }
-                    else if(currentStatus > 1.6 && currentStatus < 2.4) {
+                    else if(currentStatus > OPEN && currentStatus < MODERATE) {
                         btnColor = YELLOW;
                     }
-                    else if(currentStatus >= 2.4 && currentStatus <= 3) {
+                    else if(currentStatus >= MODERATE && currentStatus <= FULL) {
                         btnColor = RED;
                     }
 
