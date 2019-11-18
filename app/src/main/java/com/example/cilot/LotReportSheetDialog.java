@@ -305,8 +305,7 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
 
                 float currentStatus = polls/respondants;
 
-                int tvColor = Color.GREEN;
-                String tvCurrentStatus = "OPEN";
+
 
 
 
@@ -330,22 +329,22 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
                 }
 
                 //Set current status textviews
-                if(currentStatus >= 1 && currentStatus <= 1.4) {
+                int tvColor = MainActivity.GREEN;
+                String tvCurrentStatus = "OPEN";
+
+                if(currentStatus <= MainActivity.OPEN) {
                     tvCurrentStatus = "OPEN";
                     tvColor = MainActivity.GREEN;
                 }
-                else if(currentStatus > 1.4 && currentStatus < 2.4) {
+                else if(currentStatus > MainActivity.OPEN && currentStatus < MainActivity.MODERATE) {
                     tvCurrentStatus = "MODERATE";
                     tvColor = MainActivity.YELLOW;
                 }
-                else if(currentStatus >= 2.4 && currentStatus <= 3) {
+                else if(currentStatus >= MainActivity.MODERATE && currentStatus <= MainActivity.FULL) {
                     tvCurrentStatus = "FULL";
                     tvColor = MainActivity.RED;
                 }
-                else {
-                    tvColor= MainActivity.GREEN;
-                    tvCurrentStatus = "OPEN";
-                }
+
 
                 tvLot.setText(lotName);
 
