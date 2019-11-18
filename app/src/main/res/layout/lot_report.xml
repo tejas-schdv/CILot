@@ -131,4 +131,59 @@
 
         android:layout_toEndOf="@id/poll" />
 
+    <TextView
+        android:id="@+id/fullLotBar"
+
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignStart="@+id/barChart"
+        android:layout_alignTop="@+id/barChart"
+        android:layout_alignBottom="@+id/barChart"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="55dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="115dp"
+        android:background="#D3EF5350" />
+
+    <TextView
+        android:id="@+id/fullBar_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/barChart"
+        android:layout_alignTop="@+id/fullLotBar"
+        android:layout_alignBottom="@+id/fullLotBar"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="-18dp"
+        android:layout_marginBottom="0dp"
+        android:text="@string/full" />
+
+    <TextView
+        android:id="@+id/moderateBar_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/barChart"
+        android:layout_alignTop="@+id/mediumLotBar"
+        android:layout_alignBottom="@+id/mediumLotBar"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="-18dp"
+        android:layout_marginBottom="0dp"
+        android:text="Filling" />
+
+    <TextView
+        android:id="@+id/mediumLotBar"
+
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignStart="@+id/barChart"
+        android:layout_alignTop="@+id/barChart"
+        android:layout_alignBottom="@+id/barChart"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="105dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="65dp"
+        android:background="#D5FFEB3B" />
+
+
 </RelativeLayout>
