@@ -47,9 +47,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static double FULL = 3;
     public static int NUMBER_OF_LOTS = 11;
     public static int CURRENT_HOUR;
-    public static int GREEN = Color.parseColor("#5CBD79");
-    public static int YELLOW = Color.parseColor("#DAE179");
-    public static int RED = Color.parseColor("#F24646");
+    public static int GREEN = Color.parseColor("#69ff73");
+    public static int YELLOW = Color.parseColor("#f2ff5e");
+    public static int RED = Color.parseColor("#fc3d3d");
 
 
     private DrawerLayout drawer;
