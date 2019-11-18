@@ -28,6 +28,7 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.google.android.gms.common.util.ArrayUtils;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -35,8 +36,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
@@ -57,6 +61,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DatabaseReference database;
     DatabaseReference buttonColors;
     DatabaseReference buttonColors2;
+
+    NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,11 +105,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         drawer = findViewById(R.id.drawer_layout);
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+        navigationView.setItemIconTintList(null);
+        //navigationView.getMenu().getItem(1).setIcon(R.drawable.car_green);
 
         //update time in database
         database = FirebaseDatabase.getInstance().getReference().child("time");
@@ -343,6 +351,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                     //update current statuses
+                    List lotNames = Arrays.asList(new String[] { "profile", "A1", "A2", "A3", "A4", "A5", "A6","A7", "A8", "A9", "A10", "A11"});
                     String[] times = {"12pm", "1am", "2am", "3am", "4am", "5am", "6am", "7am", "8am", "9am", "10am", "11am", "12pm",
                             "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "7pm", "8pm", "9pm", "10pm", "11pm"};
                     Calendar calendar = Calendar.getInstance();
@@ -397,6 +406,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                     //change colors
                     int btnColor = GREEN;
+                    int carColor = R.drawable.car_green;
+
                     float polls = Float.parseFloat(dataSnapshot.child("current_status").child("polls").getValue().toString());
                     int respondants = Integer.parseInt((dataSnapshot.child("current_status").child("respondants").getValue().toString()));
 
@@ -404,15 +415,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                     if(currentStatus <= OPEN) {
                         btnColor = GREEN;
+                        carColor = R.drawable.car_green;
                     }
                     else if(currentStatus > OPEN && currentStatus < MODERATE) {
                         btnColor = YELLOW;
+                        carColor = R.drawable.car_yellow;
                     }
                     else if(currentStatus >= MODERATE && currentStatus <= FULL) {
                         btnColor = RED;
+                        carColor = R.drawable.car_red;
                     }
 
                     button.setBackgroundColor(btnColor);
+                    navigationView.getMenu().getItem(lotNames.indexOf(lotNameParam)).setIcon(carColor);
 
                 }
 
