@@ -2,22 +2,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="140dp"
     android:background="@color/colorAccent"
-    android:gravity="bottom"
-    android:padding="16dp"
     android:fitsSystemWindows="true"
+    android:gravity="bottom"
+    android:orientation="vertical"
+    android:padding="16dp"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <ImageView
-        android:layout_width="61dp"
-        android:layout_height="61dp"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
         android:clickable="true"
         android:contentDescription="profile icon"
         android:scaleType="centerInside"
         android:src="@mipmap/ic_launcher_round"
+        android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
         android:visibility="visible"
         tools:srcCompat="@drawable/buffy"
         tools:visibility="visible" />
@@ -28,6 +29,7 @@
         android:paddingTop="8dp"
         android:text="Peter Parker"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
