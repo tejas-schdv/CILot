@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static int MODERATE = 2;
     public static int FULL = 3;
     public static int NUMBER_OF_LOTS = 11;
+    public static int CURRENT_HOUR;
 
     private DrawerLayout drawer;
 
@@ -57,6 +58,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Calendar calendar = Calendar.getInstance();
+        CURRENT_HOUR = calendar.get(Calendar.HOUR_OF_DAY);
 
         Button button_a1 = findViewById(R.id.button_a1);
         Button button_a2 = findViewById(R.id.button_a2);
@@ -97,10 +101,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+        //update time in database
+        database = FirebaseDatabase.getInstance().getReference().child("time");
+        database.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(CURRENT_HOUR != Integer.parseInt(dataSnapshot.getValue().toString()))
+                {
+                    database.setValue(CURRENT_HOUR);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        String[] lotNames = {"A1", "A2", "A3", "A4", "A5", "A6","A7", "A8", "A9", "A10", "A11"};
+        for(int k = 0; k < lotNames.length; k++)
+        {
+            changeButtonColors(mapButtons[k], lotNames[k]);
+        }
 
         //change button colors
-        buttonColors = FirebaseDatabase.getInstance().getReference().child("lots");
-        buttonColors.addValueEventListener(new ValueEventListener() {
+        //buttonColors = FirebaseDatabase.getInstance().getReference().child("lots");
+        /*buttonColors.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String[] lotNames = {"A1", "A2", "A3", "A4", "A5", "A6","A7", "A8", "A9", "A10", "A11"};
@@ -116,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        });
+        });*/
 
     }
 
@@ -366,20 +392,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     }
 
                     //change colors
-                    int btnColor = Color.GREEN;
+                    int btnColor = Color.parseColor("#5CBD79");
                     float polls = Float.parseFloat(dataSnapshot.child("current_status").child("polls").getValue().toString());
                     int respondants = Integer.parseInt((dataSnapshot.child("current_status").child("respondants").getValue().toString()));
 
                     float currentStatus = polls/respondants;
 
-                    if(currentStatus >= 1 && currentStatus <= 1.4) {
-                        btnColor = Color.GREEN;
+                    if(currentStatus >= 1 && currentStatus <= 1.6) {
+                        btnColor = Color.parseColor("#5CBD79");
                     }
-                    else if(currentStatus > 1.4 && currentStatus < 2.4) {
-                        btnColor = Color.YELLOW;
+                    else if(currentStatus > 1.6 && currentStatus < 2.4) {
+                        btnColor = Color.parseColor("#DAE179");
                     }
                     else if(currentStatus >= 2.4 && currentStatus <= 3) {
-                        btnColor = Color.RED;
+                        btnColor = Color.parseColor("#F24646");
                     }
 
                     button.setBackgroundColor(btnColor);
