@@ -47,6 +47,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static int FULL = 3;
     public static int NUMBER_OF_LOTS = 11;
     public static int CURRENT_HOUR;
+    public static int GREEN = Color.parseColor("#5CBD79");
+    public static int YELLOW = Color.parseColor("#DAE179");
+    public static int RED = Color.parseColor("#F24646");
+
 
     private DrawerLayout drawer;
 
@@ -392,20 +396,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     }
 
                     //change colors
-                    int btnColor = Color.parseColor("#5CBD79");
+                    int btnColor = GREEN;
                     float polls = Float.parseFloat(dataSnapshot.child("current_status").child("polls").getValue().toString());
                     int respondants = Integer.parseInt((dataSnapshot.child("current_status").child("respondants").getValue().toString()));
 
                     float currentStatus = polls/respondants;
 
                     if(currentStatus >= 1 && currentStatus <= 1.6) {
-                        btnColor = Color.parseColor("#5CBD79");
+                        btnColor = GREEN;
                     }
                     else if(currentStatus > 1.6 && currentStatus < 2.4) {
-                        btnColor = Color.parseColor("#DAE179");
+                        btnColor = YELLOW;
                     }
                     else if(currentStatus >= 2.4 && currentStatus <= 3) {
-                        btnColor = Color.parseColor("#F24646");
+                        btnColor = RED;
                     }
 
                     button.setBackgroundColor(btnColor);

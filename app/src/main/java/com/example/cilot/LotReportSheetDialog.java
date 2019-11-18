@@ -332,18 +332,18 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
                 //Set current status textviews
                 if(currentStatus >= 1 && currentStatus <= 1.4) {
                     tvCurrentStatus = "OPEN";
-                    tvColor = Color.GREEN;
+                    tvColor = MainActivity.GREEN;
                 }
                 else if(currentStatus > 1.4 && currentStatus < 2.4) {
                     tvCurrentStatus = "MODERATE";
-                    tvColor = Color.YELLOW;
+                    tvColor = MainActivity.YELLOW;
                 }
                 else if(currentStatus >= 2.4 && currentStatus <= 3) {
                     tvCurrentStatus = "FULL";
-                    tvColor = Color.RED;
+                    tvColor = MainActivity.RED;
                 }
                 else {
-                    tvColor= Color.GREEN;
+                    tvColor= MainActivity.GREEN;
                     tvCurrentStatus = "OPEN";
                 }
 
