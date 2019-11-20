@@ -28,6 +28,7 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.google.android.gms.common.util.ArrayUtils;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -35,17 +36,25 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
     public static int START_TIME = 6;
     public static int END_TIME = 18;
-    public static int OPEN = 1;
-    public static int MODERATE = 2;
-    public static int FULL = 3;
+    public static double OPEN = 1.6;
+    public static double MODERATE = 2.4;
+    public static double FULL = 3;
     public static int NUMBER_OF_LOTS = 11;
+    public static int CURRENT_HOUR;
+    public static int GREEN = Color.parseColor("#69ff73");
+    public static int YELLOW = Color.parseColor("#f2ff5e");
+    public static int RED = Color.parseColor("#fc3d3d");
+
 
     private DrawerLayout drawer;
 
@@ -53,10 +62,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DatabaseReference buttonColors;
     DatabaseReference buttonColors2;
 
+    NavigationView navigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Calendar calendar = Calendar.getInstance();
+        CURRENT_HOUR = calendar.get(Calendar.HOUR_OF_DAY);
 
         Button button_a1 = findViewById(R.id.button_a1);
         Button button_a2 = findViewById(R.id.button_a2);
@@ -91,16 +105,40 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         drawer = findViewById(R.id.drawer_layout);
 
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+        navigationView.setItemIconTintList(null);
+        //navigationView.getMenu().getItem(1).setIcon(R.drawable.car_green);
 
+        //update time in database
+        database = FirebaseDatabase.getInstance().getReference().child("time");
+        database.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(CURRENT_HOUR != Integer.parseInt(dataSnapshot.getValue().toString()))
+                {
+                    database.setValue(CURRENT_HOUR);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        String[] lotNames = {"A1", "A2", "A3", "A4", "A5", "A6","A7", "A8", "A9", "A10", "A11"};
+        for(int k = 0; k < lotNames.length; k++)
+        {
+            changeButtonColors(mapButtons[k], lotNames[k]);
+        }
 
         //change button colors
-        buttonColors = FirebaseDatabase.getInstance().getReference().child("lots");
-        buttonColors.addValueEventListener(new ValueEventListener() {
+        //buttonColors = FirebaseDatabase.getInstance().getReference().child("lots");
+        /*buttonColors.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String[] lotNames = {"A1", "A2", "A3", "A4", "A5", "A6","A7", "A8", "A9", "A10", "A11"};
@@ -116,7 +154,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        });
+        });*/
 
     }
 
@@ -313,6 +351,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                     //update current statuses
+                    List lotNames = Arrays.asList(new String[] { "profile", "A1", "A2", "A3", "A4", "A5", "A6","A7", "A8", "A9", "A10", "A11"});
                     String[] times = {"12pm", "1am", "2am", "3am", "4am", "5am", "6am", "7am", "8am", "9am", "10am", "11am", "12pm",
                             "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "7pm", "8pm", "9pm", "10pm", "11pm"};
                     Calendar calendar = Calendar.getInstance();
@@ -352,12 +391,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     respondantsDatabase = FirebaseDatabase.getInstance().getReference().child("lots").child(lotNameParam).child("current_status").child("respondants");
                     currentStatusTimeDatabase = FirebaseDatabase.getInstance().getReference().child("lots").child(lotNameParam).child("current_status").child("time");
                     pollDatabase = FirebaseDatabase.getInstance().getReference().child("lots").child(lotNameParam).child("current_status").child("polls");
-                    float basePoll;
+                    double basePoll;
                     //check if currentHour is in between start time and end time, if not set default to open
                     if(currentHour < START_TIME || currentHour > END_TIME)
                         basePoll = OPEN;
                     else
-                        basePoll = Float.parseFloat(dataSnapshot.child(dbDay).child(times[currentHour]).getValue().toString());
+                        basePoll = Double.parseDouble((dataSnapshot.child(dbDay).child(times[currentHour]).getValue().toString()));
                     if(currentHour != time)
                     {
                         currentStatusTimeDatabase.setValue(currentHour);
@@ -366,23 +405,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     }
 
                     //change colors
-                    int btnColor = Color.GREEN;
+                    int btnColor = GREEN;
+                    int carColor = R.drawable.car_green;
+
                     float polls = Float.parseFloat(dataSnapshot.child("current_status").child("polls").getValue().toString());
                     int respondants = Integer.parseInt((dataSnapshot.child("current_status").child("respondants").getValue().toString()));
 
                     float currentStatus = polls/respondants;
 
-                    if(currentStatus >= 1 && currentStatus <= 1.4) {
-                        btnColor = Color.GREEN;
+                    if(currentStatus <= OPEN) {
+                        btnColor = GREEN;
+                        carColor = R.drawable.car_green;
                     }
-                    else if(currentStatus > 1.4 && currentStatus < 2.4) {
-                        btnColor = Color.YELLOW;
+                    else if(currentStatus > OPEN && currentStatus < MODERATE) {
+                        btnColor = YELLOW;
+                        carColor = R.drawable.car_yellow;
                     }
-                    else if(currentStatus >= 2.4 && currentStatus <= 3) {
-                        btnColor = Color.RED;
+                    else if(currentStatus >= MODERATE && currentStatus <= FULL) {
+                        btnColor = RED;
+                        carColor = R.drawable.car_red;
                     }
 
                     button.setBackgroundColor(btnColor);
+                    navigationView.getMenu().getItem(lotNames.indexOf(lotNameParam)).setIcon(carColor);
 
                 }
 
