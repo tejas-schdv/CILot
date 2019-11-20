@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "517622903003",
+    "firebase_url": "https://cilo-446cd.firebaseio.com",
+    "project_id": "cilo-446cd",
+    "storage_bucket": "cilo-446cd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:517622903003:android:dd43837f1fd36ea5e6dcfe",
+        "android_client_info": {
+          "package_name": "com.example.cilot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "517622903003-4qgoaddn4khvbkuhlats6tmmli60a0sa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.cilot",
+            "certificate_hash": "4ac4a49a9ef62fbf114d7bd39ced6cec558f8d4f"
+          }
+        },
+        {
+          "client_id": "517622903003-t47ipvdk89lvvhrntigj5gvhf9qbus97.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.cilot",
+            "certificate_hash": "4855388a91833160a9e03ecaeee8a2289e58ecbb"
+          }
+        },
+        {
+          "client_id": "517622903003-q03qg4qu9ocu429fje3b8rg4pillnm1r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCf0-VJ9c8pInmbfJgQbTHIsohRpv_ugKk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "517622903003-q03qg4qu9ocu429fje3b8rg4pillnm1r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

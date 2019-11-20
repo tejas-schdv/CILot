@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">517622903003-q03qg4qu9ocu429fje3b8rg4pillnm1r.apps.googleusercontent.com</string>
+    <string name="firebase_database_url" translatable="false">https://cilo-446cd.firebaseio.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">517622903003</string>
+    <string name="google_api_key" translatable="false">AIzaSyCf0-VJ9c8pInmbfJgQbTHIsohRpv_ugKk</string>
+    <string name="google_app_id" translatable="false">1:517622903003:android:dd43837f1fd36ea5e6dcfe</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyCf0-VJ9c8pInmbfJgQbTHIsohRpv_ugKk</string>
+    <string name="google_storage_bucket" translatable="false">cilo-446cd.appspot.com</string>
+    <string name="project_id" translatable="false">cilo-446cd</string>
+</resources>
