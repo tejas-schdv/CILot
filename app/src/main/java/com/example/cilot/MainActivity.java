@@ -35,6 +35,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.collection.LLRBNode;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -106,11 +107,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer = findViewById(R.id.drawer_layout);
 
         navigationView = findViewById(R.id.nav_view);
+
         navigationView.setNavigationItemSelectedListener(this);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setItemIconTintList(null);
+
         //navigationView.getMenu().getItem(1).setIcon(R.drawable.car_green);
 
         //update time in database
@@ -415,6 +418,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                     if(currentStatus <= OPEN) {
                         btnColor = GREEN;
+                        button.setTextColor(Color.BLACK);
                         carColor = R.drawable.car_green;
                     }
                     else if(currentStatus > OPEN && currentStatus < MODERATE) {
@@ -423,6 +427,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     }
                     else if(currentStatus >= MODERATE && currentStatus <= FULL) {
                         btnColor = RED;
+                        button.setTextColor(Color.WHITE);
                         carColor = R.drawable.car_red;
                     }
 
