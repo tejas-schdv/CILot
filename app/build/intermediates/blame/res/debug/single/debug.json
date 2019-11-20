@@ -780,6 +780,10 @@
         "source": "C:\\Users\\Alexa\\.gradle\\caches\\transforms-2\\files-2.1\\f8ccfb448ba3545203b2c9319e236e39\\appcompat-1.1.0\\res\\drawable-xhdpi-v4\\abc_ic_star_black_48dp.png"
     },
     {
+        "merged": "C:\\Users\\Alexa\\Documents\\GitHub\\CILot\\app\\build\\intermediates\\res\\merged\\debug\\drawable_car_green.png.flat",
+        "source": "C:\\Users\\Alexa\\Documents\\GitHub\\CILot\\app\\src\\main\\res\\drawable\\car_green.png"
+    },
+    {
         "merged": "C:\\Users\\Alexa\\Documents\\GitHub\\CILot\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_notification_bg_normal.9.png.flat",
         "source": "C:\\Users\\Alexa\\.gradle\\caches\\transforms-2\\files-2.1\\56b6cdfbd80af409835a31a4470c49f0\\core-1.1.0\\res\\drawable-mdpi-v4\\notification_bg_normal.9.png"
     },
@@ -1688,6 +1692,10 @@
         "source": "C:\\Users\\Alexa\\.gradle\\caches\\transforms-2\\files-2.1\\f8ccfb448ba3545203b2c9319e236e39\\appcompat-1.1.0\\res\\drawable-xxxhdpi-v4\\abc_btn_check_to_on_mtrl_015.png"
     },
     {
+        "merged": "C:\\Users\\Alexa\\Documents\\GitHub\\CILot\\app\\build\\intermediates\\res\\merged\\debug\\drawable_car_red.png.flat",
+        "source": "C:\\Users\\Alexa\\Documents\\GitHub\\CILot\\app\\src\\main\\res\\drawable\\car_red.png"
+    },
+    {
         "merged": "C:\\Users\\Alexa\\Documents\\GitHub\\CILot\\app\\build\\intermediates\\res\\merged\\debug\\animator_mtrl_chip_state_list_anim.xml.flat",
         "source": "C:\\Users\\Alexa\\.gradle\\caches\\transforms-2\\files-2.1\\3df2fd68af0236fb7b1a24eeed8b503b\\material-1.0.0\\res\\animator\\mtrl_chip_state_list_anim.xml"
     },
@@ -1970,6 +1978,10 @@
     {
         "merged": "C:\\Users\\Alexa\\Documents\\GitHub\\CILot\\app\\build\\intermediates\\res\\merged\\debug\\color_mtrl_btn_ripple_color.xml.flat",
         "source": "C:\\Users\\Alexa\\.gradle\\caches\\transforms-2\\files-2.1\\3df2fd68af0236fb7b1a24eeed8b503b\\material-1.0.0\\res\\color\\mtrl_btn_ripple_color.xml"
+    },
+    {
+        "merged": "C:\\Users\\Alexa\\Documents\\GitHub\\CILot\\app\\build\\intermediates\\res\\merged\\debug\\drawable_car_yellow.png.flat",
+        "source": "C:\\Users\\Alexa\\Documents\\GitHub\\CILot\\app\\src\\main\\res\\drawable\\car_yellow.png"
     },
     {
         "merged": "C:\\Users\\Alexa\\Documents\\GitHub\\CILot\\app\\build\\intermediates\\res\\merged\\debug\\drawable_common_google_signin_btn_icon_light.xml.flat",

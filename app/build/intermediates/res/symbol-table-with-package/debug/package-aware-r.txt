@@ -1084,6 +1084,9 @@ drawable btn_radio_off_to_on_mtrl_animation
 drawable btn_radio_on_mtrl
 drawable btn_radio_on_to_off_mtrl_animation
 drawable buffy
+drawable car_green
+drawable car_red
+drawable car_yellow
 drawable common_full_open_on_phone
 drawable common_google_signin_btn_icon_dark
 drawable common_google_signin_btn_icon_dark_focused
@@ -1254,6 +1257,7 @@ id container
 id content
 id contentPanel
 id coordinator
+id currentDay
 id custom
 id customPanel
 id dark
@@ -1706,6 +1710,7 @@ string search_menu_title
 string status
 string status_bar_notification_info_overflow
 string submit
+string toolbar_title
 string username
 style AlertDialog_AppCompat
 style AlertDialog_AppCompat_Light
