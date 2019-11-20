@@ -12,12 +12,13 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <ImageView
-        android:layout_width="55dp"
-        android:layout_height="55dp"
+        android:layout_width="93dp"
+        android:layout_height="54dp"
+        android:layout_marginLeft="35dp"
         android:clickable="true"
         android:contentDescription="profile icon"
         android:scaleType="centerInside"
-        android:src="@mipmap/ic_launcher_round"
+        android:src="@drawable/buffy"
         android:theme="@style/Theme.AppCompat.DayNight.DarkActionBar"
         android:visibility="visible"
         tools:srcCompat="@drawable/buffy"
@@ -27,12 +28,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
+        android:layout_marginLeft="35dp"
         android:text="Peter Parker"
+        android:textAlignment="textEnd"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="user@email.com" />
+        android:text="user@email.com"
+        android:textAlignment="textEnd"
+        android:layout_marginLeft="35dp"/>
 
 </LinearLayout>

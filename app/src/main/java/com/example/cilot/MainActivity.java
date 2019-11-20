@@ -368,25 +368,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     {
                         case Calendar.SUNDAY:
                             //CHANGE BACK TO CORRECT DAYS (ALL ARE MONDAY FOR TESTING PURPOSES)
-                            dbDay = "monday";
+                            dbDay = "sunday";
                             break;
                         case Calendar.MONDAY:
                             dbDay = "monday";
                             break;
                         case Calendar.TUESDAY:
-                            dbDay = "monday";
+                            dbDay = "tuesday";
                             break;
                         case Calendar.WEDNESDAY:
-                            dbDay = "monday";
+                            dbDay = "wednesday";
                             break;
                         case Calendar.THURSDAY:
-                            dbDay = "monday";
+                            dbDay = "thursday";
                             break;
                         case Calendar.FRIDAY:
-                            dbDay = "monday";
+                            dbDay = "friday";
                             break;
                         case Calendar.SATURDAY:
-                            dbDay = "monday";
+                            dbDay = "saturday";
                             break;
                     }
                     String currentStatusTime = dataSnapshot.child("current_status").child("time").getValue().toString();
@@ -427,6 +427,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     }
                     else if(currentStatus > OPEN && currentStatus < MODERATE) {
                         btnColor = YELLOW;
+                        button.setTextColor(Color.BLACK);
                         carColor = R.drawable.car_yellow;
                     }
                     else if(currentStatus >= MODERATE && currentStatus <= FULL) {

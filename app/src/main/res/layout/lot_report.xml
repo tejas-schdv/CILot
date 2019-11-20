@@ -152,4 +152,61 @@
 
     </com.github.mikephil.charting.charts.BarChart>
 
+    <TextView
+        android:id="@+id/fullLotBar"
+
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignStart="@+id/barChart"
+        android:layout_alignTop="@+id/barChart"
+        android:layout_alignBottom="@+id/barChart"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="94dp"
+        android:background="#D3EF5350" />
+
+    <TextView
+        android:id="@+id/fullBar_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/barChart"
+        android:layout_alignTop="@+id/fullLotBar"
+        android:layout_alignBottom="@+id/fullLotBar"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="-18dp"
+        android:layout_marginBottom="0dp"
+        android:text="80%"
+        android:textColor="#000000"/>
+
+    <TextView
+        android:id="@+id/moderateBar_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/barChart"
+        android:layout_alignTop="@+id/mediumLotBar"
+        android:layout_alignBottom="@+id/mediumLotBar"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="-18dp"
+        android:layout_marginBottom="0dp"
+        android:text="50%"
+        android:textColor="#000000"/>
+
+    <TextView
+        android:id="@+id/mediumLotBar"
+
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignStart="@+id/barChart"
+        android:layout_alignTop="@+id/barChart"
+        android:layout_alignBottom="@+id/barChart"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="90dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="54dp"
+        android:background="#D5FFEB3B" />
+
+
 </RelativeLayout>
