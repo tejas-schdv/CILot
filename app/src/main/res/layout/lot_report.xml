@@ -52,7 +52,8 @@
             android:textSize="18sp"
             android:checked="true"
             android:text="@string/open"
-            android:textColor="#000000">
+            android:textColor="#000000"
+            android:buttonTint="@color/colorPrimaryDark">
 
         </RadioButton>
 
@@ -63,7 +64,8 @@
             android:layout_marginStart="15dp"
             android:textSize="18sp"
             android:text="@string/moderate"
-            android:textColor="#000000">
+            android:textColor="#000000"
+            android:buttonTint="@color/colorPrimaryDark">
 
         </RadioButton>
 
@@ -73,7 +75,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:textSize="18sp"
-            android:text="@string/full">
+            android:text="@string/full"
+            android:buttonTint="@color/colorPrimaryDark">
 
         </RadioButton>
     </RadioGroup>
@@ -127,7 +130,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginStart="127dp"
         android:layout_marginLeft="124dp"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="21dp"
         android:layout_marginEnd="5dp"
         android:layout_marginRight="-44dp"
         android:layout_marginBottom="0dp"
