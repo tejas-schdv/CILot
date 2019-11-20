@@ -141,7 +141,7 @@
         android:layout_alignBottom="@+id/barChart"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="58dp"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="115dp"
         android:background="#D3EF5350" />
@@ -156,7 +156,7 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="-18dp"
         android:layout_marginBottom="0dp"
-        android:text="@string/full" />
+        android:text="100%" />
 
     <TextView
         android:id="@+id/moderateBar_text"
@@ -168,7 +168,7 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="-18dp"
         android:layout_marginBottom="0dp"
-        android:text="Filling" />
+        android:text="50%" />
 
     <TextView
         android:id="@+id/mediumLotBar"
@@ -180,7 +180,7 @@
         android:layout_alignBottom="@+id/barChart"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="105dp"
+        android:layout_marginTop="108dp"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="65dp"
         android:background="#D5FFEB3B" />
