@@ -57,6 +57,7 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
     BarChart barChart;
     TextView tvStatus;
     TextView tvLot;
+    TextView tvDay;
 
     DatabaseReference database;
     DatabaseReference currentStatusDatabase;
@@ -87,6 +88,7 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
         btnSubmitPoll = view.findViewById(R.id.btnSubmitPoll);
 
         currDay = calendar.get(Calendar.DAY_OF_WEEK);
+        tvDay = view.findViewById(R.id.currentDay);
         dbDay = null;
 
         String lotName = getArguments().getString("params");
@@ -94,29 +96,29 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
         switch(currDay)
         {
             case Calendar.SUNDAY:
-                //CHANGE BACK TO CORRECT DAYS (ALL ARE MONDAY FOR TESTING PURPOSES)
-                dbDay = "monday";
+                dbDay = "sunday";
                 break;
             case Calendar.MONDAY:
                 dbDay = "monday";
                 break;
             case Calendar.TUESDAY:
-                dbDay = "monday";
+                dbDay = "tuesday";
                 break;
             case Calendar.WEDNESDAY:
-                dbDay = "monday";
+                dbDay = "wednesday";
                 break;
             case Calendar.THURSDAY:
-                dbDay = "monday";
+                dbDay = "thursday";
                 break;
             case Calendar.FRIDAY:
-                dbDay = "monday";
+                dbDay = "friday";
                 break;
             case Calendar.SATURDAY:
-                dbDay = "monday";
+                dbDay = "saturday";
                 break;
         }
 
+        tvDay.setText(dbDay);
         currentStatusDatabase = FirebaseDatabase.getInstance().getReference().child("lots").child(lotName).child("current_status").child("polls");
         pollDatabase = FirebaseDatabase.getInstance().getReference().child("lots").child(lotName).child("current_status").child("polls");
         respondantsDatabase = FirebaseDatabase.getInstance().getReference().child("lots").child(lotName).child("current_status").child("respondants");
@@ -305,7 +307,8 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
 
                 float currentStatus = polls/respondants;
 
-
+                int tvColor = Color.GREEN;
+                String tvCurrentStatus = "OPEN";
 
 
 
@@ -329,22 +332,22 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
                 }
 
                 //Set current status textviews
-                int tvColor = MainActivity.GREEN;
-                String tvCurrentStatus = "OPEN";
-
-                if(currentStatus <= MainActivity.OPEN) {
+                if(currentStatus >= 1 && currentStatus <= 1.4) {
                     tvCurrentStatus = "OPEN";
-                    tvColor = MainActivity.GREEN;
+                    tvColor = Color.GREEN;
                 }
-                else if(currentStatus > MainActivity.OPEN && currentStatus < MainActivity.MODERATE) {
+                else if(currentStatus > 1.4 && currentStatus < 2.4) {
                     tvCurrentStatus = "MODERATE";
-                    tvColor = MainActivity.YELLOW;
+                    tvColor = Color.YELLOW;
                 }
-                else if(currentStatus >= MainActivity.MODERATE && currentStatus <= MainActivity.FULL) {
+                else if(currentStatus >= 2.4 && currentStatus <= 3) {
                     tvCurrentStatus = "FULL";
-                    tvColor = MainActivity.RED;
+                    tvColor = Color.RED;
                 }
-
+                else {
+                    tvColor= Color.GREEN;
+                    tvCurrentStatus = "OPEN";
+                }
 
                 tvLot.setText(lotName);
 
