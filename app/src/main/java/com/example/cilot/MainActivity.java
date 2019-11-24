@@ -367,7 +367,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     switch(currDay)
                     {
                         case Calendar.SUNDAY:
-                            //CHANGE BACK TO CORRECT DAYS (ALL ARE MONDAY FOR TESTING PURPOSES)
                             dbDay = "sunday";
                             break;
                         case Calendar.MONDAY:
