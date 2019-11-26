@@ -359,7 +359,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                     //update current statuses
                     List lotNames = Arrays.asList(new String[] { "profile", "A1", "A2", "A3", "A4", "A5", "A6","A7", "A8", "A9", "A10", "A11"});
-                    String[] times = {"12pm", "1am", "2am", "3am", "4am", "5am", "6am", "7am", "8am", "9am", "10am", "11am", "12pm",
+                    String[] times = {"12am", "1am", "2am", "3am", "4am", "5am", "6am", "7am", "8am", "9am", "10am", "11am", "12pm",
                             "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "7pm", "8pm", "9pm", "10pm", "11pm"};
                     Calendar calendar = Calendar.getInstance();
                     int currDay = calendar.get(Calendar.DAY_OF_WEEK);
