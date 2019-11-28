@@ -72,6 +72,7 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
     RadioButton radioButtonSelected;
 
     ImageButton cautionButton;
+    boolean cautionOn;
 
     Calendar calendar = Calendar.getInstance();
     int currDay;
@@ -140,10 +141,14 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
                         if(dataSnapshot.getValue().toString().equals("true"))
                         {
                             coneVisiblity.setValue("false");
+                            cautionOn = false;
                         }
                         else
                         {
                             coneVisiblity.setValue("true");
+                            tvStatus.setText("CLOSED");
+                            tvStatus.setTextColor(Color.parseColor("#FFA200"));
+                            cautionOn = true;
                         }
                     }
 
@@ -362,12 +367,13 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
 
                 //Set current status textviews
 
-                if(cautionButton.getVisibility() == View.VISIBLE)
+                if(cautionOn)
                 {
                     tvCurrentStatus = "CLOSED";
                     tvColor = Color.parseColor("#FFA200");
                 }
-                else {
+                else
+                {
                     if (currentStatus >= 1 && currentStatus <= 1.4)
                     {
                         tvCurrentStatus = "OPEN";
