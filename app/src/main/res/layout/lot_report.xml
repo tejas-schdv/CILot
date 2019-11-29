@@ -5,14 +5,15 @@
     android:layout_height="match_parent"
     >
 
-    <ImageView
-        android:layout_width="52dp"
-        android:layout_height="44dp"
+    <ImageButton
+        android:id="@+id/caution_button"
+        android:layout_width="55dp"
+        android:layout_height="47dp"
         android:layout_alignBottom="@+id/barChart"
         android:layout_alignParentTop="true"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="11dp"
-        android:layout_marginBottom="139dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="137dp"
         android:layout_toEndOf="@+id/tvStatus"
         android:scaleType="fitXY"
         android:src="@drawable/warning" />

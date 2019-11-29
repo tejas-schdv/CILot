@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -62,6 +63,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DatabaseReference database;
     DatabaseReference buttonColors;
     DatabaseReference buttonColors2;
+    DatabaseReference coneVisibility;
+
+    ImageView coneImage;
 
     NavigationView navigationView;
 
@@ -87,6 +91,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         final Button[] mapButtons = {button_a1, button_a2, button_a3, button_a4, button_a5, button_a6,
                 button_a7, button_a8, button_a9, button_a10, button_a11};
+
+        coneImage = findViewById(R.id.coneLot1);
 
         button_a1.setOnClickListener(this);
         button_a2.setOnClickListener(this);
@@ -138,6 +144,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         {
             changeButtonColors(mapButtons[k], lotNames[k]);
         }
+        setConeVisibility(lotNames[0]);
 
         //change button colors
         //buttonColors = FirebaseDatabase.getInstance().getReference().child("lots");
@@ -159,6 +166,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });*/
 
+    }
+
+    private void setConeVisibility(final String lotName) {
+        coneVisibility = FirebaseDatabase.getInstance().getReference().child("lots").child(lotName).child("cautionVisible");
+        coneVisibility.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.getValue().toString().equals("true"))
+                {
+                    coneImage.setVisibility(View.VISIBLE);
+                }
+                else
+                {
+                    coneImage.setVisibility(View.INVISIBLE);
+                }
+                setConeVisibility(lotName);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
@@ -359,7 +389,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                     //update current statuses
                     List lotNames = Arrays.asList(new String[] { "profile", "A1", "A2", "A3", "A4", "A5", "A6","A7", "A8", "A9", "A10", "A11"});
-                    String[] times = {"12pm", "1am", "2am", "3am", "4am", "5am", "6am", "7am", "8am", "9am", "10am", "11am", "12pm",
+                    String[] times = {"12am", "1am", "2am", "3am", "4am", "5am", "6am", "7am", "8am", "9am", "10am", "11am", "12pm",
                             "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "7pm", "8pm", "9pm", "10pm", "11pm"};
                     Calendar calendar = Calendar.getInstance();
                     int currDay = calendar.get(Calendar.DAY_OF_WEEK);
