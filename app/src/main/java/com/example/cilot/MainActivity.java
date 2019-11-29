@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         database.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(CURRENT_HOUR != Integer.parseInt(dataSnapshot.getValue().toString()))
+                //if(CURRENT_HOUR != Integer.parseInt(dataSnapshot.getValue().toString()))
                 {
                     database.setValue(CURRENT_HOUR);
                 }
