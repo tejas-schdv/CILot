@@ -240,8 +240,6 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
                     baseDataFloat[i] = Float.parseFloat(baseDataString[i]);
                 }
 
-
-
                 //replace current bar hour in graph with live data
                 ArrayList<BarEntry> barEntries = new ArrayList<>();
                 int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
@@ -297,7 +295,6 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
 
 
                 //FORMAT x-axis
-
                 final ArrayList<String> xLabel = new ArrayList<>();
                 xLabel.add("6AM");
                 xLabel.add("7AM");

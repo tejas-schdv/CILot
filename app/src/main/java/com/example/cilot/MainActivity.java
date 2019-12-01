@@ -65,7 +65,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DatabaseReference buttonColors2;
     DatabaseReference coneVisibility;
 
-    ImageView coneImage;
+    ImageView coneImage_a1;
+    ImageView coneImage_a2;
+    ImageView coneImage_a3;
+    ImageView coneImage_a4;
+    ImageView coneImage_a5;
+    ImageView coneImage_a6;
+    ImageView coneImage_a7;
+    ImageView coneImage_a8;
+    ImageView coneImage_a9;
+    ImageView coneImage_a10;
+    ImageView coneImage_a11;
 
     NavigationView navigationView;
 
@@ -76,6 +86,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         Calendar calendar = Calendar.getInstance();
         CURRENT_HOUR = calendar.get(Calendar.HOUR_OF_DAY);
+
+        coneImage_a1 = findViewById(R.id.coneLot1);
+        coneImage_a2 = findViewById(R.id.coneLot2);
+        coneImage_a3 = findViewById(R.id.coneLot3);
+        coneImage_a4 = findViewById(R.id.coneLot4);
+        coneImage_a5 = findViewById(R.id.coneLot5);
+        coneImage_a6 = findViewById(R.id.coneLot6);
+        coneImage_a7 = findViewById(R.id.coneLot7);
+        coneImage_a8 = findViewById(R.id.coneLot8);
+        coneImage_a9 = findViewById(R.id.coneLot9);
+        coneImage_a10 = findViewById(R.id.coneLot10);
+        coneImage_a11 = findViewById(R.id.coneLot11);
 
         Button button_a1 = findViewById(R.id.button_a1);
         Button button_a2 = findViewById(R.id.button_a2);
@@ -92,8 +114,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         final Button[] mapButtons = {button_a1, button_a2, button_a3, button_a4, button_a5, button_a6,
                 button_a7, button_a8, button_a9, button_a10, button_a11};
 
-        coneImage = findViewById(R.id.coneLot1);
-
         button_a1.setOnClickListener(this);
         button_a2.setOnClickListener(this);
         button_a3.setOnClickListener(this);
@@ -109,11 +129,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
         drawer = findViewById(R.id.drawer_layout);
 
         navigationView = findViewById(R.id.nav_view);
-
         navigationView.setNavigationItemSelectedListener(this);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -127,7 +145,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         database.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                //if(CURRENT_HOUR != Integer.parseInt(dataSnapshot.getValue().toString()))
+                if(CURRENT_HOUR != Integer.parseInt(dataSnapshot.getValue().toString()))
                 {
                     database.setValue(CURRENT_HOUR);
                 }
@@ -143,8 +161,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         for(int k = 0; k < lotNames.length; k++)
         {
             changeButtonColors(mapButtons[k], lotNames[k]);
+            setConeVisibility(lotNames[k]);
         }
-        setConeVisibility(lotNames[0]);
+
 
         //change button colors
         //buttonColors = FirebaseDatabase.getInstance().getReference().child("lots");
@@ -173,15 +192,53 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         coneVisibility.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                int visibility;
                 if(dataSnapshot.getValue().toString().equals("true"))
                 {
-                    coneImage.setVisibility(View.VISIBLE);
+                    visibility = (View.VISIBLE);
                 }
                 else
                 {
-                    coneImage.setVisibility(View.INVISIBLE);
+                    visibility = (View.INVISIBLE);
                 }
-                setConeVisibility(lotName);
+
+                switch(lotName){
+                    case "A1":
+                        coneImage_a1.setVisibility(visibility);
+                        break;
+                    case "A2":
+                        coneImage_a2.setVisibility(visibility);
+                        break;
+                    case "A3":
+                        coneImage_a3.setVisibility(visibility);
+                        break;
+                    case "A4":
+                        coneImage_a4.setVisibility(visibility);
+                        break;
+                    case "A5":
+                        coneImage_a5.setVisibility(visibility);
+                        break;
+                    case "A6":
+                        coneImage_a6.setVisibility(visibility);
+                        break;
+                    case "A7":
+                        coneImage_a7.setVisibility(visibility);
+                        break;
+                    case "A8":
+                        coneImage_a8.setVisibility(visibility);
+                        break;
+                    case "A9":
+                        coneImage_a9.setVisibility(visibility);
+                        break;
+                    case "A10":
+                        coneImage_a10.setVisibility(visibility);
+                        break;
+                    case "A11":
+                        coneImage_a11.setVisibility(visibility);
+                        break;
+                    default:
+                        System.out.println("ERROR!!!");
+                }
             }
 
             @Override

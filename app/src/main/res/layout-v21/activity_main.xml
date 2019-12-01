@@ -30,22 +30,108 @@
 
     </LinearLayout>
 
-
-
-    <ImageView
-        android:id="@+id/coneLot1"
-        android:layout_width="77dp"
-        android:layout_height="77dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="6dp"
-        android:elevation="100dp"
-        android:src="@drawable/cone"/>
-
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
+        <ImageView
+            android:id="@+id/coneLot1"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="220dp"
+            android:layout_marginTop="180dp"
+            android:elevation="100dp"
+            android:src="@drawable/cone" />
+
+        <ImageView
+            android:id="@+id/coneLot2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="310dp"
+            android:layout_marginTop="120dp"
+            android:elevation="100dp"
+            android:src="@drawable/cone" />
+
+        <ImageView
+            android:id="@+id/coneLot3"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="190dp"
+            android:layout_marginTop="25dp"
+            android:elevation="100dp"
+            android:src="@drawable/cone" />
+
+        <ImageView
+            android:id="@+id/coneLot4"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="120dp"
+            android:elevation="100dp"
+            android:src="@drawable/cone" />
+
+        <ImageView
+            android:id="@+id/coneLot5"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="410dp"
+            android:elevation="100dp"
+            android:src="@drawable/cone" />
+
+        <ImageView
+            android:id="@+id/coneLot6"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="280dp"
+            android:layout_marginTop="230dp"
+            android:elevation="100dp"
+            android:src="@drawable/cone" />
+
+        <ImageView
+            android:id="@+id/coneLot7"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="280dp"
+            android:layout_marginTop="510dp"
+            android:elevation="100dp"
+            android:src="@drawable/cone" />
+
+        <ImageView
+            android:id="@+id/coneLot8"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="350dp"
+            android:layout_marginTop="310dp"
+            android:elevation="100dp"
+            android:src="@drawable/cone" />
+
+        <ImageView
+            android:id="@+id/coneLot9"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="280dp"
+            android:layout_marginTop="420dp"
+            android:elevation="100dp"
+            android:src="@drawable/cone" />
+
+        <ImageView
+            android:id="@+id/coneLot10"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="280dp"
+            android:layout_marginTop="600dp"
+            android:elevation="100dp"
+            android:src="@drawable/cone" />
+
+        <ImageView
+            android:id="@+id/coneLot11"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="100dp"
+            android:elevation="100dp"
+            android:src="@drawable/cone" />
 
         <Button
             android:id="@+id/button_a1"
@@ -64,10 +150,10 @@
             android:layout_height="83dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="337dp"
-            android:layout_marginTop="155dp"
+            android:layout_marginLeft="335dp"
+            android:layout_marginTop="143dp"
             android:text="A2"
-            android:textSize="17dp"/>
+            android:textSize="17dp" />
 
         <Button
             android:id="@+id/button_a3"
