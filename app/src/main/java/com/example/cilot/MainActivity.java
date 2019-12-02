@@ -189,7 +189,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void setConeVisibility(final String lotName) {
         coneVisibility = FirebaseDatabase.getInstance().getReference().child("lots").child(lotName).child("cautionVisible");
-        coneVisibility.addListenerForSingleValueEvent(new ValueEventListener() {
+
+        coneVisibility.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 int visibility;
@@ -202,7 +203,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     visibility = (View.INVISIBLE);
                 }
 
-                switch(lotName){
+                switch(lotName)
+                {
                     case "A1":
                         coneImage_a1.setVisibility(visibility);
                         break;

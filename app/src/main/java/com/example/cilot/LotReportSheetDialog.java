@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -78,7 +79,6 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
     int currDay;
     String dbDay;
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
@@ -132,6 +132,7 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
         currentStatusTimeDatabase = FirebaseDatabase.getInstance().getReference().child("lots").child(lotName).child("current_status").child("time");
 
         coneVisiblity = FirebaseDatabase.getInstance().getReference().child("lots").child(lotName).child("cautionVisible");
+
         cautionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -363,7 +364,6 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
                 }
 
                 //Set current status textviews
-
                 if(cautionOn)
                 {
                     tvCurrentStatus = "CLOSED";
