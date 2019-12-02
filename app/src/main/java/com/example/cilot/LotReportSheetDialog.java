@@ -73,7 +73,7 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
     RadioButton radioButtonSelected;
 
     ImageButton cautionButton;
-    boolean cautionOn;
+    boolean cautionOn = false;
 
     Calendar calendar = Calendar.getInstance();
     int currDay;
@@ -132,7 +132,20 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
         currentStatusTimeDatabase = FirebaseDatabase.getInstance().getReference().child("lots").child(lotName).child("current_status").child("time");
 
         coneVisiblity = FirebaseDatabase.getInstance().getReference().child("lots").child(lotName).child("cautionVisible");
+        coneVisiblity.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.getValue().toString().equals("true"))
+                {
+                    cautionOn = true;
+                }
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
         cautionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
