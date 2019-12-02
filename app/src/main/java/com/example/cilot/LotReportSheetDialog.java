@@ -32,6 +32,7 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -53,6 +54,8 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
     public static int GRAPH_ENTRIES = 13;
     public static int MODERATE = 2;
     public static int FULL = 3;
+
+
 
     BarChart barChart;
     TextView tvStatus;
@@ -90,6 +93,7 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
         currDay = calendar.get(Calendar.DAY_OF_WEEK);
         tvDay = view.findViewById(R.id.currentDay);
         dbDay = null;
+
 
         String lotName = getArguments().getString("params");
 
@@ -333,6 +337,7 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
 
                 //Set current status textviews
                 if(currentStatus >= 1 && currentStatus <= 1.4) {
+
                     tvCurrentStatus = "OPEN";
                     tvColor = Color.GREEN;
                 }
