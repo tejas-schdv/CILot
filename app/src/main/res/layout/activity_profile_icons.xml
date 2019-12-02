@@ -19,21 +19,23 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="140dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_below="@+id/btnBack_icons"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="-4dp"
+        android:scaleType="centerInside"
         app:srcCompat="@drawable/echo" />
 
     <ProgressBar
-        android:id="@+id/progressBar"
+        android:id="@+id/playerLevelBar"
         style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="10dp"
         android:layout_below="@id/imageView"
         android:layout_centerHorizontal="true"
-        android:progress="75"
-
-        />
+        android:progress="10"
+        android:saveEnabled="true" />
 
     <TextView
         android:id="@+id/textView2"
