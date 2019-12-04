@@ -10,11 +10,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+<<<<<<< HEAD
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+=======
+>>>>>>> Absalon
 
 public class profile_icons extends AppCompatActivity {
 
@@ -31,6 +34,7 @@ public class profile_icons extends AppCompatActivity {
 //        View view = inflater.inflate(R.layout.lot_report,container,false);
         setContentView(R.layout.activity_profile_icons);
 
+<<<<<<< HEAD
         btnBack_icons = findViewById(R.id.btnBack_icons);
         Home = findViewById(R.id.home_button);
         playerLevelXPProgressBar = findViewById(R.id.playerLevelBar);
@@ -92,6 +96,8 @@ public class profile_icons extends AppCompatActivity {
             }
         });
 
+=======
+>>>>>>> Absalon
     }
 
 }

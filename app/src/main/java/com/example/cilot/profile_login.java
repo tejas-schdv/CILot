@@ -6,7 +6,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+<<<<<<< HEAD
 import android.widget.ProgressBar;
+=======
+>>>>>>> Absalon
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -51,6 +54,7 @@ public class profile_login extends AppCompatActivity {
                         break;
                 }
             }
+<<<<<<< HEAD
             private void signIn() {
                 Intent signInIntent = mGoogleSignInClient.getSignInIntent();
                 startActivityForResult(signInIntent, 1);
@@ -83,6 +87,8 @@ public class profile_login extends AppCompatActivity {
 //                startActivity(intent);
 //            }
 //        });
+=======
+>>>>>>> Absalon
 
 
     }

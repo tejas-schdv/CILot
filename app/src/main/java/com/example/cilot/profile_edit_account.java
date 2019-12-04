@@ -8,6 +8,7 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+
 public class profile_edit_account extends AppCompatActivity {
 
     EditText etFN, etLN, etEmail, etPassword;
@@ -52,4 +53,6 @@ public class profile_edit_account extends AppCompatActivity {
             }
         });
     }
+
+
 }

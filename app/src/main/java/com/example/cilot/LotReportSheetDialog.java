@@ -55,7 +55,13 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
     public static int GRAPH_ENTRIES = 13;
     public static int MODERATE = 2;
     public static int FULL = 3;
+<<<<<<< HEAD
     public static int progress=0;
+=======
+
+
+
+>>>>>>> Absalon
     BarChart barChart;
     TextView tvStatus;
     TextView tvLot;
@@ -109,6 +115,7 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
         currDay = calendar.get(Calendar.DAY_OF_WEEK);
         tvDay = view.findViewById(R.id.currentDay);
         dbDay = null;
+
 
         String lotName = getArguments().getString("params");
 
@@ -379,6 +386,7 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
 
                 //Set current status textviews
                 if(currentStatus >= 1 && currentStatus <= 1.4) {
+
                     tvCurrentStatus = "OPEN";
                     tvColor = Color.GREEN;
                 }
