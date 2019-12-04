@@ -7,12 +7,17 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,12 +34,17 @@ public class profile_icons extends AppCompatActivity {
     TextView level;
     Button Home;
     int playerLevel = 1;
+    GoogleSignInClient mGoogleSignInClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 //        View view = inflater.inflate(R.layout.lot_report,container,false);
         setContentView(R.layout.activity_profile_icons);
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         btnBack_icons = findViewById(R.id.btnBack_icons);
         Home = findViewById(R.id.home_button);
@@ -85,8 +95,14 @@ public class profile_icons extends AppCompatActivity {
         btnBack_icons.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(profile_icons.this, com.example.cilot.profile_edit_account.class);
-                startActivity(intent);
+                /*Intent intent = new Intent(profile_icons.this, com.example.cilot.profile_edit_account.class);
+                startActivity(intent);*/
+                switch (v.getId()) {
+                    // ...
+                    case R.id.btnBack_icons:
+                        signOut();
+                        break;
+                }
             }
         });
 
@@ -108,5 +124,17 @@ public class profile_icons extends AppCompatActivity {
             Uri personPhoto = acct.getPhotoUrl();
         }
     }
+
+    private void signOut() {
+        mGoogleSignInClient.signOut()
+                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Toast.makeText(profile_icons.this, "Signed Out Successfully", Toast.LENGTH_LONG).show();
+                        finish();
+                    }
+                });
+    }
+
 
 }
