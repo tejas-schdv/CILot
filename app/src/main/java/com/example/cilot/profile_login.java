@@ -9,22 +9,57 @@ import android.widget.EditText;
 <<<<<<< HEAD
 import android.widget.ProgressBar;
 =======
+import android.widget.Toast;
 >>>>>>> Absalon
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentActivity;
 
+import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInApi;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.Api;
 import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.common.api.GoogleApi;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.io.FileDescriptor;
+import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 public class profile_login extends AppCompatActivity {
 
+    int RC_SIGN_IN = 0;
+
     EditText etUsername, etPassword;
-    Button btnBack, btnLogin, btnCreateAccount;
+    Button btnBack, btnLogin, btnCreateAccount, btnSignOut;
+
+    SignInButton signInButton;
+    GoogleSignInClient mGoogleSignInClient;
 
 
     @Override
@@ -32,18 +67,13 @@ public class profile_login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_login);
 
-        etUsername = findViewById(R.id.etUsername);
-        etPassword = findViewById(R.id.etPassword);
 
-        btnBack = findViewById(R.id.btnBack_login);
-        btnLogin = findViewById(R.id.btnLogin);
-        btnCreateAccount = findViewById(R.id.btnCreateAccount);
-        SignInButton signInButton = findViewById(R.id.sign_in_button);
-        signInButton.setSize(SignInButton.SIZE_STANDARD);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
 
-        final GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+        signInButton = findViewById(R.id.sign_in_button);
 
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,9 +118,20 @@ public class profile_login extends AppCompatActivity {
 //            }
 //        });
 =======
+        });
+    }
 >>>>>>> Absalon
 
+    private void signIn() {
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        //intent
     }
 
     @Override
@@ -98,24 +139,26 @@ public class profile_login extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
-        if (requestCode == 1) {
+        if (requestCode == RC_SIGN_IN) {
             // The Task returned from this call is always completed, no need to attach
             // a listener.
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            //handleSignInResult(task);
+            handleSignInResult(task);
         }
     }
+
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
 
             // Signed in successfully, show authenticated UI.
-            //updateUI(account);
+            Intent intent = new Intent(profile_login.this, profile_icons.class);
+            startActivity(intent);
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
-            Log.w("profile_login", "signInResult:failed code=" + e.getStatusCode());
-            //updateUI(null);
+            Log.w("Error", "signInResult:failed code=" + e.getStatusCode());
         }
     }
+
 }
