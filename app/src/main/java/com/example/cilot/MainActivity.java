@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -65,17 +66,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DatabaseReference buttonColors2;
     DatabaseReference coneVisibility;
 
-    ImageView coneImage_a1;
-    ImageView coneImage_a2;
-    ImageView coneImage_a3;
-    ImageView coneImage_a4;
-    ImageView coneImage_a5;
-    ImageView coneImage_a6;
-    ImageView coneImage_a7;
-    ImageView coneImage_a8;
-    ImageView coneImage_a9;
-    ImageView coneImage_a10;
-    ImageView coneImage_a11;
+    ImageButton coneImage_a1;
+    ImageButton coneImage_a2;
+    ImageButton coneImage_a3;
+    ImageButton coneImage_a4;
+    ImageButton coneImage_a5;
+    ImageButton coneImage_a6;
+    ImageButton coneImage_a7;
+    ImageButton coneImage_a8;
+    ImageButton coneImage_a9;
+    ImageButton coneImage_a10;
+    ImageButton coneImage_a11;
 
     NavigationView navigationView;
 
@@ -98,6 +99,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         coneImage_a9 = findViewById(R.id.coneLot9);
         coneImage_a10 = findViewById(R.id.coneLot10);
         coneImage_a11 = findViewById(R.id.coneLot11);
+
+        coneImage_a1.setOnClickListener(this);
+        coneImage_a2.setOnClickListener(this);
+        coneImage_a3.setOnClickListener(this);
+        coneImage_a4.setOnClickListener(this);
+        coneImage_a5.setOnClickListener(this);
+        coneImage_a6.setOnClickListener(this);
+        coneImage_a7.setOnClickListener(this);
+        coneImage_a8.setOnClickListener(this);
+        coneImage_a9.setOnClickListener(this);
+        coneImage_a11.setOnClickListener(this);
+
 
         Button button_a1 = findViewById(R.id.button_a1);
         Button button_a2 = findViewById(R.id.button_a2);
@@ -426,6 +439,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 bottomSheetA11.setArguments(bundleA11);
                 bottomSheetA11.show(getSupportFragmentManager(), "exampleBottomSheet");
                 break;
+
+            case R.id.coneLot1:
+                break;
         }
     }
 
@@ -538,6 +554,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //public void updateCurrentStatus
 
+    public void onConeClick(View v)
+    {
+
     }
-
-
+}
