@@ -53,12 +53,13 @@ public class profile_icons extends AppCompatActivity {
                 }
 
                 if (Integer.parseInt(dataSnapshot.getValue().toString()) < 100) {
+                    playerLevel = 1;
                     level.setText(String.valueOf(1));
                 } else if (Integer.parseInt(dataSnapshot.getValue().toString()) > 99 && Integer.parseInt(dataSnapshot.getValue().toString()) < 200) {
-                    playerLevel =2;
+                    playerLevel = 2;
                     level.setText(String.valueOf(2));
                 } else {
-                    playerLevel =3;
+                    playerLevel = 3;
                     level.setText(String.valueOf(3));
                 }
             }
