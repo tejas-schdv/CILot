@@ -11,6 +11,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -18,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.viewpager.widget.ViewPager;
 
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
@@ -28,6 +30,8 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.util.ArrayUtils;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
@@ -35,6 +39,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.collection.LLRBNode;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -54,6 +59,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static int GREEN = Color.parseColor("#69ff73");
     public static int YELLOW = Color.parseColor("#f2ff5e");
     public static int RED = Color.parseColor("#fc3d3d");
+    private ViewPager viewPager;
+
 
 
     private DrawerLayout drawer;
@@ -64,6 +71,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     NavigationView navigationView;
 
+    GoogleSignInAccount account;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         Calendar calendar = Calendar.getInstance();
         CURRENT_HOUR = calendar.get(Calendar.HOUR_OF_DAY);
+
 
         Button button_a1 = findViewById(R.id.button_a1);
         Button button_a2 = findViewById(R.id.button_a2);
@@ -103,14 +113,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
 
 
+
+
         drawer = findViewById(R.id.drawer_layout);
 
         navigationView = findViewById(R.id.nav_view);
+
         navigationView.setNavigationItemSelectedListener(this);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setItemIconTintList(null);
+
         //navigationView.getMenu().getItem(1).setIcon(R.drawable.car_green);
 
         //update time in database
@@ -167,6 +181,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 LotReportSheetDialog bottomSheetA1 = new LotReportSheetDialog();
                 bottomSheetA1.setArguments(bundleA1);
                 bottomSheetA1.show(getSupportFragmentManager(), "exampleBottomSheet");
+
                 break;
 
             case R.id.lot_a2:
@@ -242,6 +257,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 bottomSheetA11.setArguments(bundleA11);
                 bottomSheetA11.show(getSupportFragmentManager(), "exampleBottomSheet");
                 break;
+            case R.id.profile:
+                account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
+                if(account == null) {
+                    Intent intent = new Intent(MainActivity.this, com.example.cilot.profile_login.class);
+                    startActivity(intent);
+                }
+                else{
+                    Intent intent = new Intent(MainActivity.this, com.example.cilot.profile_icons.class);
+                    startActivity(intent);
+                }
+                break;
         }
 
         drawer.closeDrawer(GravityCompat.START);
@@ -258,7 +284,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 bundleA1.putString("params","A1");
                 LotReportSheetDialog bottomSheetA1 = new LotReportSheetDialog();
                 bottomSheetA1.setArguments(bundleA1);
+//                viewPager.setCurrentItem(nextposition):
                 bottomSheetA1.show(getSupportFragmentManager(), "exampleBottomSheet");
+
                 break;
             case R.id.button_a2:
                 Bundle bundleA2 = new Bundle();
@@ -352,7 +380,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                     //update current statuses
                     List lotNames = Arrays.asList(new String[] { "profile", "A1", "A2", "A3", "A4", "A5", "A6","A7", "A8", "A9", "A10", "A11"});
-                    String[] times = {"12pm", "1am", "2am", "3am", "4am", "5am", "6am", "7am", "8am", "9am", "10am", "11am", "12pm",
+                    String[] times = {"12am", "1am", "2am", "3am", "4am", "5am", "6am", "7am", "8am", "9am", "10am", "11am", "12pm",
                             "1pm", "2pm", "3pm", "4pm", "5pm", "6pm", "7pm", "8pm", "9pm", "10pm", "11pm"};
                     Calendar calendar = Calendar.getInstance();
                     int currDay = calendar.get(Calendar.DAY_OF_WEEK);
@@ -360,26 +388,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     switch(currDay)
                     {
                         case Calendar.SUNDAY:
-                            //CHANGE BACK TO CORRECT DAYS (ALL ARE MONDAY FOR TESTING PURPOSES)
-                            dbDay = "monday";
+                            dbDay = "sunday";
                             break;
                         case Calendar.MONDAY:
                             dbDay = "monday";
                             break;
                         case Calendar.TUESDAY:
-                            dbDay = "monday";
+                            dbDay = "tuesday";
                             break;
                         case Calendar.WEDNESDAY:
-                            dbDay = "monday";
+                            dbDay = "wednesday";
                             break;
                         case Calendar.THURSDAY:
-                            dbDay = "monday";
+                            dbDay = "thursday";
                             break;
                         case Calendar.FRIDAY:
-                            dbDay = "monday";
+                            dbDay = "friday";
                             break;
                         case Calendar.SATURDAY:
-                            dbDay = "monday";
+                            dbDay = "saturday";
                             break;
                     }
                     String currentStatusTime = dataSnapshot.child("current_status").child("time").getValue().toString();
@@ -415,14 +442,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                     if(currentStatus <= OPEN) {
                         btnColor = GREEN;
+                        button.setTextColor(Color.BLACK);
                         carColor = R.drawable.car_green;
                     }
                     else if(currentStatus > OPEN && currentStatus < MODERATE) {
                         btnColor = YELLOW;
+                        button.setTextColor(Color.BLACK);
                         carColor = R.drawable.car_yellow;
+
                     }
                     else if(currentStatus >= MODERATE && currentStatus <= FULL) {
                         btnColor = RED;
+                        button.setTextColor(Color.WHITE);
                         carColor = R.drawable.car_red;
                     }
 
