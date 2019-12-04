@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -81,6 +83,41 @@ public class profile_login extends AppCompatActivity {
             }
         });
     }
+            private void signIn() {
+                Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+                startActivityForResult(signInIntent, 1);
+            }
+
+        });
+
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //takes you to hamburger menu
+                Intent intent = new Intent(profile_login.this, com.example.cilot.MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(profile_login.this, com.example.cilot.profile_edit_account.class);
+                startActivity(intent);
+            }
+        });
+
+//        btnCreateAccount.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(profile_login.this, com.example.cilot.profile_create_account.class);
+//                startActivity(intent);
+//            }
+//        });
+=======
+        });
+    }
 
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
@@ -124,3 +161,4 @@ public class profile_login extends AppCompatActivity {
 }
 
 
+}

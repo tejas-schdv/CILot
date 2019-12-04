@@ -7,10 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.os.Handler;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -54,6 +56,7 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
     public static int GRAPH_ENTRIES = 13;
     public static int MODERATE = 2;
     public static int FULL = 3;
+    public static int progress=0;
 
 
 
@@ -67,28 +70,45 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
     DatabaseReference pollDatabase;
     DatabaseReference respondantsDatabase;
     DatabaseReference currentStatusTimeDatabase;
+    DatabaseReference user_points;
 
     Button btnSubmitPoll;
     RadioGroup radioGroupPoll;
     RadioButton radioButtonSelected;
 
+
+    ProgressBar simpleProgressBar1, simpleProgressBar2;
     Calendar calendar = Calendar.getInstance();
     int currDay;
     String dbDay;
 
 
+
+
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+    super.onCreateView(inflater,container,savedInstanceState);
+
         View view = inflater.inflate(R.layout.lot_report,container,false);
 
+
+        View view2 = inflater.inflate(R.layout.activity_profile_icons,container,false);
+
+
         barChart = (BarChart) view.findViewById(R.id.barChart);
+
+        // initiate progress bar
+        simpleProgressBar1 = (ProgressBar) view2.findViewById(R.id.playerLevelBar);
+
+
 
         tvStatus = view.findViewById(R.id.tvStatus);
         tvLot = view.findViewById(R.id.tvLot);
 
         radioGroupPoll = view.findViewById(R.id.poll);
         btnSubmitPoll = view.findViewById(R.id.btnSubmitPoll);
+
 
         currDay = calendar.get(Calendar.DAY_OF_WEEK);
         tvDay = view.findViewById(R.id.currentDay);
@@ -128,11 +148,18 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
         respondantsDatabase = FirebaseDatabase.getInstance().getReference().child("lots").child(lotName).child("current_status").child("respondants");
         currentStatusTimeDatabase = FirebaseDatabase.getInstance().getReference().child("lots").child(lotName).child("current_status").child("time");
 
+
+        user_points =  FirebaseDatabase.getInstance().getReference().child("users").child("107703088750367185275").child("points");
+
         btnSubmitPoll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 final int radioID = radioGroupPoll.getCheckedRadioButtonId();
                 radioButtonSelected = getView().findViewById(radioID);
+                progress+=20;
+
 
                 Toast.makeText(getContext(),"Selected " + radioButtonSelected.getText(), Toast.LENGTH_SHORT).show();
 
@@ -148,6 +175,7 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
                                 {
                                     case "Open":
                                         pollDatabase.setValue(pollCount + OPEN);
+//
                                         break;
                                     case "Moderate":
                                         pollDatabase.setValue(pollCount + MODERATE);
@@ -157,6 +185,7 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
                                 }
                             }
                         }
+//
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -181,6 +210,24 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
 
                         }
                     });
+
+            }
+
+
+        });
+
+
+        user_points.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                user_points.setValue(progress);
+                Bundle bundleA2 = new Bundle();
+                bundleA2.putString("params", dataSnapshot.getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
 
