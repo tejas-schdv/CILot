@@ -4,11 +4,13 @@ package com.example.cilot;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -46,7 +48,7 @@ import java.util.Calendar;
 import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, PopupMenu.OnMenuItemClickListener {
     public static int START_TIME = 6;
     public static int END_TIME = 18;
     public static double OPEN = 1.6;
@@ -78,6 +80,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     ImageButton coneImage_a10;
     ImageButton coneImage_a11;
 
+
+
     NavigationView navigationView;
 
     @Override
@@ -99,18 +103,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         coneImage_a9 = findViewById(R.id.coneLot9);
         coneImage_a10 = findViewById(R.id.coneLot10);
         coneImage_a11 = findViewById(R.id.coneLot11);
-
-        coneImage_a1.setOnClickListener(this);
-        coneImage_a2.setOnClickListener(this);
-        coneImage_a3.setOnClickListener(this);
-        coneImage_a4.setOnClickListener(this);
-        coneImage_a5.setOnClickListener(this);
-        coneImage_a6.setOnClickListener(this);
-        coneImage_a7.setOnClickListener(this);
-        coneImage_a8.setOnClickListener(this);
-        coneImage_a9.setOnClickListener(this);
-        coneImage_a11.setOnClickListener(this);
-
 
         Button button_a1 = findViewById(R.id.button_a1);
         Button button_a2 = findViewById(R.id.button_a2);
@@ -199,6 +191,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         });*/
 
     }
+
+//    @Override
+//    public boolean onContextItemSelected(@NonNull MenuItem item) {
+//
+//        switch(item.getItemId())
+//        {
+//            case R.id.cone_option1:
+//                Toast.makeText(this, "Option 1 Selected", T)
+//        }
+//        return super.onContextItemSelected(item);
+//
+//
+//    }
 
     private void setConeVisibility(final String lotName) {
         coneVisibility = FirebaseDatabase.getInstance().getReference().child("lots").child(lotName).child("cautionVisible");
@@ -439,12 +444,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 bottomSheetA11.setArguments(bundleA11);
                 bottomSheetA11.show(getSupportFragmentManager(), "exampleBottomSheet");
                 break;
-
-            case R.id.coneLot1:
-                break;
         }
     }
 
+    public void showPopup(View v)
+    {
+        PopupMenu popup = new PopupMenu(this, v);
+        popup.setOnMenuItemClickListener(this);
+        popup.inflate(R.menu.cone_menu);
+        popup.show();
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch(item.getItemId())
+        {
+            case R.id.cone_option1:
+                Toast.makeText(this, "Happy Face :)", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.cone_option2:
+                Toast.makeText(this, "Sad Face :(", Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return false;
+        }
+    }
 
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -553,9 +577,4 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         //public void updateCurrentStatus
-
-    public void onConeClick(View v)
-    {
-
-    }
 }
