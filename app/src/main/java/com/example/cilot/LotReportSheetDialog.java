@@ -55,7 +55,7 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
     public static int GRAPH_ENTRIES = 13;
     public static int MODERATE = 2;
     public static int FULL = 3;
-    public int progress = 0;
+    public static int progress=0;
     BarChart barChart;
     TextView tvStatus;
     TextView tvLot;
@@ -77,7 +77,7 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
     Calendar calendar = Calendar.getInstance();
     int currDay;
     String dbDay;
-    public int points=0;
+
 
 
 
@@ -85,18 +85,18 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
     super.onCreateView(inflater,container,savedInstanceState);
-        Handler progressBarHandler = new Handler();
+
         View view = inflater.inflate(R.layout.lot_report,container,false);
 
 
         View view2 = inflater.inflate(R.layout.activity_profile_icons,container,false);
-        View view3 = inflater.inflate(R.layout.activity_profile_edit_account,container,false);
+
 
         barChart = (BarChart) view.findViewById(R.id.barChart);
 
         // initiate progress bar
         simpleProgressBar1 = (ProgressBar) view2.findViewById(R.id.playerLevelBar);
-//        simpleProgressBar2 = (ProgressBar) view3.findViewById(R.id.progressBar);
+
 
 
         tvStatus = view.findViewById(R.id.tvStatus);
@@ -144,18 +144,16 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
         currentStatusTimeDatabase = FirebaseDatabase.getInstance().getReference().child("lots").child(lotName).child("current_status").child("time");
 
 
+        user_points =  FirebaseDatabase.getInstance().getReference().child("users").child("107703088750367185275").child("points");
 
         btnSubmitPoll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                user_points =  FirebaseDatabase.getInstance().getReference().child("users").child("107703088750367185275").child("points");
+
 
                 final int radioID = radioGroupPoll.getCheckedRadioButtonId();
                 radioButtonSelected = getView().findViewById(radioID);
-                progress+=30;
-//                points+=30;
-
-
+                progress+=20;
 
 
                 Toast.makeText(getContext(),"Selected " + radioButtonSelected.getText(), Toast.LENGTH_SHORT).show();
@@ -207,25 +205,25 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
 
                         }
                     });
-                user_points.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        user_points.setValue(progress);
-                        simpleProgressBar1.setProgress(Integer.parseInt(dataSnapshot.getValue().toString()));
-//                        progress = Integer.parseInt(user_points.toString());
-//                        simpleProgressBar1.setProgress(progress);
-//                        simpleProgressBar2.setProgress(progress);
-                    }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
             }
 
 
+        });
 
+
+        user_points.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                user_points.setValue(progress);
+                Bundle bundleA2 = new Bundle();
+                bundleA2.putString("params", dataSnapshot.getValue().toString());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
         });
 
         database = FirebaseDatabase.getInstance().getReference().child("lots").child(lotName);

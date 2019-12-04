@@ -253,7 +253,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 bottomSheetA11.show(getSupportFragmentManager(), "exampleBottomSheet");
                 break;
             case R.id.profile:
-                Intent intent = new Intent(MainActivity.this, com.example.cilot.profile_login.class);
+                Intent intent = new Intent(MainActivity.this, com.example.cilot.profile_icons.class);
                 startActivity(intent);
                 break;
         }
