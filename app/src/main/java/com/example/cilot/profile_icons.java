@@ -3,6 +3,7 @@ package com.example.cilot;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -16,6 +17,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -25,6 +27,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+
+import java.util.HashMap;
 
 public class profile_icons extends AppCompatActivity {
 
@@ -114,15 +118,36 @@ public class profile_icons extends AppCompatActivity {
             }
         });
 
-        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
-        if (acct != null) {
-            String personName = acct.getDisplayName();
-            String personGivenName = acct.getGivenName();
-            String personFamilyName = acct.getFamilyName();
-            String personEmail = acct.getEmail();
-            String personId = acct.getId();
-            Uri personPhoto = acct.getPhotoUrl();
-        }
+
+        final GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        final String uid = account.getId();
+
+        DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+        rootRef.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                if (snapshot.hasChild(uid)) {
+                    //do nothing
+                }
+                else
+                {
+                    DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("users");
+                    HashMap<String, Object> user_data = new HashMap<>();
+                    user_data.put("email", account.getEmail());
+                    user_data.put("points", 0);
+                    user_data.put("name", account.getDisplayName());
+                    user_data.put("level", 0);
+
+                    usersRef.child(uid).setValue(user_data);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     private void signOut() {
@@ -135,6 +160,5 @@ public class profile_icons extends AppCompatActivity {
                     }
                 });
     }
-
 
 }

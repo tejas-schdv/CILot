@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -53,8 +54,6 @@ public class profile_login extends AppCompatActivity {
 
     int RC_SIGN_IN = 0;
 
-    EditText etUsername, etPassword;
-    Button btnBack, btnLogin, btnCreateAccount, btnSignOut;
 
     SignInButton signInButton;
     GoogleSignInClient mGoogleSignInClient;
@@ -71,6 +70,7 @@ public class profile_login extends AppCompatActivity {
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         signInButton = findViewById(R.id.sign_in_button);
+        setGooglePlusButtonText(signInButton, "Sign in with Google");
 
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,17 +118,7 @@ public class profile_login extends AppCompatActivity {
             String uid = account.getId();
             //firebaseAuthWithGoogle(account);
 
-            if(checkFirebaseForUsername(uid) == 0) {
-                DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("users");
-                HashMap<String, Object> user_data = new HashMap<>();
-                user_data.put("email", account.getEmail());
-                user_data.put("points", 0);
-                user_data.put("name", account.getDisplayName());
 
-
-                usersRef.child(uid).setValue(user_data);
-
-           }
 
             // Signed in successfully, show authenticated UI.
             Intent intent = new Intent(profile_login.this, profile_icons.class);
@@ -140,38 +130,21 @@ public class profile_login extends AppCompatActivity {
         }
     }
 
-    public int checkFirebaseForUsername(String passedUsername){
-        final int[] flag = {0};
-        final String myPassedUsername = passedUsername;
-        Log.e("tag","working now");
-        //flag[0]=1;
+    protected void setGooglePlusButtonText(SignInButton signInButton, String buttonText) {
+        // Find the TextView that is inside of the SignInButton and set its text
+        for (int i = 0; i < signInButton.getChildCount(); i++) {
+            View v = signInButton.getChildAt(i);
 
-        DatabaseReference mTest = FirebaseDatabase.getInstance().getReference();
-
-        mTest.child("users").child(passedUsername).addValueEventListener(new ValueEventListener() {
-
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.e("tag","checking");
-
-                if(dataSnapshot.exists()){
-                    Log.e("tag","exists");
-                    flag[0]=1;
-                }
+            if (v instanceof TextView) {
+                TextView tv = (TextView) v;
+                tv.setText(buttonText);
+                return;
             }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-
-        });
-
-        if(flag[0]==1)
-            return 1;
-        else
-            return 0;
+        }
     }
 
+    public boolean isSignedIn() {
+        return GoogleSignIn.getLastSignedInAccount(this) != null;
+    }
 }
 
