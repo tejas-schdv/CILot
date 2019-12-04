@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,6 +22,7 @@ public class profile_login extends AppCompatActivity {
 
     EditText etUsername, etPassword;
     Button btnBack, btnLogin, btnCreateAccount;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,13 +76,13 @@ public class profile_login extends AppCompatActivity {
             }
         });
 
-        btnCreateAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(profile_login.this, com.example.cilot.profile_create_account.class);
-                startActivity(intent);
-            }
-        });
+//        btnCreateAccount.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(profile_login.this, com.example.cilot.profile_create_account.class);
+//                startActivity(intent);
+//            }
+//        });
 
 
     }
@@ -111,5 +113,3 @@ public class profile_login extends AppCompatActivity {
         }
     }
 }
-
-
