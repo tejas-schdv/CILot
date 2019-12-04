@@ -3,6 +3,7 @@ package com.example.cilot;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.MenuItem;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -83,6 +85,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
     NavigationView navigationView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -192,18 +195,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-//    @Override
-//    public boolean onContextItemSelected(@NonNull MenuItem item) {
-//
-//        switch(item.getItemId())
-//        {
-//            case R.id.cone_option1:
-//                Toast.makeText(this, "Option 1 Selected", T)
-//        }
-//        return super.onContextItemSelected(item);
-//
-//
-//    }
 
     private void setConeVisibility(final String lotName) {
         coneVisibility = FirebaseDatabase.getInstance().getReference().child("lots").child(lotName).child("cautionVisible");
@@ -447,11 +438,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.Q)
     public void showPopup(View v)
     {
         PopupMenu popup = new PopupMenu(this, v);
         popup.setOnMenuItemClickListener(this);
         popup.inflate(R.menu.cone_menu);
+        popup.setForceShowIcon(true);
         popup.show();
     }
 

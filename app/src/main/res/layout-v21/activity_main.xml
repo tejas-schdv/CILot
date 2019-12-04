@@ -54,6 +54,7 @@
             android:layout_marginTop="120dp"
             android:elevation="100dp"
             android:scaleType="fitXY"
+            android:onClick="showPopup"
             android:background="@null"
             android:src="@drawable/cone" />
 
@@ -65,6 +66,7 @@
             android:layout_marginTop="25dp"
             android:elevation="100dp"
             android:scaleType="fitXY"
+            android:onClick="showPopup"
             android:background="@null"
             android:src="@drawable/cone" />
 
@@ -76,6 +78,7 @@
             android:layout_marginTop="120dp"
             android:elevation="100dp"
             android:scaleType="fitXY"
+            android:onClick="showPopup"
             android:background="@null"
             android:src="@drawable/cone" />
 
@@ -87,6 +90,7 @@
             android:layout_marginTop="410dp"
             android:elevation="100dp"
             android:scaleType="fitXY"
+            android:onClick="showPopup"
             android:background="@null"
             android:src="@drawable/cone" />
 
@@ -98,6 +102,7 @@
             android:layout_marginTop="230dp"
             android:elevation="100dp"
             android:scaleType="fitXY"
+            android:onClick="showPopup"
             android:background="@null"
             android:src="@drawable/cone" />
 
@@ -109,6 +114,7 @@
             android:layout_marginTop="510dp"
             android:elevation="100dp"
             android:scaleType="fitXY"
+            android:onClick="showPopup"
             android:background="@null"
             android:src="@drawable/cone" />
 
@@ -120,6 +126,7 @@
             android:layout_marginTop="310dp"
             android:elevation="100dp"
             android:scaleType="fitXY"
+            android:onClick="showPopup"
             android:background="@null"
             android:src="@drawable/cone" />
 
@@ -131,6 +138,7 @@
             android:layout_marginTop="420dp"
             android:elevation="100dp"
             android:scaleType="fitXY"
+            android:onClick="showPopup"
             android:background="@null"
             android:src="@drawable/cone" />
 
@@ -142,6 +150,7 @@
             android:layout_marginTop="600dp"
             android:elevation="100dp"
             android:scaleType="fitXY"
+            android:onClick="showPopup"
             android:background="@null"
             android:src="@drawable/cone" />
 
@@ -153,6 +162,7 @@
             android:layout_marginTop="100dp"
             android:elevation="100dp"
             android:scaleType="fitXY"
+            android:onClick="showPopup"
             android:background="@null"
             android:src="@drawable/cone" />
 
