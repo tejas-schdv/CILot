@@ -115,6 +115,20 @@ public class profile_login extends AppCompatActivity {
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+            String uid = account.getId();
+            //firebaseAuthWithGoogle(account);
+
+            if(checkFirebaseForUsername(uid) == 0) {
+                DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("users");
+                HashMap<String, Object> user_data = new HashMap<>();
+                user_data.put("email", account.getEmail());
+                user_data.put("points", 0);
+                user_data.put("name", account.getDisplayName());
+
+
+                usersRef.child(uid).setValue(user_data);
+
+           }
 
             // Signed in successfully, show authenticated UI.
             Intent intent = new Intent(profile_login.this, profile_icons.class);
@@ -124,6 +138,39 @@ public class profile_login extends AppCompatActivity {
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
             Log.w("Error", "signInResult:failed code=" + e.getStatusCode());
         }
+    }
+
+    public int checkFirebaseForUsername(String passedUsername){
+        final int[] flag = {0};
+        final String myPassedUsername = passedUsername;
+        Log.e("tag","working now");
+        //flag[0]=1;
+
+        DatabaseReference mTest = FirebaseDatabase.getInstance().getReference();
+
+        mTest.child("users").child(passedUsername).addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Log.e("tag","checking");
+
+                if(dataSnapshot.exists()){
+                    Log.e("tag","exists");
+                    flag[0]=1;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+
+        });
+
+        if(flag[0]==1)
+            return 1;
+        else
+            return 0;
     }
 
 }
