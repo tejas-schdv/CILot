@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,6 +41,7 @@ public class profile_icons extends AppCompatActivity {
     int playerLevel = 1;
     GoogleSignInClient mGoogleSignInClient;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,12 +71,25 @@ public class profile_icons extends AppCompatActivity {
                 if (Integer.parseInt(dataSnapshot.getValue().toString()) < 100) {
                     playerLevel = 1;
                     level.setText(String.valueOf(1));
+                    ImageView image1 = (ImageView) findViewById(R.id.lock_lvl1);
+                    image1.setImageResource(R.drawable.echo);
                 } else if (Integer.parseInt(dataSnapshot.getValue().toString()) > 99 && Integer.parseInt(dataSnapshot.getValue().toString()) < 200) {
                     playerLevel = 2;
                     level.setText(String.valueOf(2));
+                    ImageView image1 = (ImageView) findViewById(R.id.lock_lvl1);
+                    image1.setImageResource(R.drawable.echo);
+                    ImageView image2 = (ImageView) findViewById(R.id.lock_lvl2);
+                    image2.setImageResource(R.drawable.buffy);
+
                 } else {
                     playerLevel = 3;
                     level.setText(String.valueOf(3));
+                    ImageView image1 = (ImageView) findViewById(R.id.lock_lvl1);
+                    image1.setImageResource(R.drawable.echo);
+                    ImageView image2 = (ImageView) findViewById(R.id.lock_lvl2);
+                    image2.setImageResource(R.drawable.buffy);
+                    ImageView image3 = (ImageView) findViewById(R.id.lock_lvl4);
+                    image3.setImageResource(R.drawable.ricardo);
                 }
             }
 
