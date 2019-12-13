@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DatabaseReference buttonColors;
     DatabaseReference buttonColors2;
     DatabaseReference coneVisibility;
+    DatabaseReference downVote;
 
     ImageButton coneImage_a1;
     ImageButton coneImage_a2;
@@ -81,8 +82,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     ImageButton coneImage_a9;
     ImageButton coneImage_a10;
     ImageButton coneImage_a11;
-
-
 
     NavigationView navigationView;
 
@@ -453,10 +452,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch(item.getItemId())
         {
             case R.id.cone_option1:
-                Toast.makeText(this, "Happy Face :)", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Upvoted +3", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.cone_option2:
-                Toast.makeText(this, "Sad Face :(", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Downvoted +3", Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 return false;
