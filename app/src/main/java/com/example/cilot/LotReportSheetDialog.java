@@ -146,23 +146,23 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
 
             }
         });
+
         cautionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 coneVisiblity.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        if(dataSnapshot.getValue().toString().equals("true"))
-                        {
-                            coneVisiblity.setValue("false");
-                            cautionOn = false;
-                        }
-                        else
+                        if(dataSnapshot.getValue().toString().equals("false"))
                         {
                             coneVisiblity.setValue("true");
                             tvStatus.setText("CLOSED");
                             tvStatus.setTextColor(Color.parseColor("#FFA200"));
                             cautionOn = true;
+                        }
+                        else
+                        {
+                            Toast.makeText(getContext(),"Cone Already Up",Toast.LENGTH_SHORT).show();
                         }
                     }
 
