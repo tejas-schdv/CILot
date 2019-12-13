@@ -202,7 +202,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void setConeVisibility(final String lotName) {
         coneVisibility = FirebaseDatabase.getInstance().getReference().child("lots").child(lotName).child("cautionVisible");
-
         coneVisibility.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -499,7 +498,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onMenuItemClick(MenuItem item) {
 
-        downVote = FirebaseDatabase.getInstance().getReference().child("lots").child(currentLot).child("DownVote");
+        downVote = FirebaseDatabase.getInstance().getReference().child("lots").child(currentLot);
         updatePoints = FirebaseDatabase.getInstance().getReference().child("users").child("100258805665862760972").child("points");
         updatePoints.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -527,17 +526,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 downVote.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        float downVoteValue = Float.parseFloat(dataSnapshot.getValue().toString());
+                        float downVoteValue = Float.parseFloat(dataSnapshot.child("DownVote").getValue().toString());
                         if(downVoteValue < 3)
                         {
                             downVoteValue++;
-                            downVote.setValue(downVoteValue);
+                            downVote.child("DownVote").setValue(downVoteValue);
                         }
                         else
                         {
                             downVoteValue = 0;
-                            downVote.setValue(downVoteValue);
+                            downVote.child("DownVote").setValue(downVoteValue);
                             updateConeVisiblility(currentLot);
+                            downVote.child("cautionVisible").setValue("false");
                         }
                     }
 
