@@ -3,17 +3,21 @@ package com.example.cilot;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+<<<<<<< HEAD
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
+=======
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
+>>>>>>> parent of 1e3a376... Merge branch 'Isaac'
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -35,7 +39,7 @@ import java.util.Calendar;
 import java.util.List;
 
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, PopupMenu.OnMenuItemClickListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
     public static int START_TIME = 6;
     public static int END_TIME = 18;
     public static double OPEN = 1.6;
@@ -55,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DatabaseReference database;
     DatabaseReference buttonColors;
     DatabaseReference buttonColors2;
+<<<<<<< HEAD
     DatabaseReference coneVisibility;
 
     ImageButton coneImage_a1;
@@ -68,6 +73,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     ImageButton coneImage_a9;
     ImageButton coneImage_a10;
     ImageButton coneImage_a11;
+=======
+>>>>>>> parent of 1e3a376... Merge branch 'Isaac'
 
 
 
@@ -83,17 +90,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Calendar calendar = Calendar.getInstance();
         CURRENT_HOUR = calendar.get(Calendar.HOUR_OF_DAY);
 
-        coneImage_a1 = findViewById(R.id.coneLot1);
-        coneImage_a2 = findViewById(R.id.coneLot2);
-        coneImage_a3 = findViewById(R.id.coneLot3);
-        coneImage_a4 = findViewById(R.id.coneLot4);
-        coneImage_a5 = findViewById(R.id.coneLot5);
-        coneImage_a6 = findViewById(R.id.coneLot6);
-        coneImage_a7 = findViewById(R.id.coneLot7);
-        coneImage_a8 = findViewById(R.id.coneLot8);
-        coneImage_a9 = findViewById(R.id.coneLot9);
-        coneImage_a10 = findViewById(R.id.coneLot10);
-        coneImage_a11 = findViewById(R.id.coneLot11);
 
         Button button_a1 = findViewById(R.id.button_a1);
         Button button_a2 = findViewById(R.id.button_a2);
@@ -125,9 +121,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
+
+
         drawer = findViewById(R.id.drawer_layout);
 
         navigationView = findViewById(R.id.nav_view);
+
         navigationView.setNavigationItemSelectedListener(this);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -157,9 +157,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         for(int k = 0; k < lotNames.length; k++)
         {
             changeButtonColors(mapButtons[k], lotNames[k]);
-            setConeVisibility(lotNames[k]);
         }
-
 
         //change button colors
         //buttonColors = FirebaseDatabase.getInstance().getReference().child("lots");
@@ -181,70 +179,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });*/
 
-    }
-
-
-    private void setConeVisibility(final String lotName) {
-        coneVisibility = FirebaseDatabase.getInstance().getReference().child("lots").child(lotName).child("cautionVisible");
-
-        coneVisibility.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                int visibility;
-                if(dataSnapshot.getValue().toString().equals("true"))
-                {
-                    visibility = (View.VISIBLE);
-                }
-                else
-                {
-                    visibility = (View.INVISIBLE);
-                }
-
-                switch(lotName)
-                {
-                    case "A1":
-                        coneImage_a1.setVisibility(visibility);
-                        break;
-                    case "A2":
-                        coneImage_a2.setVisibility(visibility);
-                        break;
-                    case "A3":
-                        coneImage_a3.setVisibility(visibility);
-                        break;
-                    case "A4":
-                        coneImage_a4.setVisibility(visibility);
-                        break;
-                    case "A5":
-                        coneImage_a5.setVisibility(visibility);
-                        break;
-                    case "A6":
-                        coneImage_a6.setVisibility(visibility);
-                        break;
-                    case "A7":
-                        coneImage_a7.setVisibility(visibility);
-                        break;
-                    case "A8":
-                        coneImage_a8.setVisibility(visibility);
-                        break;
-                    case "A9":
-                        coneImage_a9.setVisibility(visibility);
-                        break;
-                    case "A10":
-                        coneImage_a10.setVisibility(visibility);
-                        break;
-                    case "A11":
-                        coneImage_a11.setVisibility(visibility);
-                        break;
-                    default:
-                        System.out.println("ERROR!!!");
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
     }
 
     @Override
@@ -436,6 +370,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
+<<<<<<< HEAD
     @RequiresApi(api = Build.VERSION_CODES.Q)
     public void showPopup(View v)
     {
@@ -460,6 +395,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return false;
         }
     }
+=======
+>>>>>>> parent of 1e3a376... Merge branch 'Isaac'
 
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -569,4 +506,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         //public void updateCurrentStatus
-}
+
+    }
+
+
