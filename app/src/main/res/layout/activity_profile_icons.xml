@@ -151,7 +151,7 @@
                 app:srcCompat="@drawable/lock" />
 
             <ImageView
-                android:id="@+id/lock_lvl4"
+                android:id="@+id/lock_lvl3"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
                 android:layout_marginStart="65dp"
@@ -188,16 +188,16 @@
             <!--     LINE 2       -->
 
             <TextView
-                android:id="@+id/lvl4_text"
+                android:id="@+id/lvl3_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/lock_lvl4"
+                android:layout_below="@+id/lock_lvl3"
                 android:layout_marginStart="105dp"
                 android:layout_marginLeft="105dp"
                 android:layout_marginTop="10dp"
                 android:layout_toEndOf="@id/lvl2_text"
                 android:layout_toRightOf="@id/lvl2_text"
-                android:text="lvl 4"
+                android:text="lvl 3"
                 android:textStyle="bold" />
 
             <ImageView
@@ -227,7 +227,7 @@
                 android:id="@+id/lock_lvl10"
                 android:layout_width="65dp"
                 android:layout_height="65dp"
-                android:layout_below="@+id/lvl4_text"
+                android:layout_below="@+id/lvl3_text"
                 android:layout_marginStart="65dp"
                 android:layout_marginLeft="65dp"
                 android:layout_marginTop="20dp"
@@ -419,6 +419,21 @@
                 android:layout_toRightOf="@id/lvl8_text"
                 android:text="lvl 22"
                 android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/level1_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/lock_lvl1"
+                android:layout_alignTop="@+id/lock_lvl1"
+                android:layout_alignEnd="@+id/lock_lvl1"
+                android:layout_alignBottom="@+id/lock_lvl1"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_marginBottom="0dp"
+                android:background="@android:color/transparent"
+                android:visibility="visible" />
 
 
         </RelativeLayout>
