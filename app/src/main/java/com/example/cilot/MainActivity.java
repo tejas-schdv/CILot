@@ -85,6 +85,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     NavigationView navigationView;
 
+    DatabaseReference downVoteCount;
+    DatabaseReference updatePoints;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -449,6 +452,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
+        updatePoints = FirebaseDatabase.getInstance().getReference().child("users").child("100258805665862760972").child("points");
+        updatePoints.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String currentPoints = dataSnapshot.getValue().toString();
+                float addPoints = 0;
+                addPoints = Float.parseFloat(currentPoints);
+                addPoints+=3;
+                updatePoints.setValue(addPoints);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
         switch(item.getItemId())
         {
             case R.id.cone_option1:
@@ -456,6 +475,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return true;
             case R.id.cone_option2:
                 Toast.makeText(this, "Downvoted +3", Toast.LENGTH_SHORT).show();
+//                downVote = FirebaseDatabase.getInstance().getReference().child()
+//                downVote.addListenerForSingleValueEvent(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                    }
+//                });
                 return true;
             default:
                 return false;
