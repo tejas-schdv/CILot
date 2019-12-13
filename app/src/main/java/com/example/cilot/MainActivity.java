@@ -7,14 +7,11 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-<<<<<<< HEAD
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
-=======
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
->>>>>>> parent of 1e3a376... Merge branch 'Isaac'
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -59,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DatabaseReference database;
     DatabaseReference buttonColors;
     DatabaseReference buttonColors2;
-<<<<<<< HEAD
+
     DatabaseReference coneVisibility;
 
     ImageButton coneImage_a1;
@@ -73,11 +70,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     ImageButton coneImage_a9;
     ImageButton coneImage_a10;
     ImageButton coneImage_a11;
-=======
->>>>>>> parent of 1e3a376... Merge branch 'Isaac'
-
-
-
 
 
     NavigationView navigationView;
@@ -372,7 +364,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-<<<<<<< HEAD
     @RequiresApi(api = Build.VERSION_CODES.Q)
     public void showPopup(View v)
     {
@@ -397,6 +388,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return false;
         }
     }
+=======
+>>>>>>> parent of 1e3a376... Merge branch 'Isaac'
 =======
 >>>>>>> parent of 1e3a376... Merge branch 'Isaac'
 
