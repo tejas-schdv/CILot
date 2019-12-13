@@ -3,18 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.cilot.MainActivity"
-    >
+    android:layout_width="50px"
+    android:layout_height="50px">
 
-        <item
-            android:id="@+id/cone_option1"
-            android:drawable="@drawable/thumb_red"
-            android:icon="@drawable/thumb_red"
-            android:title=""
-            />
-        <item
-            android:id="@+id/cone_option2"
-            android:icon="@drawable/thumb_red"
-            android:drawable="@drawable/thumb_red"
-            android:title="" />
-
+    <item
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/cone_option1"
+        android:icon="@drawable/green_thumb"
+        android:title="Happy"
+        />
+    <item
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/cone_option2"
+        android:icon="@drawable/red_thumb"
+        android:title="Sad" />
 </menu>
