@@ -34,6 +34,8 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.util.ArrayUtils;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
@@ -87,6 +89,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     DatabaseReference downVoteCount;
     DatabaseReference updatePoints;
+
+    GoogleSignInAccount account;
 
     String currentLot;
 
@@ -347,8 +351,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 bottomSheetA11.show(getSupportFragmentManager(), "exampleBottomSheet");
                 break;
             case R.id.profile:
-                Intent intent = new Intent(MainActivity.this, com.example.cilot.profile_login.class);
-                startActivity(intent);
+                account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
+                if(account == null)
+                {
+                    Intent intent = new Intent(MainActivity.this, com.example.cilot.profile_login.class);
+                    startActivity(intent);
+                }
+                else
+                {
+                    Intent intent = new Intent(MainActivity.this, com.example.cilot.profile_icons.class);
+                    startActivity(intent);
+                }
                 break;
         }
 
