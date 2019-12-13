@@ -11,7 +11,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -19,7 +18,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.viewpager.widget.ViewPager;
 
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
@@ -30,8 +28,6 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.ValueFormatter;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.common.util.ArrayUtils;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
@@ -59,8 +55,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static int GREEN = Color.parseColor("#69ff73");
     public static int YELLOW = Color.parseColor("#f2ff5e");
     public static int RED = Color.parseColor("#fc3d3d");
-    private ViewPager viewPager;
-
 
 
     private DrawerLayout drawer;
@@ -71,7 +65,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     NavigationView navigationView;
 
-    GoogleSignInAccount account;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -181,7 +174,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 LotReportSheetDialog bottomSheetA1 = new LotReportSheetDialog();
                 bottomSheetA1.setArguments(bundleA1);
                 bottomSheetA1.show(getSupportFragmentManager(), "exampleBottomSheet");
-
                 break;
 
             case R.id.lot_a2:
@@ -258,15 +250,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 bottomSheetA11.show(getSupportFragmentManager(), "exampleBottomSheet");
                 break;
             case R.id.profile:
-                account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
-                if(account == null) {
-                    Intent intent = new Intent(MainActivity.this, com.example.cilot.profile_login.class);
-                    startActivity(intent);
-                }
-                else{
-                    Intent intent = new Intent(MainActivity.this, com.example.cilot.profile_icons.class);
-                    startActivity(intent);
-                }
+                Intent intent = new Intent(MainActivity.this, com.example.cilot.profile_login.class);
+                startActivity(intent);
                 break;
         }
 
@@ -284,9 +269,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 bundleA1.putString("params","A1");
                 LotReportSheetDialog bottomSheetA1 = new LotReportSheetDialog();
                 bottomSheetA1.setArguments(bundleA1);
-//                viewPager.setCurrentItem(nextposition):
                 bottomSheetA1.show(getSupportFragmentManager(), "exampleBottomSheet");
-
                 break;
             case R.id.button_a2:
                 Bundle bundleA2 = new Bundle();
@@ -449,7 +432,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         btnColor = YELLOW;
                         button.setTextColor(Color.BLACK);
                         carColor = R.drawable.car_yellow;
-
                     }
                     else if(currentStatus >= MODERATE && currentStatus <= FULL) {
                         btnColor = RED;

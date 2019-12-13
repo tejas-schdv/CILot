@@ -7,12 +7,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
 import android.widget.ProgressBar;
+
+import android.widget.ImageButton;
+import android.widget.ImageView;
+
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.os.Handler;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -34,7 +38,6 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.analytics.FirebaseAnalytics;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -56,9 +59,6 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
     public static int GRAPH_ENTRIES = 13;
     public static int MODERATE = 2;
     public static int FULL = 3;
-    public static int progress=0;
-
-
 
     BarChart barChart;
     TextView tvStatus;
@@ -70,18 +70,23 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
     DatabaseReference pollDatabase;
     DatabaseReference respondantsDatabase;
     DatabaseReference currentStatusTimeDatabase;
+
     DatabaseReference user_points;
+
+    DatabaseReference coneVisiblity;
 
     Button btnSubmitPoll;
     RadioGroup radioGroupPoll;
     RadioButton radioButtonSelected;
 
-
     ProgressBar simpleProgressBar1, simpleProgressBar2;
+
+    ImageButton cautionButton;
+    boolean cautionOn = false;
+
     Calendar calendar = Calendar.getInstance();
     int currDay;
     String dbDay;
-
 
 
 
@@ -90,18 +95,13 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
     super.onCreateView(inflater,container,savedInstanceState);
 
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
+    {
         View view = inflater.inflate(R.layout.lot_report,container,false);
 
-
-        View view2 = inflater.inflate(R.layout.activity_profile_icons,container,false);
-
-
         barChart = (BarChart) view.findViewById(R.id.barChart);
-
-        // initiate progress bar
-        simpleProgressBar1 = (ProgressBar) view2.findViewById(R.id.playerLevelBar);
-
-
 
         tvStatus = view.findViewById(R.id.tvStatus);
         tvLot = view.findViewById(R.id.tvLot);
@@ -109,11 +109,9 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
         radioGroupPoll = view.findViewById(R.id.poll);
         btnSubmitPoll = view.findViewById(R.id.btnSubmitPoll);
 
-
         currDay = calendar.get(Calendar.DAY_OF_WEEK);
         tvDay = view.findViewById(R.id.currentDay);
         dbDay = null;
-
 
         String lotName = getArguments().getString("params");
 
@@ -147,7 +145,6 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
         pollDatabase = FirebaseDatabase.getInstance().getReference().child("lots").child(lotName).child("current_status").child("polls");
         respondantsDatabase = FirebaseDatabase.getInstance().getReference().child("lots").child(lotName).child("current_status").child("respondants");
         currentStatusTimeDatabase = FirebaseDatabase.getInstance().getReference().child("lots").child(lotName).child("current_status").child("time");
-
 
         user_points =  FirebaseDatabase.getInstance().getReference().child("users").child("107703088750367185275").child("points");
 
@@ -189,7 +186,18 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
+        coneVisiblity = FirebaseDatabase.getInstance().getReference().child("lots").child(lotName).child("cautionVisible");
+        coneVisiblity.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.getValue().toString().equals("true"))
+                {
+                    cautionOn = true;
+                }
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
                         }
                     });
 
@@ -227,7 +235,13 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+                    }
 
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
             }
         });
 
@@ -395,6 +409,10 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
                 else if(currentStatus >= 2.4 && currentStatus <= 3) {
                     tvCurrentStatus = "FULL";
                     tvColor = Color.RED;
+                if(cautionOn)
+                {
+                    tvCurrentStatus = "CLOSED";
+                    tvColor = Color.parseColor("#FFA200");
                 }
                 else {
                     tvColor= Color.GREEN;
