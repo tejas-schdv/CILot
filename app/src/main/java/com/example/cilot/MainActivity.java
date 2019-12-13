@@ -68,6 +68,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DatabaseReference database;
     DatabaseReference buttonColors;
     DatabaseReference buttonColors2;
+<<<<<<< HEAD
+<<<<<<< HEAD
+    DatabaseReference coneVisibility;
+    DatabaseReference downVote;
+
+    ImageButton coneImage_a1;
+    ImageButton coneImage_a2;
+    ImageButton coneImage_a3;
+    ImageButton coneImage_a4;
+    ImageButton coneImage_a5;
+    ImageButton coneImage_a6;
+    ImageButton coneImage_a7;
+    ImageButton coneImage_a8;
+    ImageButton coneImage_a9;
+    ImageButton coneImage_a10;
+    ImageButton coneImage_a11;
+=======
+>>>>>>> parent of 1e3a376... Merge branch 'Isaac'
+
+
+=======
+>>>>>>> parent of 1e3a376... Merge branch 'Isaac'
 
     NavigationView navigationView;
 
@@ -361,6 +383,36 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+    @RequiresApi(api = Build.VERSION_CODES.Q)
+    public void showPopup(View v)
+    {
+        PopupMenu popup = new PopupMenu(this, v);
+        popup.setOnMenuItemClickListener(this);
+        popup.inflate(R.menu.cone_menu);
+        popup.setForceShowIcon(true);
+        popup.show();
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch(item.getItemId())
+        {
+            case R.id.cone_option1:
+                Toast.makeText(this, "Upvoted +3", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.cone_option2:
+                Toast.makeText(this, "Downvoted +3", Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return false;
+        }
+    }
+=======
+>>>>>>> parent of 1e3a376... Merge branch 'Isaac'
+=======
+>>>>>>> parent of 1e3a376... Merge branch 'Isaac'
 
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
