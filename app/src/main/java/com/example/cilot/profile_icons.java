@@ -1,5 +1,7 @@
 package com.example.cilot;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.Image;
 import android.net.Uri;
@@ -7,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -43,6 +46,9 @@ public class profile_icons extends AppCompatActivity {
     int playerLevel = 1;
     GoogleSignInClient mGoogleSignInClient;
     Button lock1_button;
+    Button lock2_button;
+    Button lock3_button;
+    //int[] myImageList = new int[]{R.drawable.echo, R.drawable.buffy};
 
 
     @Override
@@ -50,6 +56,7 @@ public class profile_icons extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 //        View view = inflater.inflate(R.layout.lot_report,container,false);
         setContentView(R.layout.activity_profile_icons);
+
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
 
@@ -63,6 +70,8 @@ public class profile_icons extends AppCompatActivity {
         user_level = FirebaseDatabase.getInstance().getReference().child("users").child("107703088750367185275").child("level");
         level.setText(String.valueOf(playerLevel));
         lock1_button = findViewById(R.id.level1_button);
+        lock2_button = findViewById(R.id.level2_button);
+        lock3_button = findViewById(R.id.level3_button);
 
         user_points.addValueEventListener(new ValueEventListener() {
             @Override
@@ -141,18 +150,89 @@ public class profile_icons extends AppCompatActivity {
         lock1_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Intent intent = new Intent(profile_icons.this, com.example.cilot.MainActivity.class)
-                //if (playerLevel > 0)
-                {
-                  //  final View image = new View()
-                }
+                if(playerLevel > 0) {
+                    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            switch (which){
+                                case DialogInterface.BUTTON_NEGATIVE:
+                                    //Yes button clicked
+                                    Intent intent = new Intent(profile_icons.this, com.example.cilot.MainActivity.class);
+                                    intent.putExtra("myImageResource", R.drawable.echo);
+                                    startActivity(intent);
+                                    break;
 
-                //ImageView image = findViewById(R.id.nav_icon);
-                //image.setImageResource(R.drawable.ricardo);
-                //Intent intent = new Intent(profile_icons.this, com.example.cilot.MainActivity.class);
-                //startActivity(intent);
+                                case DialogInterface.BUTTON_POSITIVE:
+                                    //No button clicked
+                                    break;
+                            }
+                        }
+                    };
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(findViewById(R.id.level1_button).getContext());
+                    builder.setMessage("Would you like to make this your Icon?").setPositiveButton("No", dialogClickListener)
+                            .setNegativeButton("Yes", dialogClickListener).show();
+                }
             }
         });
+        lock2_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(playerLevel > 1) {
+                    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            switch (which){
+                                case DialogInterface.BUTTON_NEGATIVE:
+                                    //Yes button clicked
+                                    Intent intent = new Intent(profile_icons.this, com.example.cilot.MainActivity.class);
+                                    intent.putExtra("myImageResource", R.drawable.buffy);
+                                    startActivity(intent);
+                                    break;
+
+                                case DialogInterface.BUTTON_POSITIVE:
+                                    //No button clicked
+                                    break;
+                            }
+                        }
+                    };
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(findViewById(R.id.level2_button).getContext());
+                    builder.setMessage("Would you like to make this your Icon?").setPositiveButton("No", dialogClickListener)
+                            .setNegativeButton("Yes", dialogClickListener).show();
+                }
+            }
+        });
+        lock3_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(playerLevel > 2) {
+                    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            switch (which){
+                                case DialogInterface.BUTTON_NEGATIVE:
+                                    //Yes button clicked
+                                    Intent intent = new Intent(profile_icons.this, com.example.cilot.MainActivity.class);
+                                    intent.putExtra("myImageResource", R.drawable.ricardo);
+                                    startActivity(intent);
+                                    break;
+
+                                case DialogInterface.BUTTON_POSITIVE:
+                                    //No button clicked
+                                    break;
+                            }
+                        }
+                    };
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(findViewById(R.id.level3_button).getContext());
+                    builder.setMessage("Would you like to make this your Icon?").setPositiveButton("No", dialogClickListener)
+                            .setNegativeButton("Yes", dialogClickListener).show();
+                }
+            }
+        });
+
+
 
         final GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         final String uid = account.getId();
@@ -179,7 +259,6 @@ public class profile_icons extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
 

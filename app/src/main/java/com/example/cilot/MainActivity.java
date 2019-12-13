@@ -3,10 +3,12 @@ package com.example.cilot;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -19,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.navigation.Navigation;
 import androidx.viewpager.widget.ViewPager;
 
 import com.github.mikephil.charting.components.AxisBase;
@@ -60,8 +63,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static int YELLOW = Color.parseColor("#f2ff5e");
     public static int RED = Color.parseColor("#fc3d3d");
     private ViewPager viewPager;
-
-
+    public static ImageView image;
 
     private DrawerLayout drawer;
 
@@ -80,7 +82,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         Calendar calendar = Calendar.getInstance();
         CURRENT_HOUR = calendar.get(Calendar.HOUR_OF_DAY);
-
 
         Button button_a1 = findViewById(R.id.button_a1);
         Button button_a2 = findViewById(R.id.button_a2);
@@ -112,9 +113,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
-
-
         drawer = findViewById(R.id.drawer_layout);
 
         navigationView = findViewById(R.id.nav_view);
@@ -124,6 +122,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setItemIconTintList(null);
+
+
+        image = navigationView.getHeaderView(0).findViewById(R.id.nav_icon);
+
+        //image = (ImageView) navigationView.findViewById(R.id.nav_icon);
+        image.setImageResource(getIntent().getIntExtra("myImageResource", R.drawable.echo));
 
         //navigationView.getMenu().getItem(1).setIcon(R.drawable.car_green);
 
@@ -169,7 +173,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             }
         });*/
-
     }
 
     @Override
@@ -262,6 +265,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 if(account == null) {
                     Intent intent = new Intent(MainActivity.this, com.example.cilot.profile_login.class);
                     startActivity(intent);
+
                 }
                 else{
                     Intent intent = new Intent(MainActivity.this, com.example.cilot.profile_icons.class);
