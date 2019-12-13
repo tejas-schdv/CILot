@@ -7,14 +7,14 @@
 
         <item
             android:id="@+id/cone_option1"
-            android:drawable="@drawable/thumb_red"
-            android:icon="@drawable/thumb_red"
-            android:title=""
+            android:drawable="@drawable/green_thumb"
+            android:icon="@drawable/green_thumb"
+            android:title="UpVote"
             />
         <item
             android:id="@+id/cone_option2"
-            android:icon="@drawable/thumb_red"
-            android:drawable="@drawable/thumb_red"
-            android:title="" />
+            android:icon="@drawable/red_thumb"
+            android:drawable="@drawable/red_thumb"
+            android:title="DownVote" />
 
 </menu>
