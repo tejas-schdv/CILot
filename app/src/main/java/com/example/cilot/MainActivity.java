@@ -7,6 +7,11 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+<<<<<<< HEAD
+=======
+import android.widget.ImageButton;
+import android.widget.PopupMenu;
+>>>>>>> parent of c9c964f... Fixed and Commited back to "Cone Update"
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -18,27 +23,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.viewpager.widget.ViewPager;
 
-import com.github.mikephil.charting.components.AxisBase;
-import com.github.mikephil.charting.components.Description;
-import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.formatter.ValueFormatter;
-import com.google.android.gms.common.util.ArrayUtils;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.database.collection.LLRBNode;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
@@ -55,6 +50,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static int GREEN = Color.parseColor("#69ff73");
     public static int YELLOW = Color.parseColor("#f2ff5e");
     public static int RED = Color.parseColor("#fc3d3d");
+    private ViewPager viewPager;
+
 
 
     private DrawerLayout drawer;
@@ -62,9 +59,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DatabaseReference database;
     DatabaseReference buttonColors;
     DatabaseReference buttonColors2;
+<<<<<<< HEAD
+=======
+
+    DatabaseReference coneVisibility;
+
+    ImageButton coneImage_a1;
+    ImageButton coneImage_a2;
+    ImageButton coneImage_a3;
+    ImageButton coneImage_a4;
+    ImageButton coneImage_a5;
+    ImageButton coneImage_a6;
+    ImageButton coneImage_a7;
+    ImageButton coneImage_a8;
+    ImageButton coneImage_a9;
+    ImageButton coneImage_a10;
+    ImageButton coneImage_a11;
+>>>>>>> parent of c9c964f... Fixed and Commited back to "Cone Update"
+
 
     NavigationView navigationView;
 
+    GoogleSignInAccount account;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -174,6 +190,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 LotReportSheetDialog bottomSheetA1 = new LotReportSheetDialog();
                 bottomSheetA1.setArguments(bundleA1);
                 bottomSheetA1.show(getSupportFragmentManager(), "exampleBottomSheet");
+
                 break;
 
             case R.id.lot_a2:
@@ -250,8 +267,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 bottomSheetA11.show(getSupportFragmentManager(), "exampleBottomSheet");
                 break;
             case R.id.profile:
-                Intent intent = new Intent(MainActivity.this, com.example.cilot.profile_login.class);
-                startActivity(intent);
+                account = GoogleSignIn.getLastSignedInAccount(getApplicationContext());
+                if(account == null) {
+                    Intent intent = new Intent(MainActivity.this, com.example.cilot.profile_login.class);
+                    startActivity(intent);
+                }
+                else{
+                    Intent intent = new Intent(MainActivity.this, com.example.cilot.profile_icons.class);
+                    startActivity(intent);
+                }
                 break;
         }
 
@@ -269,7 +293,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 bundleA1.putString("params","A1");
                 LotReportSheetDialog bottomSheetA1 = new LotReportSheetDialog();
                 bottomSheetA1.setArguments(bundleA1);
+//                viewPager.setCurrentItem(nextposition):
                 bottomSheetA1.show(getSupportFragmentManager(), "exampleBottomSheet");
+
                 break;
             case R.id.button_a2:
                 Bundle bundleA2 = new Bundle();
@@ -344,6 +370,37 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
+<<<<<<< HEAD
+=======
+    @RequiresApi(api = Build.VERSION_CODES.Q)
+    public void showPopup(View v)
+    {
+        PopupMenu popup = new PopupMenu(this, v);
+        popup.setOnMenuItemClickListener(this);
+        popup.inflate(R.menu.cone_menu);
+        popup.setForceShowIcon(true);
+        popup.show();
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch(item.getItemId())
+        {
+            case R.id.cone_option1:
+                Toast.makeText(this, "Happy Face :)", Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.cone_option2:
+                Toast.makeText(this, "Sad Face :(", Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                return false;
+        }
+    }
+=======
+>>>>>>> parent of 1e3a376... Merge branch 'Isaac'
+=======
+>>>>>>> parent of 1e3a376... Merge branch 'Isaac'
+>>>>>>> parent of c9c964f... Fixed and Commited back to "Cone Update"
 
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -432,6 +489,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         btnColor = YELLOW;
                         button.setTextColor(Color.BLACK);
                         carColor = R.drawable.car_yellow;
+
                     }
                     else if(currentStatus >= MODERATE && currentStatus <= FULL) {
                         btnColor = RED;

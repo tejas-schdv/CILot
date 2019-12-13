@@ -64,6 +64,10 @@
             android:id="@+id/lot_a11"
             android:icon="@drawable/ic_directions_car_black_24dp"
             android:title="Lot A11" />
+        <item
+            android:id="@+id/login_nav_menu"
+            android:icon="@drawable/logout"
+            android:title="Login/Logout" />
 
     </group>
 

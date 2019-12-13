@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+<<<<<<< HEAD
     >
+=======
+    android:alpha="0.7"
+    android:background="@android:color/transparent"
+    android:orientation="vertical">
+>>>>>>> parent of c9c964f... Fixed and Commited back to "Cone Update"
 
     <TextView
         android:id="@+id/border"
         android:layout_width="match_parent"
         android:layout_height="10dp"
         android:background="@color/colorPrimary"
-        android:textColor="@color/textColorPrimary"
-        />
+        android:textColor="@color/textColorPrimary" />
 
     <TextView
         android:id="@+id/lot"
@@ -41,19 +45,18 @@
         android:id="@+id/poll"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/lot"
-        >
+        android:layout_below="@id/lot">
 
         <RadioButton
             android:id="@+id/open"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:textSize="18sp"
+            android:buttonTint="@color/colorPrimaryDark"
             android:checked="true"
             android:text="@string/open"
             android:textColor="#000000"
-            android:buttonTint="@color/colorPrimaryDark">
+            android:textSize="18sp">
 
         </RadioButton>
 
@@ -62,10 +65,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:textSize="18sp"
+            android:buttonTint="@color/colorPrimaryDark"
             android:text="@string/moderate"
             android:textColor="#000000"
-            android:buttonTint="@color/colorPrimaryDark">
+            android:textSize="18sp">
 
         </RadioButton>
 
@@ -74,9 +77,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:textSize="18sp"
+            android:buttonTint="@color/colorPrimaryDark"
             android:text="@string/full"
-            android:buttonTint="@color/colorPrimaryDark">
+            android:textSize="18sp">
 
         </RadioButton>
     </RadioGroup>
@@ -104,12 +107,12 @@
         android:layout_marginStart="3dp"
         android:layout_marginTop="5dp"
         android:layout_toEndOf="@id/status_text"
+        android:shadowColor="#000000"
+        android:shadowRadius="10"
         android:text="TextView"
         android:textColor="#000000"
         android:textSize="25sp"
-        android:textStyle="bold"
-        android:shadowColor="#000000"
-        android:shadowRadius="10" />
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tvLot"
@@ -138,8 +141,8 @@
         android:textAlignment="textEnd"
         android:textAllCaps="true"
         android:textColor="#000000"
-        android:textStyle="bold"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/barChart"
@@ -178,7 +181,7 @@
         android:layout_marginTop="-18dp"
         android:layout_marginBottom="0dp"
         android:text="80%"
-        android:textColor="#000000"/>
+        android:textColor="#000000" />
 
     <TextView
         android:id="@+id/moderateBar_text"
@@ -191,7 +194,7 @@
         android:layout_marginTop="-18dp"
         android:layout_marginBottom="0dp"
         android:text="50%"
-        android:textColor="#000000"/>
+        android:textColor="#000000" />
 
     <TextView
         android:id="@+id/mediumLotBar"
