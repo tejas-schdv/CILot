@@ -9,10 +9,6 @@
         android:roundIcon="@drawable/buffy"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".profile_icons"></activity>
-        <activity android:name=".profile_edit_account" />
-        <activity android:name=".profile_create_account" />
-        <activity android:name=".profile_login" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
