@@ -512,14 +512,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onMenuItemClick(MenuItem item) {
 
         downVote = FirebaseDatabase.getInstance().getReference().child("lots").child(currentLot);
-        updatePoints = FirebaseDatabase.getInstance().getReference().child("users").child("100258805665862760972").child("points");
+        updatePoints = FirebaseDatabase.getInstance().getReference().child("users").child("111802371807776977889").child("points");
         updatePoints.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String currentPoints = dataSnapshot.getValue().toString();
                 float addPoints = 0;
                 addPoints = Float.parseFloat(currentPoints);
-                addPoints+=3;
+                addPoints+=5;
                 updatePoints.setValue(addPoints);
             }
 
@@ -531,10 +531,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch(item.getItemId())
         {
             case R.id.cone_option1:
-                Toast.makeText(this, "Upvoted +3", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Upvoted +5", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.cone_option2:
-                Toast.makeText(this, "Downvoted +3", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Downvoted +5", Toast.LENGTH_SHORT).show();
 
                 downVote.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override

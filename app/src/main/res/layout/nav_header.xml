@@ -24,20 +24,12 @@
         tools:srcCompat="@drawable/buffy"
         tools:visibility="visible" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="8dp"
-        android:layout_marginLeft="35dp"
-        android:text="Peter Parker"
-        android:textAlignment="textEnd"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="user@email.com"
-        android:textAlignment="textEnd"
-        android:layout_marginLeft="35dp"/>
+
+<!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:textAlignment="textEnd"-->
+<!--        android:layout_marginLeft="35dp"/>-->
 
 </LinearLayout>

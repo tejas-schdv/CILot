@@ -60,8 +60,8 @@ public class profile_icons extends AppCompatActivity {
 
 
 
-        user_points = FirebaseDatabase.getInstance().getReference().child("users").child("107703088750367185275").child("points");
-        user_level = FirebaseDatabase.getInstance().getReference().child("users").child("107703088750367185275").child("level");
+        user_points = FirebaseDatabase.getInstance().getReference().child("users").child("111802371807776977889").child("points");
+        user_level = FirebaseDatabase.getInstance().getReference().child("users").child("111802371807776977889").child("level");
         level.setText(String.valueOf(playerLevel));
 
 
