@@ -38,7 +38,7 @@ public class profile_icons extends AppCompatActivity {
     Button btnBack_icons;
     ProgressBar playerLevelXPProgressBar;
     DatabaseReference user_points,user_level;
-    TextView level;
+    TextView level, pointsAdded;
     Button Home;
     int playerLevel = 1;
     GoogleSignInClient mGoogleSignInClient;
@@ -59,14 +59,21 @@ public class profile_icons extends AppCompatActivity {
         Home = findViewById(R.id.home_button);
         playerLevelXPProgressBar = findViewById(R.id.playerLevelBar);
         level = findViewById(R.id.playerLevelText);
+        pointsAdded = findViewById(R.id.playerPointsText);
+
+
+
+
         user_points = FirebaseDatabase.getInstance().getReference().child("users").child("107703088750367185275").child("points");
         user_level = FirebaseDatabase.getInstance().getReference().child("users").child("107703088750367185275").child("level");
         level.setText(String.valueOf(playerLevel));
         lock1_button = findViewById(R.id.level1_button);
 
+
         user_points.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                pointsAdded.setText(String.valueOf(Integer.parseInt(dataSnapshot.getValue().toString())));
                 playerLevelXPProgressBar.setProgress(Integer.parseInt(dataSnapshot.getValue().toString()));
                 if (playerLevelXPProgressBar.getProgress() == 100) {
                     playerLevelXPProgressBar.setProgress(0);
