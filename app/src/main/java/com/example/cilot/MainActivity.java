@@ -88,6 +88,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DatabaseReference downVoteCount;
     DatabaseReference updatePoints;
 
+    String currentLot;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -445,13 +447,59 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     {
         PopupMenu popup = new PopupMenu(this, v);
         popup.setOnMenuItemClickListener(this);
+        currentLot = getCurrentLot(v);
         popup.inflate(R.menu.cone_menu);
         popup.setForceShowIcon(true);
         popup.show();
     }
 
+    public String getCurrentLot(View v)
+    {
+        String returnLotName = "";
+        switch (v.getId())
+        {
+            case R.id.coneLot1:
+                returnLotName = "A1";
+                break;
+            case R.id.coneLot2:
+                returnLotName = "A2";
+                break;
+            case R.id.coneLot3:
+                returnLotName = "A3";
+                break;
+            case R.id.coneLot4:
+                returnLotName = "A4";
+                break;
+            case R.id.coneLot5:
+                returnLotName = "A5";
+                break;
+            case R.id.coneLot6:
+                returnLotName = "A6";
+                break;
+            case R.id.coneLot7:
+                returnLotName = "A7";
+                break;
+            case R.id.coneLot8:
+                returnLotName = "A8";
+                break;
+            case R.id.coneLot9:
+                returnLotName = "A9";
+                break;
+            case R.id.coneLot10:
+                returnLotName = "A10";
+                break;
+            case R.id.coneLot11:
+                returnLotName = "A11";
+                break;
+
+        }
+        return returnLotName;
+    }
+
     @Override
     public boolean onMenuItemClick(MenuItem item) {
+
+        downVote = FirebaseDatabase.getInstance().getReference().child("lots").child(currentLot).child("DownVote");
         updatePoints = FirebaseDatabase.getInstance().getReference().child("users").child("100258805665862760972").child("points");
         updatePoints.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -475,24 +523,77 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return true;
             case R.id.cone_option2:
                 Toast.makeText(this, "Downvoted +3", Toast.LENGTH_SHORT).show();
-//                downVote = FirebaseDatabase.getInstance().getReference().child()
-//                downVote.addListenerForSingleValueEvent(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//
-//                    }
-//
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//                    }
-//                });
+
+                downVote.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        float downVoteValue = Float.parseFloat(dataSnapshot.getValue().toString());
+                        if(downVoteValue < 3)
+                        {
+                            downVoteValue++;
+                            downVote.setValue(downVoteValue);
+                        }
+                        else
+                        {
+                            downVoteValue = 0;
+                            downVote.setValue(downVoteValue);
+                            updateConeVisiblility(currentLot);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
                 return true;
             default:
                 return false;
         }
     }
 
+    public void updateConeVisiblility(String lotName)
+    {
+
+        switch(lotName)
+        {
+            case "A1":
+                coneImage_a1.setVisibility(View.INVISIBLE);
+                break;
+            case "A2":
+                coneImage_a2.setVisibility(View.INVISIBLE);
+                break;
+            case "A3":
+                coneImage_a3.setVisibility(View.INVISIBLE);
+                break;
+            case "A4":
+                coneImage_a4.setVisibility(View.INVISIBLE);
+                break;
+            case "A5":
+                coneImage_a5.setVisibility(View.INVISIBLE);
+                break;
+            case "A6":
+                coneImage_a6.setVisibility(View.INVISIBLE);
+                break;
+            case "A7":
+                coneImage_a7.setVisibility(View.INVISIBLE);
+                break;
+            case "A8":
+                coneImage_a8.setVisibility(View.INVISIBLE);
+                break;
+            case "A9":
+                coneImage_a9.setVisibility(View.INVISIBLE);
+                break;
+            case "A10":
+                coneImage_a10.setVisibility(View.INVISIBLE);
+                break;
+            case "A11":
+                coneImage_a11.setVisibility(View.INVISIBLE);
+                break;
+            default:
+                System.out.println("ERROR!!!");
+        }
+    }
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
