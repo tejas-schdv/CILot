@@ -9,18 +9,31 @@
     tools:context=".MainActivity">
 
 
+
+    <Button
+        android:id="@+id/btnBack_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorPrimary"
+        android:text="@string/back"
+        android:textColor="@color/textColorPrimary" />
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
         android:layout_height="140dp"
-        android:layout_marginTop="200dp"
+        android:layout_below="@+id/btnBack_login"
         app:srcCompat="@drawable/echo" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
+        android:layout_below="@+id/imageView"
+        android:layout_marginTop="2dp"
         android:background="#EF5350"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
@@ -36,12 +49,61 @@
         android:layout_below="@+id/textView2"
         android:background="@color/colorPrimaryDark" />
 
+    <EditText
+        android:id="@+id/etUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/divider1"
+        android:ems="10"
+        android:hint="@string/username"
+        android:inputType="textPersonName"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etUsername"
+        android:ems="10"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etPassword"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="10dp"
+
+
+        android:layout_marginTop="0dp"
+
+        android:background="@color/colorPrimary"
+        android:text="@string/login"
+        android:textColor="@color/textColorPrimary" />
+
+    <Button
+        android:id="@+id/btnCreateAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etPassword"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="58dp"
+
+
+        android:background="@color/colorPrimary"
+
+        android:padding="10sp"
+        android:text="@string/create_account2"
+        android:textColor="@color/textColorPrimary" />
+
     <com.google.android.gms.common.SignInButton
         android:id="@+id/sign_in_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp"
-        android:layout_below="@id/imageView"/>
+        android:layout_below="@id/btnCreateAccount"/>
+
 
 </RelativeLayout>

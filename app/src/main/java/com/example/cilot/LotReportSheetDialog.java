@@ -7,21 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-<<<<<<< HEAD
-
-import android.widget.ProgressBar;
-
 import android.widget.ImageButton;
 import android.widget.ImageView;
-
-=======
-import android.widget.ProgressBar;
->>>>>>> parent of c9c964f... Fixed and Commited back to "Cone Update"
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.os.Handler;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -43,7 +34,6 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.analytics.FirebaseAnalytics;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -65,9 +55,6 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
     public static int GRAPH_ENTRIES = 13;
     public static int MODERATE = 2;
     public static int FULL = 3;
-    public static int progress=0;
-
-
 
     BarChart barChart;
     TextView tvStatus;
@@ -79,74 +66,37 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
     DatabaseReference pollDatabase;
     DatabaseReference respondantsDatabase;
     DatabaseReference currentStatusTimeDatabase;
-<<<<<<< HEAD
-
-    DatabaseReference user_points;
-
     DatabaseReference coneVisiblity;
-=======
-    DatabaseReference user_points;
->>>>>>> parent of c9c964f... Fixed and Commited back to "Cone Update"
 
     Button btnSubmitPoll;
     RadioGroup radioGroupPoll;
     RadioButton radioButtonSelected;
 
-<<<<<<< HEAD
-    ProgressBar simpleProgressBar1, simpleProgressBar2;
-
     ImageButton cautionButton;
     boolean cautionOn = false;
-=======
->>>>>>> parent of c9c964f... Fixed and Commited back to "Cone Update"
 
-    ProgressBar simpleProgressBar1, simpleProgressBar2;
     Calendar calendar = Calendar.getInstance();
     int currDay;
     String dbDay;
 
-
-
-<<<<<<< HEAD
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-    super.onCreateView(inflater,container,savedInstanceState);
-=======
->>>>>>> parent of c9c964f... Fixed and Commited back to "Cone Update"
-
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-    super.onCreateView(inflater,container,savedInstanceState);
-
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
+    {
         View view = inflater.inflate(R.layout.lot_report,container,false);
 
-
-        View view2 = inflater.inflate(R.layout.activity_profile_icons,container,false);
-
-
         barChart = (BarChart) view.findViewById(R.id.barChart);
-
-        // initiate progress bar
-        simpleProgressBar1 = (ProgressBar) view2.findViewById(R.id.playerLevelBar);
-
-
 
         tvStatus = view.findViewById(R.id.tvStatus);
         tvLot = view.findViewById(R.id.tvLot);
 
         radioGroupPoll = view.findViewById(R.id.poll);
         btnSubmitPoll = view.findViewById(R.id.btnSubmitPoll);
-<<<<<<< HEAD
-=======
-
->>>>>>> parent of c9c964f... Fixed and Commited back to "Cone Update"
+        cautionButton = view.findViewById(R.id.caution_button);
 
         currDay = calendar.get(Calendar.DAY_OF_WEEK);
         tvDay = view.findViewById(R.id.currentDay);
         dbDay = null;
-
 
         String lotName = getArguments().getString("params");
 
@@ -181,47 +131,6 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
         respondantsDatabase = FirebaseDatabase.getInstance().getReference().child("lots").child(lotName).child("current_status").child("respondants");
         currentStatusTimeDatabase = FirebaseDatabase.getInstance().getReference().child("lots").child(lotName).child("current_status").child("time");
 
-<<<<<<< HEAD
-        user_points =  FirebaseDatabase.getInstance().getReference().child("users").child("107703088750367185275").child("points");
-
-        btnSubmitPoll.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                final int radioID = radioGroupPoll.getCheckedRadioButtonId();
-                radioButtonSelected = getView().findViewById(radioID);
-                progress+=20;
-
-
-                Toast.makeText(getContext(),"Selected " + radioButtonSelected.getText(), Toast.LENGTH_SHORT).show();
-
-                pollDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            long pollCount;
-                            if (dataSnapshot.exists())
-                            {
-                                pollCount =(dataSnapshot.getValue(Long.class));
-
-                                switch(radioButtonSelected.getText().toString())
-                                {
-                                    case "Open":
-                                        pollDatabase.setValue(pollCount + OPEN);
-//
-                                        break;
-                                    case "Moderate":
-                                        pollDatabase.setValue(pollCount + MODERATE);
-                                        break;
-                                    default:
-                                        pollDatabase.setValue(pollCount + FULL);
-                                }
-                            }
-                        }
-//
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
         coneVisiblity = FirebaseDatabase.getInstance().getReference().child("lots").child(lotName).child("cautionVisible");
         coneVisiblity.addValueEventListener(new ValueEventListener() {
             @Override
@@ -234,96 +143,88 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                        }
-=======
 
-        user_points =  FirebaseDatabase.getInstance().getReference().child("users").child("107703088750367185275").child("points");
+            }
+        });
+        cautionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                coneVisiblity.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.getValue().toString().equals("true"))
+                        {
+                            coneVisiblity.setValue("false");
+                            cautionOn = false;
+                        }
+                        else
+                        {
+                            coneVisiblity.setValue("true");
+                            tvStatus.setText("CLOSED");
+                            tvStatus.setTextColor(Color.parseColor("#FFA200"));
+                            cautionOn = true;
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        });
 
         btnSubmitPoll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+        final int radioID = radioGroupPoll.getCheckedRadioButtonId();
+        radioButtonSelected = getView().findViewById(radioID);
 
+        Toast.makeText(getContext(),"Selected " + radioButtonSelected.getText(), Toast.LENGTH_SHORT).show();
 
-                final int radioID = radioGroupPoll.getCheckedRadioButtonId();
-                radioButtonSelected = getView().findViewById(radioID);
-                progress+=20;
+        pollDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    long pollCount;
+                    if (dataSnapshot.exists())
+                    {
+                        pollCount =(dataSnapshot.getValue(Long.class));
 
-
-                Toast.makeText(getContext(),"Selected " + radioButtonSelected.getText(), Toast.LENGTH_SHORT).show();
-
-                pollDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            long pollCount;
-                            if (dataSnapshot.exists())
-                            {
-                                pollCount =(dataSnapshot.getValue(Long.class));
-
-                                switch(radioButtonSelected.getText().toString())
-                                {
-                                    case "Open":
-                                        pollDatabase.setValue(pollCount + OPEN);
-//
-                                        break;
-                                    case "Moderate":
-                                        pollDatabase.setValue(pollCount + MODERATE);
-                                        break;
-                                    default:
-                                        pollDatabase.setValue(pollCount + FULL);
-                                }
-                            }
+                        switch(radioButtonSelected.getText().toString())
+                        {
+                            case "Open":
+                                pollDatabase.setValue(pollCount + OPEN);
+                                break;
+                            case "Moderate":
+                                pollDatabase.setValue(pollCount + MODERATE);
+                                break;
+                            default:
+                                pollDatabase.setValue(pollCount + FULL);
                         }
-//
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
->>>>>>> parent of c9c964f... Fixed and Commited back to "Cone Update"
-                    });
-
-                respondantsDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            long resCounter;
-
-                            if (dataSnapshot.exists())
-                            {
-                                resCounter = (dataSnapshot.getValue(Long.class));
-                                respondantsDatabase.setValue(resCounter + 1);
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
-
-            }
-
-
-        });
-
-
-        user_points.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                user_points.setValue(progress);
-                Bundle bundleA2 = new Bundle();
-                bundleA2.putString("params", dataSnapshot.getValue().toString());
-            }
-<<<<<<< HEAD
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
                     }
-=======
->>>>>>> parent of c9c964f... Fixed and Commited back to "Cone Update"
+                }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {}
+            });
 
+            respondantsDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        long resCounter;
+
+                        if (dataSnapshot.exists())
+                        {
+                            resCounter = (dataSnapshot.getValue(Long.class));
+                            respondantsDatabase.setValue(resCounter + 1);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
             }
         });
 
@@ -352,8 +253,6 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
                     baseDataString[i] = dataSnapshot.child(dbDay).child(times[i+START_TIME]).getValue().toString();
                     baseDataFloat[i] = Float.parseFloat(baseDataString[i]);
                 }
-
-
 
                 //replace current bar hour in graph with live data
                 ArrayList<BarEntry> barEntries = new ArrayList<>();
@@ -410,7 +309,6 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
 
 
                 //FORMAT x-axis
-
                 final ArrayList<String> xLabel = new ArrayList<>();
                 xLabel.add("6AM");
                 xLabel.add("7AM");
@@ -479,39 +377,35 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
                 }
 
                 //Set current status textviews
-                if(currentStatus >= 1 && currentStatus <= 1.4) {
-
-                    tvCurrentStatus = "OPEN";
-                    tvColor = Color.GREEN;
-<<<<<<< HEAD
-                }
-                else if(currentStatus > 1.4 && currentStatus < 2.4) {
-                    tvCurrentStatus = "MODERATE";
-                    tvColor = Color.YELLOW;
-                }
-                else if(currentStatus >= 2.4 && currentStatus <= 3) {
-                    tvCurrentStatus = "FULL";
-                    tvColor = Color.RED;
                 if(cautionOn)
                 {
                     tvCurrentStatus = "CLOSED";
                     tvColor = Color.parseColor("#FFA200");
                 }
-=======
+                else
+                {
+                    if (currentStatus >= 1 && currentStatus <= 1.4)
+                    {
+                        tvCurrentStatus = "OPEN";
+                        tvColor = Color.GREEN;
+                    }
+                    else if (currentStatus > 1.4 && currentStatus < 2.4)
+                    {
+                        tvCurrentStatus = "MODERATE";
+                        tvColor = Color.YELLOW;
+                    }
+                    else if (currentStatus >= 2.4 && currentStatus <= 3)
+                    {
+                        tvCurrentStatus = "FULL";
+                        tvColor = Color.RED;
+                    }
+                    else
+                    {
+                        tvColor = Color.GREEN;
+                        tvCurrentStatus = "OPEN";
+                    }
                 }
-                else if(currentStatus > 1.4 && currentStatus < 2.4) {
-                    tvCurrentStatus = "MODERATE";
-                    tvColor = Color.YELLOW;
-                }
-                else if(currentStatus >= 2.4 && currentStatus <= 3) {
-                    tvCurrentStatus = "FULL";
-                    tvColor = Color.RED;
-                }
->>>>>>> parent of c9c964f... Fixed and Commited back to "Cone Update"
-                else {
-                    tvColor= Color.GREEN;
-                    tvCurrentStatus = "OPEN";
-                }
+
 
                 tvLot.setText(lotName);
 
@@ -528,3 +422,6 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
         return view;
     }
 }
+
+
+
