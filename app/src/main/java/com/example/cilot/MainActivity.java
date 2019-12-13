@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main_activity);
+        setContentView(R.layout.activity_main);
 
         Calendar calendar = Calendar.getInstance();
         CURRENT_HOUR = calendar.get(Calendar.HOUR_OF_DAY);

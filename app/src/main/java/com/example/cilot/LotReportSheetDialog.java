@@ -519,6 +519,3 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
         return view;
     }
 }
-
-
-
