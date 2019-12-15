@@ -55,7 +55,6 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
     public static int GRAPH_ENTRIES = 13;
     public static int MODERATE = 2;
     public static int FULL = 3;
-    public static int progress=0;
 
     BarChart barChart;
     TextView tvStatus;
@@ -68,7 +67,6 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
     DatabaseReference respondantsDatabase;
     DatabaseReference currentStatusTimeDatabase;
     DatabaseReference coneVisiblity;
-    DatabaseReference user_points;
 
     Button btnSubmitPoll;
     RadioGroup radioGroupPoll;
@@ -132,7 +130,6 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
         pollDatabase = FirebaseDatabase.getInstance().getReference().child("lots").child(lotName).child("current_status").child("polls");
         respondantsDatabase = FirebaseDatabase.getInstance().getReference().child("lots").child(lotName).child("current_status").child("respondants");
         currentStatusTimeDatabase = FirebaseDatabase.getInstance().getReference().child("lots").child(lotName).child("current_status").child("time");
-        user_points =  FirebaseDatabase.getInstance().getReference().child("users").child("107703088750367185275").child("points");
 
         coneVisiblity = FirebaseDatabase.getInstance().getReference().child("lots").child(lotName).child("cautionVisible");
         coneVisiblity.addValueEventListener(new ValueEventListener() {
@@ -149,10 +146,6 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
 
             }
         });
-
-        final int radioID = radioGroupPoll.getCheckedRadioButtonId();
-        radioButtonSelected = getView().findViewById(radioID);
-        progress+=20;
 
         cautionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -232,20 +225,6 @@ public class LotReportSheetDialog extends BottomSheetDialogFragment {
 
                     }
                 });
-            }
-        });
-
-        user_points.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                user_points.setValue(progress);
-                Bundle bundleA2 = new Bundle();
-                bundleA2.putString("params", dataSnapshot.getValue().toString());
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
 
