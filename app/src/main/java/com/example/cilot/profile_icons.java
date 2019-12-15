@@ -1,5 +1,7 @@
 package com.example.cilot;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -7,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,6 +43,9 @@ public class profile_icons extends AppCompatActivity {
     Button Home;
     int playerLevel = 1;
     GoogleSignInClient mGoogleSignInClient;
+    Button lock1_button;
+    Button lock2_button;
+    Button lock3_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,26 +69,40 @@ public class profile_icons extends AppCompatActivity {
         user_points = FirebaseDatabase.getInstance().getReference().child("users").child("111802371807776977889").child("points");
         user_level = FirebaseDatabase.getInstance().getReference().child("users").child("111802371807776977889").child("level");
         level.setText(String.valueOf(playerLevel));
-
-
+        lock1_button = findViewById(R.id.level1_button);
+        lock2_button = findViewById(R.id.level2_button);
+        lock3_button = findViewById(R.id.level3_button);
         user_points.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 pointsAdded.setText(String.valueOf(Integer.parseInt(dataSnapshot.getValue().toString())));
                 playerLevelXPProgressBar.setProgress(Integer.parseInt(dataSnapshot.getValue().toString()));
-                if (playerLevelXPProgressBar.getProgress() == 100) {
+                if (playerLevelXPProgressBar.getProgress() >= 100) {
                     playerLevelXPProgressBar.setProgress(0);
                 }
 
                 if (Integer.parseInt(dataSnapshot.getValue().toString()) < 100) {
                     playerLevel = 1;
                     level.setText(String.valueOf(1));
+                    ImageView image1 = (ImageView) findViewById(R.id.lock_lvl1);
+                    image1.setImageResource(R.drawable.echo);
                 } else if (Integer.parseInt(dataSnapshot.getValue().toString()) > 99 && Integer.parseInt(dataSnapshot.getValue().toString()) < 200) {
                     playerLevel = 2;
                     level.setText(String.valueOf(2));
+                    ImageView image1 = (ImageView) findViewById(R.id.lock_lvl1);
+                    image1.setImageResource(R.drawable.echo);
+                    ImageView image2 = (ImageView) findViewById(R.id.lock_lvl2);
+                    image2.setImageResource(R.drawable.buffy);
+
                 } else {
                     playerLevel = 3;
                     level.setText(String.valueOf(3));
+                    ImageView image1 = (ImageView) findViewById(R.id.lock_lvl1);
+                    image1.setImageResource(R.drawable.echo);
+                    ImageView image2 = (ImageView) findViewById(R.id.lock_lvl2);
+                    image2.setImageResource(R.drawable.buffy);
+                    ImageView image3 = (ImageView) findViewById(R.id.lock_lvl3);
+                    image3.setImageResource(R.drawable.ricardo);
                 }
             }
 
@@ -126,6 +146,90 @@ public class profile_icons extends AppCompatActivity {
             }
         });
 
+        lock1_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(playerLevel > 0) {
+                    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            switch (which){
+                                case DialogInterface.BUTTON_NEGATIVE:
+                                    //Yes button clicked
+                                    Intent intent = new Intent(profile_icons.this, com.example.cilot.MainActivity.class);
+                                    intent.putExtra("myImageResource", R.drawable.echo);
+                                    startActivity(intent);
+                                    break;
+
+                                case DialogInterface.BUTTON_POSITIVE:
+                                    //No button clicked
+                                    break;
+                            }
+                        }
+                    };
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(findViewById(R.id.level1_button).getContext());
+                    builder.setMessage("Would you like to make this your Icon?").setPositiveButton("No", dialogClickListener)
+                            .setNegativeButton("Yes", dialogClickListener).show();
+                }
+            }
+        });
+        lock2_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(playerLevel > 1) {
+                    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            switch (which){
+                                case DialogInterface.BUTTON_NEGATIVE:
+                                    //Yes button clicked
+                                    Intent intent = new Intent(profile_icons.this, com.example.cilot.MainActivity.class);
+                                    intent.putExtra("myImageResource", R.drawable.buffy);
+                                    startActivity(intent);
+                                    break;
+
+                                case DialogInterface.BUTTON_POSITIVE:
+                                    //No button clicked
+                                    break;
+                            }
+                        }
+                    };
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(findViewById(R.id.level2_button).getContext());
+                    builder.setMessage("Would you like to make this your Icon?").setPositiveButton("No", dialogClickListener)
+                            .setNegativeButton("Yes", dialogClickListener).show();
+                }
+            }
+        });
+        lock3_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(playerLevel > 2) {
+                    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            switch (which){
+                                case DialogInterface.BUTTON_NEGATIVE:
+                                    //Yes button clicked
+                                    Intent intent = new Intent(profile_icons.this, com.example.cilot.MainActivity.class);
+                                    intent.putExtra("myImageResource", R.drawable.ricardo);
+                                    startActivity(intent);
+                                    break;
+
+                                case DialogInterface.BUTTON_POSITIVE:
+                                    //No button clicked
+                                    break;
+                            }
+                        }
+                    };
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(findViewById(R.id.level3_button).getContext());
+                    builder.setMessage("Would you like to make this your Icon?").setPositiveButton("No", dialogClickListener)
+                            .setNegativeButton("Yes", dialogClickListener).show();
+                }
+            }
+        });
 
         final GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         final String uid = account.getId();

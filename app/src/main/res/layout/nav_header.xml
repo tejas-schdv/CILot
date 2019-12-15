@@ -12,9 +12,11 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <ImageView
+        android:id="@+id/nav_icon"
         android:layout_width="93dp"
         android:layout_height="54dp"
         android:layout_marginLeft="35dp"
+        android:layout_marginBottom="25dp"
         android:clickable="true"
         android:contentDescription="profile icon"
         android:scaleType="centerInside"

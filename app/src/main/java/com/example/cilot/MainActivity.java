@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public static int GREEN = Color.parseColor("#69ff73");
     public static int YELLOW = Color.parseColor("#f2ff5e");
     public static int RED = Color.parseColor("#fc3d3d");
-
+    public static ImageView image;
 
     private DrawerLayout drawer;
 
@@ -153,6 +153,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setItemIconTintList(null);
+
+        image = navigationView.getHeaderView(0).findViewById(R.id.nav_icon);
+
+        //image = (ImageView) navigationView.findViewById(R.id.nav_icon);
+        image.setImageResource(getIntent().getIntExtra("myImageResource", R.drawable.echo));
 
         //navigationView.getMenu().getItem(1).setIcon(R.drawable.car_green);
 
